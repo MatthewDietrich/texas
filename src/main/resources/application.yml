@@ -30,3 +30,6 @@ spring:
 app:
   check-distance: 0.00045
   city-camera-limit: 8
+
+spring.mvc.view.prefix: /WEB-INF/views
+spring.mvc.view.suffix: .jsp

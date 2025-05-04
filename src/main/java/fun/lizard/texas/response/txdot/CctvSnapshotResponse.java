@@ -10,6 +10,6 @@ public class CctvSnapshotResponse {
 
     @JsonProperty("icd_Id")
     private String icdId;
-    private byte[] snippet;
+    private String snippet;
     private String timestampFormatted;
 }

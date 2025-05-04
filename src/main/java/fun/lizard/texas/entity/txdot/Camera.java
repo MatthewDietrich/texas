@@ -1,20 +1,24 @@
 package fun.lizard.texas.entity.txdot;
 
-import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
 @NoArgsConstructor
-@Entity
+@Document
 public class Camera {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String cameraId;
+    private String id;
     private String direction;
     private String icdId;
-    private Double latitude;
-    private Double longitude;
+    @GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)
+    private GeoJsonPoint location;
     private Boolean hasSnapshot;
+    private String districtAbbreviation;
 }

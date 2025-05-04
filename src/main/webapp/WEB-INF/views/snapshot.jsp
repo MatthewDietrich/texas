@@ -4,11 +4,7 @@
     <meta http-equiv="Content-Type"
           content="text/html; charset=ISO-8859-1">
     <title>Welcome to ${cityName} - Texas City Snapshot</title>
-    <style>
-        table#snapshots img {
-            max-width: 400px;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 
 <body>
@@ -17,18 +13,18 @@
 <table>
     <tr>
         <td><strong>Temperature</strong></td>
-        <td>${weather.temperature}</td>
+        <td>${weather.temperature}&deg;F</td>
     </tr>
     <tr>
         <td><strong>Feels Like</strong></td>
-        <td>${weather.apparentTemperature}</td>
+        <td>${weather.apparentTemperature}&deg;F</td>
     </tr>
     <tr>
         <td><strong>Humidity</strong></td>
         <td>${weather.humidity}%</td>
     </tr>
     <tr>
-        <td><strong>Description:</strong></td>
+        <td><strong>Description</strong></td>
         <td>${weather.description}</td>
     </tr>
     <tr>

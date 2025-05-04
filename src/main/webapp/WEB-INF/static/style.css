@@ -1,0 +1,13 @@
+body {
+    background: #002b36;
+    color: #eee8d5;
+}
+
+table {
+    background: #eee8d5;
+    color: #002b36;
+}
+
+table#snapshots img {
+    max-width: 400px;
+}

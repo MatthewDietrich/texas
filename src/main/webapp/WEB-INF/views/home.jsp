@@ -3,6 +3,7 @@
     <meta http-equiv="Content-Type"
           content="text/html; charset=ISO-8859-1">
     <title>Texas City Snapshot</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
 <h1>Enter the name of a city or town in Texas:</h1>

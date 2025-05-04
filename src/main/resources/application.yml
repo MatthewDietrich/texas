@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: texas
+
+  cloud:
+    inetutils:
+      preferred-networks: 127.0.0.1
+    openfeign:
+      client:
+        config:
+          open-meteo-client:
+            defaultQueryParameters:
+              current: temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,rain,wind_speed_10m,wind_direction_10m,weather_code,cloud_cover
+              precipitation_unit: inch
+              temperature_unit: fahrenheit
+              wind_speed_unit: mph
+
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: texas
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+
+app:
+  check-distance: 0.00045
+  city-camera-limit: 8

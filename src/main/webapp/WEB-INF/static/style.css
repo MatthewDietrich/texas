@@ -1,6 +1,22 @@
 body {
     background: #002b36;
+}
+
+div#main {
+    background: #002b36;
     color: #eee8d5;
+    width: 80%;
+    margin: 0 auto;
+    padding: 1em;
+}
+
+input#city-name {
+    padding: 0.5em;
+    width: 100%;
+}
+
+input#submit-button {
+    margin: 0.5em 0;
 }
 
 table {
@@ -10,4 +26,22 @@ table {
 
 table#snapshots img {
     max-width: 400px;
+}
+
+.ui-menu-item {
+    background-color: #586e75;
+    border-bottom: 1px solid #657b83;
+    color: #fdf6e3;
+    max-width: 60%;
+    padding: 0.5em;
+    list-style: none;
+    cursor: default;
+}
+
+.ui-menu-item:hover {
+    background-color: #268bd2;
+}
+
+.ui-helper-hidden-accessible {
+    display: none;
 }

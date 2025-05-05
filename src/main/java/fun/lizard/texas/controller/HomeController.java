@@ -3,8 +3,10 @@ package fun.lizard.texas.controller;
 import fun.lizard.texas.response.txdot.CctvSnapshotResponse;
 import fun.lizard.texas.response.weather.WeatherResponse;
 import fun.lizard.texas.service.CctvService;
+import fun.lizard.texas.service.CityService;
 import fun.lizard.texas.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +26,9 @@ public class HomeController {
     @Autowired
     WeatherService weatherService;
 
+    @Autowired
+    CityService cityService;
+
     @GetMapping("/home")
     public String getHome(ModelMap modelMap) {
         return "home";
@@ -37,5 +42,10 @@ public class HomeController {
         modelMap.put("weather", weather);
         modelMap.put("cityName", cityName);
         return "snapshot";
+    }
+
+    @GetMapping("/citynames")
+    public ResponseEntity<List<String>> getCityNames() {
+        return ResponseEntity.ok(cityService.findAllNames());
     }
 }

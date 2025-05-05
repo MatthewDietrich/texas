@@ -33,3 +33,4 @@ app:
 
 spring.mvc.view.prefix: /WEB-INF/views
 spring.mvc.view.suffix: .jsp
+server.address: 0.0.0.0

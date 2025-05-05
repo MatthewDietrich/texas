@@ -29,12 +29,12 @@ public class HomeController {
     @Autowired
     CityService cityService;
 
-    @GetMapping("/home")
+    @GetMapping("/")
     public String getHome(ModelMap modelMap) {
         return "home";
     }
 
-    @PostMapping("/home")
+    @PostMapping("/")
     public String getSnapshot(ModelMap modelMap, @RequestParam String cityName) {
         List<CctvSnapshotResponse> snapshots = cctvService.getSnapshotsByCityName(cityName);
         WeatherResponse weather = weatherService.getCurrentWeatherByCityName(cityName);

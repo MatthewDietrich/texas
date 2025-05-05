@@ -10,9 +10,10 @@
 <body>
     <div id="main" class="container">
         <div class="row">
-            <h1>${cityName}</h1>
+            <small id="welcome-message">Welcome to</small>
+            <h1 id="city-name">${cityName}</h1>
         </div>
-
+        <br />
         <div class="row">
             <h2>Weather</h2>
         </div>

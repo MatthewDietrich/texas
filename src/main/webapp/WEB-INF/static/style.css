@@ -57,3 +57,14 @@ a {
 .ui-helper-hidden-accessible {
     display: none;
 }
+
+h1#city-name {
+    font-size: 8em;
+    text-align: center;
+}
+
+small#welcome-message {
+    font-size: 2em;
+    margin-bottom: -1em;
+    text-align: center;
+}

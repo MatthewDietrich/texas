@@ -1,13 +1,6 @@
 body {
     background: #002b36;
-}
-
-div#main {
-    background: #002b36;
     color: #eee8d5;
-    width: 80%;
-    margin: 0 auto;
-    padding: 1em;
 }
 
 input#city-name {
@@ -19,13 +12,32 @@ input#submit-button {
     margin: 0.5em 0;
 }
 
-table {
+div#weather,
+div#snapshots {
     background: #eee8d5;
     color: #002b36;
 }
 
-table#snapshots img {
-    max-width: 400px;
+div.img-container {
+    width: 100%;
+    height: fit-content;
+}
+
+div.img-container img {
+    width: 100%;
+}
+
+.icdId {
+    font-weight: bold;
+}
+
+div#snapshots .container {
+    padding-top: 1.5em;
+}
+
+a {
+    text-decoration: underline;
+    color: #eee8d5;
 }
 
 .ui-menu-item {

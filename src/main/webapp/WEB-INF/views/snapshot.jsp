@@ -43,7 +43,7 @@
             </div>
         </div>
         <div class="row"><small>Weather data from <a href="https://open-meteo.com/">Open-Meteo</a></small></div>
-
+        <br />
         <div class="row">
             <h2>Snapshots</h2>
         </div>

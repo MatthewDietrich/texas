@@ -12,13 +12,13 @@ import java.util.List;
 @Repository
 public interface CityRepository extends MongoRepository<City, String> {
 
-    @Query(value = "{ 'properties.name': ?0 }")
+    @Query(value = "{ 'properties.name': {$regex : '^?0$', $options: 'i'}}")
     City findOneByName(String name);
 
     @Query(value = "{}, {'properties.name': 1}")
     List<City> findAllNames();
 
-    @Query(value = "{ 'properties.name': ?0 }")
+    @Query(value = "{ 'properties.name': {$regex : '^?0$', $options: 'i'}}")
     List<City> findAllByName(String name);
 
     List<City> findByGeometryNear(Point point, Distance distance);

@@ -14,11 +14,16 @@
             <div class="col-sm">
                 <h1>Enter the name of a city or town in Texas:</h1>
                 <div id="city-typeahead">
-                    <form method="POST">
+                    <form id="city-name-form" method="POST">
                         <input id="city-name" name="cityName" type="text" placeholder="City name" autocomplete="off" />
                         <input type="submit" value="Submit" id="submit-button" />
                     </form>
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <span id="searching-indicator"></span>
             </div>
         </div>
     </div>

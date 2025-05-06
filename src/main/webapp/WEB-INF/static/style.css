@@ -88,3 +88,7 @@ div#weather-icon {
 #coordinates {
     text-align: center;
 }
+
+#searching-indicator {
+    font-size: 2em;
+}

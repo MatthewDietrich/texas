@@ -16,6 +16,7 @@ div#weather,
 div#snapshots {
     background: #eee8d5;
     color: #002b36;
+    padding: 1.5em;
 }
 
 div.img-container {
@@ -67,4 +68,14 @@ small#welcome-message {
     font-size: 2em;
     margin-bottom: -1em;
     text-align: center;
+}
+
+div#weather-icon {
+    color: #002b36;
+    background-color: #eee8d5;
+}
+
+.wi {
+    font-size: 10em;
+    font-weight: lighter;
 }

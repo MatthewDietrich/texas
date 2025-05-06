@@ -16,6 +16,7 @@ public class WeatherResponse {
     private Integer cloudCover;
     private Integer rain;
     private Integer humidity;
-    private Double temperature;
-    private Double apparentTemperature;
+    private Integer temperature;
+    private Integer apparentTemperature;
+    private String iconClass;
 }

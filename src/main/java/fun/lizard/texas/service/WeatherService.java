@@ -41,8 +41,9 @@ public class WeatherService {
         weatherResponse.setCloudCover(openMeteoResponse.getCurrent().getCloudCover());
         weatherResponse.setRain(openMeteoResponse.getCurrent().getRain());
         weatherResponse.setHumidity(openMeteoResponse.getCurrent().getRelativeHumidity());
-        weatherResponse.setTemperature(openMeteoResponse.getCurrent().getTemperature());
-        weatherResponse.setApparentTemperature(openMeteoResponse.getCurrent().getApparentTemperature());
+        weatherResponse.setTemperature(openMeteoResponse.getCurrent().getTemperature().intValue());
+        weatherResponse.setApparentTemperature(openMeteoResponse.getCurrent().getApparentTemperature().intValue());
+        weatherResponse.setIconClass(WmoWeatherCode.fromCode(openMeteoResponse.getCurrent().getWeatherCode()).getIconClass());
         return weatherResponse;
     }
 

@@ -4,6 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Welcome to ${cityName} - Texas City Snapshot</title>
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.3.5/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="weather-icons.min.css" />
     <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 
@@ -17,30 +18,35 @@
         <div class="row">
             <h2>Weather</h2>
         </div>
-        <div class="container" id="weather">
-            <div class="row">
-                <div class="col-sm"><strong>Temperature</strong></div>
-                <div class="col-sm">${weather.temperature}&deg;F</div>
+        <div class="row">
+            <div class="col-sm" id="weather">
+                <div class="row">
+                    <div class="col-sm"><strong>Temperature</strong></div>
+                    <div class="col-sm">${weather.temperature}&deg;F</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm"><strong>Feels Like</strong></div>
+                    <div class="col-sm">${weather.apparentTemperature}&deg;F</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm"><strong>Humidity</strong></div>
+                    <div class="col-sm">${weather.humidity}%</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm"><strong>Description</strong></div>
+                    <div class="col-sm">${weather.description}</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm"><strong>Precipitation Chance</strong></div>
+                    <div class="col-sm">${weather.precipitation}%</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm"><strong>Cloud Cover</strong></div>
+                    <div class="col-sm">${weather.cloudCover}%</div>
+                </div>
             </div>
-            <div class="row">
-                <div class="col-sm"><strong>Feels Like</strong></div>
-                <div class="col-sm">${weather.apparentTemperature}&deg;F</div>
-            </div>
-            <div class="row">
-                <div class="col-sm"><strong>Humidity</strong></div>
-                <div class="col-sm">${weather.humidity}%</div>
-            </div>
-            <div class="row">
-                <div class="col-sm"><strong>Description</strong></div>
-                <div class="col-sm">${weather.description}</div>
-            </div>
-            <div class="row">
-                <div class="col-sm"><strong>Precipitation Chance</strong></div>
-                <div class="col-sm">${weather.precipitation}%</div>
-            </div>
-            <div class="row">
-                <div class="col-sm"><strong>Cloud Cover</strong></div>
-                <div class="col-sm">${weather.cloudCover}%</div>
+            <div class="col-sm" id="weather-icon">
+                <i class="wi ${weather.iconClass}"></i>
             </div>
         </div>
         <div class="row"><small>Weather data from <a href="https://open-meteo.com/">Open-Meteo</a></small></div>

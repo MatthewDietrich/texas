@@ -54,7 +54,7 @@
         <div class="row">
             <h2>Snapshots</h2>
         </div>
-        <div class="container" id="snapshots">
+        <div class="row" id="snapshots">
             <div class="row">
                 <div class="col-sm">
                     <div class="container">

@@ -78,4 +78,5 @@ div#weather-icon {
 .wi {
     font-size: 10em;
     font-weight: lighter;
+    padding: 0.125em;
 }

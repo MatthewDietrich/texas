@@ -23,7 +23,7 @@ public class County {
 
     @Data
     @NoArgsConstructor
-    private static class CountyProperties {
+    public static class CountyProperties {
 
         private Integer gid;
         private String statefp;

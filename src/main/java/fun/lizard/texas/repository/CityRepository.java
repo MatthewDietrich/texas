@@ -18,5 +18,8 @@ public interface CityRepository extends MongoRepository<City, String> {
     @Query(value = "{}, {'properties.name': 1}")
     List<City> findAllNames();
 
+    @Query(value = "{ 'properties.name': ?0 }")
+    List<City> findAllByName(String name);
+
     List<City> findByGeometryNear(Point point, Distance distance);
 }

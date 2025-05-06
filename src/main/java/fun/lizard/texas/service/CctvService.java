@@ -13,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Limit;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Point;
@@ -24,7 +26,9 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 @Slf4j
@@ -83,7 +87,7 @@ public class CctvService {
         return cameraRepository.findByLocationNear(point, new Distance(0.4), Limit.of(cameraLimit));
     }
 
-    public List<CctvSnapshotResponse> getSnapshotsByCityName(String cityName) {
+    public List<CctvSnapshotResponse> getSnapshotsByCityName(String cityName) throws IOException {
         City city = cityRepository.findOneByName(cityName);
         if (null == city) {
             log.info("City not found: {}", cityName);
@@ -98,8 +102,16 @@ public class CctvService {
             return null;
         }
         updateCamerasByDistrictId(district.getProperties().getDIST_ABRVN());
+        Resource resource = new ClassPathResource("unavailable.png");
+        String unavailableSnippet = Base64.getEncoder().encodeToString(resource.getContentAsByteArray());
         List<Camera> cameras = cameraRepository.findByLocationNear(point, new Distance(0.4), Limit.of(cameraLimit));
-        return cameras.stream().map(camera -> txdotFeignClient.getCctvSnapshotByIcdId(camera.getIcdId(), camera.getDistrictAbbreviation())).toList();
+        return cameras.stream().map(camera -> txdotFeignClient.getCctvSnapshotByIcdId(camera.getIcdId(), camera.getDistrictAbbreviation())).peek(
+                cctvSnapshotResponse -> {
+                    if (cctvSnapshotResponse.getSnippet().isEmpty()) {
+                        cctvSnapshotResponse.setSnippet(unavailableSnippet);
+                    }
+                }
+        ).toList();
     }
 
     @Scheduled(fixedRate = 300000)

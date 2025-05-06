@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -35,7 +36,7 @@ public class HomeController {
     }
 
     @PostMapping("/")
-    public String getSnapshot(ModelMap modelMap, @RequestParam String cityName) {
+    public String getSnapshot(ModelMap modelMap, @RequestParam String cityName) throws IOException {
         List<CctvSnapshotResponse> snapshots = cctvService.getSnapshotsByCityName(cityName);
         WeatherResponse weather = weatherService.getCurrentWeatherByCityName(cityName);
         modelMap.put("snapshots", snapshots);

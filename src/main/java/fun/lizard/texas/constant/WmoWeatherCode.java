@@ -8,7 +8,7 @@ public enum WmoWeatherCode {
     MAINLY_CLEAR(1, "Mainly clear"),
     PARTLY_CLOUDY(2, "Partly cloudy"),
     OVERCAST(3, "Overcast"),
-    FOG_DEPOSITING_RIME_FOG(45, "Fog"),
+    FOG(45, "Fog"),
     DEPOSITING_RIME_FOG(48, "Fog: Depositing rime"),
     DRIZZLE_LIGHT(51, "Drizzle: Light intensity"),
     DRIZZLE_MODERATE(53, "Drizzle: Moderate intensity"),

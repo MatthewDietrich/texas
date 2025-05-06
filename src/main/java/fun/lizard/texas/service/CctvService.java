@@ -91,7 +91,7 @@ public class CctvService {
         List<Camera> cameras = cameraRepository.findByLocationNear(point, new Distance(0.4), Limit.of(cameraLimit));
         return cameras.stream().map(camera -> txdotFeignClient.getCctvSnapshotByIcdId(camera.getIcdId(), camera.getDistrictAbbreviation())).peek(
                 cctvSnapshotResponse -> {
-                    if (cctvSnapshotResponse.getSnippet().isEmpty()) {
+                    if (cctvSnapshotResponse != null && cctvSnapshotResponse.getSnippet().isEmpty()) {
                         cctvSnapshotResponse.setSnippet(unavailableSnippet);
                     }
                 }

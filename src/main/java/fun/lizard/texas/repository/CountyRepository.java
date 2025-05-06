@@ -1,6 +1,6 @@
 package fun.lizard.texas.repository;
 
-import fun.lizard.texas.entity.County;
+import fun.lizard.texas.document.County;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;

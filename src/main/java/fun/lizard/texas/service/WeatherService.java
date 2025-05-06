@@ -1,7 +1,7 @@
 package fun.lizard.texas.service;
 
 import fun.lizard.texas.constant.WmoWeatherCode;
-import fun.lizard.texas.entity.City;
+import fun.lizard.texas.document.City;
 import fun.lizard.texas.feign.OpenMeteoFeignClient;
 import fun.lizard.texas.repository.CityRepository;
 import fun.lizard.texas.response.weather.OpenMeteoResponse;

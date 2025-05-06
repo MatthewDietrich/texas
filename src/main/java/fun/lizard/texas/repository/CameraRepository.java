@@ -1,6 +1,6 @@
 package fun.lizard.texas.repository;
 
-import fun.lizard.texas.entity.Camera;
+import fun.lizard.texas.document.Camera;
 import org.springframework.data.domain.Limit;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Point;

@@ -1,7 +1,7 @@
 package fun.lizard.texas.service;
 
-import fun.lizard.texas.entity.City;
-import fun.lizard.texas.entity.District;
+import fun.lizard.texas.document.City;
+import fun.lizard.texas.document.District;
 import fun.lizard.texas.repository.CityRepository;
 import fun.lizard.texas.repository.DistrictRepository;
 import org.springframework.beans.factory.annotation.Autowired;

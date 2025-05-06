@@ -1,6 +1,6 @@
 package fun.lizard.texas.repository;
 
-import fun.lizard.texas.entity.City;
+import fun.lizard.texas.document.City;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Point;
 import org.springframework.data.mongodb.repository.MongoRepository;

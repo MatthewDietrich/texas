@@ -1,8 +1,8 @@
 package fun.lizard.texas.service;
 
-import fun.lizard.texas.entity.City;
-import fun.lizard.texas.entity.Camera;
-import fun.lizard.texas.entity.District;
+import fun.lizard.texas.document.City;
+import fun.lizard.texas.document.Camera;
+import fun.lizard.texas.document.District;
 import fun.lizard.texas.feign.TxdotFeignClient;
 import fun.lizard.texas.repository.CameraRepository;
 import fun.lizard.texas.repository.CityRepository;

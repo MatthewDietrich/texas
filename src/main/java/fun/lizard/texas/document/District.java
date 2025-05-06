@@ -1,4 +1,4 @@
-package fun.lizard.texas.entity;
+package fun.lizard.texas.document;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

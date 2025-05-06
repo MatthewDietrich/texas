@@ -37,7 +37,7 @@ public class WeatherService {
         weatherResponse.setDescription(WmoWeatherCode.fromCode(openMeteoResponse.getCurrent().getWeatherCode()).getDescription());
         weatherResponse.setWindSpeed(openMeteoResponse.getCurrent().getWindSpeed());
         weatherResponse.setWindDirection(openMeteoResponse.getCurrent().getWindDirection());
-        weatherResponse.setPrecipitation(openMeteoResponse.getCurrent().getPrecipitation());
+        weatherResponse.setPrecipitation(openMeteoResponse.getCurrent().getPrecipitationProbability());
         weatherResponse.setCloudCover(openMeteoResponse.getCurrent().getCloudCover());
         weatherResponse.setRain(openMeteoResponse.getCurrent().getRain());
         weatherResponse.setHumidity(openMeteoResponse.getCurrent().getRelativeHumidity());

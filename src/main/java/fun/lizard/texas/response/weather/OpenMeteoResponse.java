@@ -22,7 +22,8 @@ public class OpenMeteoResponse {
         private Integer relativeHumidity;
         @JsonProperty("apparent_temperature")
         private Double apparentTemperature;
-        private Integer precipitation;
+        @JsonProperty("precipitation_probability")
+        private Integer precipitationProbability;
         @JsonProperty("wind_speed_10m")
         private Double windSpeed;
         @JsonProperty("wind_direction_10m")

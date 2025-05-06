@@ -1,6 +1,7 @@
 package fun.lizard.texas.controller;
 
 import fun.lizard.texas.document.City;
+import fun.lizard.texas.exception.CityNotFoundException;
 import fun.lizard.texas.response.SimpleCity;
 import fun.lizard.texas.response.txdot.CctvSnapshotResponse;
 import fun.lizard.texas.response.weather.WeatherResponse;
@@ -39,7 +40,13 @@ public class HomeController {
 
     @PostMapping("/")
     public String getSnapshot(ModelMap modelMap, @RequestParam String cityName) throws IOException {
-        City city = cityService.findOneByName(cityName);
+        City city;
+        try {
+            city = cityService.findOneByName(cityName);
+        } catch (CityNotFoundException e) {
+            modelMap.put("cityName", cityName);
+            return "notfound";
+        }
         List<CctvSnapshotResponse> snapshots = cctvService.getSnapshotsByCity(city);
         WeatherResponse weather = weatherService.getCurrentWeatherByCity(city);
         SimpleCity simpleCity = cityService.findCountyAndSimplify(city);

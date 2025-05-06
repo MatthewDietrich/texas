@@ -12,9 +12,6 @@ import java.util.List;
 @Repository
 public interface CityRepository extends MongoRepository<City, String> {
 
-    @Query(value = "{ 'properties.name': {$regex : '^?0$', $options: 'i'}}")
-    City findOneByName(String name);
-
     @Query(value = "{}, {'properties.name': 1}")
     List<City> findAllNames();
 

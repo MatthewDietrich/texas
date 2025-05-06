@@ -76,17 +76,6 @@ public class CctvService {
         })));
     }
 
-    public List<Camera> getCamerasByCityName(String cityName) {
-        City city = cityRepository.findOneByName(cityName);
-        if (null == city) {
-            return List.of();
-        }
-        double latitude = Double.parseDouble(city.getProperties().getIntptlat());
-        double longitude = Double.parseDouble(city.getProperties().getIntptlon());
-        Point point = new Point(longitude, latitude);
-        return cameraRepository.findByLocationNear(point, new Distance(0.4), Limit.of(cameraLimit));
-    }
-
     public List<CctvSnapshotResponse> getSnapshotsByCity(City city) throws IOException {
         double latitude = Double.parseDouble(city.getProperties().getIntptlat());
         double longitude = Double.parseDouble(city.getProperties().getIntptlon());

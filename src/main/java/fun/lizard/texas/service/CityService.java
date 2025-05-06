@@ -2,6 +2,7 @@ package fun.lizard.texas.service;
 
 import fun.lizard.texas.document.City;
 import fun.lizard.texas.document.County;
+import fun.lizard.texas.exception.CityNotFoundException;
 import fun.lizard.texas.repository.CityRepository;
 import fun.lizard.texas.repository.CountyRepository;
 import fun.lizard.texas.response.SimpleCity;
@@ -37,7 +38,11 @@ public class CityService {
     }
 
     public City findOneByName(String name) {
-        return cityRepository.findOneByName(name);
+        try {
+            return cityRepository.findAllByName(name).get(0);
+        } catch (IndexOutOfBoundsException e) {
+            throw new CityNotFoundException(name);
+        }
     }
 
     @Scheduled(fixedRate = 7200000)

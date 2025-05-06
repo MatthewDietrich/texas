@@ -1,5 +1,7 @@
 package fun.lizard.texas.controller;
 
+import fun.lizard.texas.document.City;
+import fun.lizard.texas.response.SimpleCity;
 import fun.lizard.texas.response.txdot.CctvSnapshotResponse;
 import fun.lizard.texas.response.weather.WeatherResponse;
 import fun.lizard.texas.service.CctvService;
@@ -37,11 +39,13 @@ public class HomeController {
 
     @PostMapping("/")
     public String getSnapshot(ModelMap modelMap, @RequestParam String cityName) throws IOException {
-        List<CctvSnapshotResponse> snapshots = cctvService.getSnapshotsByCityName(cityName);
-        WeatherResponse weather = weatherService.getCurrentWeatherByCityName(cityName);
+        City city = cityService.findOneByName(cityName);
+        List<CctvSnapshotResponse> snapshots = cctvService.getSnapshotsByCity(city);
+        WeatherResponse weather = weatherService.getCurrentWeatherByCity(city);
+        SimpleCity simpleCity = cityService.findCountyAndSimplify(city);
         modelMap.put("snapshots", snapshots);
         modelMap.put("weather", weather);
-        modelMap.put("cityName", cityName);
+        modelMap.put("city", simpleCity);
         return "snapshot";
     }
 

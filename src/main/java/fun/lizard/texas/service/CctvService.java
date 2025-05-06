@@ -87,18 +87,13 @@ public class CctvService {
         return cameraRepository.findByLocationNear(point, new Distance(0.4), Limit.of(cameraLimit));
     }
 
-    public List<CctvSnapshotResponse> getSnapshotsByCityName(String cityName) throws IOException {
-        City city = cityRepository.findOneByName(cityName);
-        if (null == city) {
-            log.info("City not found: {}", cityName);
-            return null;
-        }
+    public List<CctvSnapshotResponse> getSnapshotsByCity(City city) throws IOException {
         double latitude = Double.parseDouble(city.getProperties().getIntptlat());
         double longitude = Double.parseDouble(city.getProperties().getIntptlon());
         Point point = new Point(longitude, latitude);
         District district = districtRepository.findByGeometryNear(point, new Distance(distanceToCheck)).get(0);
         if (null == district) {
-            log.info("District not found for city: {}", cityName);
+            log.info("District not found for city: {}", city.getProperties().getName());
             return null;
         }
         updateCamerasByDistrictId(district.getProperties().getDIST_ABRVN());

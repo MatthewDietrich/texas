@@ -22,12 +22,7 @@ public class WeatherService {
     @Autowired
     OpenMeteoFeignClient openMeteoFeignClient;
 
-    public WeatherResponse getCurrentWeatherByCityName(String cityName) {
-        City city = cityRepository.findOneByName(cityName);
-        if (null == city) {
-            log.info("City not found: {}", cityName);
-            return null;
-        }
+    public WeatherResponse getCurrentWeatherByCity(City city) {
         double latitude = Double.parseDouble(city.getProperties().getIntptlat());
         double longitude = Double.parseDouble(city.getProperties().getIntptlon());
         OpenMeteoResponse openMeteoResponse = openMeteoFeignClient.getCurrentWeather(latitude, longitude);

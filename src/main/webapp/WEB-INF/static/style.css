@@ -80,3 +80,13 @@ div#weather-icon {
     font-weight: lighter;
     padding: 0.125em;
 }
+
+#county-name {
+    font-size: 2em;
+    text-align: center;
+    margin-top: -1em;
+}
+
+#coordinates {
+    text-align: center;
+}

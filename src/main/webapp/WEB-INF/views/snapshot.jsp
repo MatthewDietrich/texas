@@ -2,7 +2,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Welcome to ${cityName} - Texas City Snapshot</title>
+    <title>Welcome to ${city.name} - Texas City Snapshot</title>
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.3.5/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="weather-icons.min.css" />
     <link rel="stylesheet" type="text/css" href="style.css" />
@@ -12,7 +12,9 @@
     <div id="main" class="container">
         <div class="row">
             <small id="welcome-message">Welcome to</small>
-            <h1 id="city-name">${cityName}</h1>
+            <h1 id="city-name">${city.name}</h1>
+            <small id="county-name">${city.countyName} County, Texas</small>
+            <small id="coordinates">${city.latitude}&deg;W, ${city.longitude}&deg;N</small>
         </div>
         <br />
         <div class="row">

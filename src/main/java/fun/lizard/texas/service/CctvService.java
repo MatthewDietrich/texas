@@ -89,13 +89,17 @@ public class CctvService {
         Resource resource = new ClassPathResource("unavailable.png");
         String unavailableSnippet = Base64.getEncoder().encodeToString(resource.getContentAsByteArray());
         List<Camera> cameras = cameraRepository.findByLocationNear(point, new Distance(0.4), Limit.of(cameraLimit));
-        return cameras.stream().map(camera -> txdotFeignClient.getCctvSnapshotByIcdId(camera.getIcdId(), camera.getDistrictAbbreviation())).peek(
-                cctvSnapshotResponse -> {
-                    if (cctvSnapshotResponse != null && cctvSnapshotResponse.getSnippet().isEmpty()) {
-                        cctvSnapshotResponse.setSnippet(unavailableSnippet);
-                    }
-                }
-        ).toList();
+        return cameras.stream().map(camera -> {
+            CctvSnapshotResponse cctvSnapshotResponse = txdotFeignClient.getCctvSnapshotByIcdId(camera.getIcdId(), camera.getDistrictAbbreviation());
+            if (null == cctvSnapshotResponse) {
+                cctvSnapshotResponse = new CctvSnapshotResponse();
+                cctvSnapshotResponse.setIcdId(camera.getIcdId());
+                cctvSnapshotResponse.setSnippet(unavailableSnippet);
+            } else if (null == cctvSnapshotResponse.getSnippet() || cctvSnapshotResponse.getSnippet().isEmpty()) {
+                cctvSnapshotResponse.setSnippet(unavailableSnippet);
+            }
+            return cctvSnapshotResponse;
+        }).toList();
     }
 
     @Scheduled(fixedRate = 300000)

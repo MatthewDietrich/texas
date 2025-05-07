@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col-sm">
                 <h1 id="city-name">${city.name}</h1>
-                <small id="county-name">${city.countyName} County, Texas</small>
+                <small id="county-name">${city.countyName} County, Texas</small><br />
                 <small id="coordinates">${city.latitude}&deg;N, ${city.longitude}&deg;W</small>
             </div>
             <div class="col-sm">

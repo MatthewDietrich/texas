@@ -40,11 +40,12 @@ public class HomeController {
 
     @PostMapping("/")
     public String getSnapshot(ModelMap modelMap, @RequestParam String cityName) throws IOException {
+        String cityNameStripped = cityName.strip();
         City city;
         try {
-            city = cityService.findOneByName(cityName);
+            city = cityService.findOneByName(cityNameStripped);
         } catch (CityNotFoundException e) {
-            modelMap.put("cityName", cityName);
+            modelMap.put("cityName", cityNameStripped);
             return "notfound";
         }
         List<CctvSnapshotResponse> snapshots = cctvService.getSnapshotsByCity(city);

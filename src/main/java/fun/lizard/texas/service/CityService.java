@@ -24,6 +24,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Base64;
 import java.util.List;
 
@@ -82,7 +83,9 @@ public class CityService {
         double longitude = Double.parseDouble(city.getProperties().getIntptlon());
 
         Resource resource = new ClassPathResource("texas.png");
-        BufferedImage texasImage = ImageIO.read(resource.getInputStream());
+        InputStream inputStream = resource.getInputStream();
+        BufferedImage texasImage = ImageIO.read(inputStream);
+        inputStream.close();
         int width = texasImage.getWidth();
         int height = texasImage.getHeight();
 

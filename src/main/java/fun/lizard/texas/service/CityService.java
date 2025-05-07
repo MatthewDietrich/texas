@@ -11,12 +11,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Limit;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Point;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
 @Slf4j
@@ -63,5 +71,33 @@ public class CityService {
         simpleCity.setLatitude(latitude);
         simpleCity.setLongitude(longitude);
         return simpleCity;
+    }
+
+    public String plotCity(City city) throws IOException {
+        double minLon = -106.65;
+        double maxLon = -93.51;
+        double minLat = 25.84;
+        double maxLat = 36.5;
+        double latitude = Double.parseDouble(city.getProperties().getIntptlat());
+        double longitude = Double.parseDouble(city.getProperties().getIntptlon());
+
+        Resource resource = new ClassPathResource("texas.png");
+        BufferedImage texasImage = ImageIO.read(resource.getInputStream());
+        int width = texasImage.getWidth();
+        int height = texasImage.getHeight();
+
+        BufferedImage finalImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = finalImage.createGraphics();
+
+        g2d.drawImage(texasImage, 0, 0, null);
+        int x = (int) ((longitude - minLon) / (maxLon - minLon) * width);
+        int y = (int) ((maxLat - latitude) / (maxLat - minLat) * height);
+
+        g2d.setColor(Color.decode("#268bd2"));
+        g2d.fillOval(x - 5, y - 5, 20, 20);
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        ImageIO.write(finalImage, "png", outputStream);
+        return Base64.getEncoder().encodeToString(outputStream.toByteArray());
     }
 }

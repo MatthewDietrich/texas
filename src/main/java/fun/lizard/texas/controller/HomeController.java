@@ -50,9 +50,11 @@ public class HomeController {
         List<CctvSnapshotResponse> snapshots = cctvService.getSnapshotsByCity(city);
         WeatherResponse weather = weatherService.getCurrentWeatherByCity(city);
         SimpleCity simpleCity = cityService.findCountyAndSimplify(city);
+        String cityMap = cityService.plotCity(city);
         modelMap.put("snapshots", snapshots);
         modelMap.put("weather", weather);
         modelMap.put("city", simpleCity);
+        modelMap.put("cityMap", cityMap);
         return "snapshot";
     }
 

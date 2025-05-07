@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 @Service
@@ -76,6 +77,10 @@ public class CctvService {
         })));
     }
 
+    public CompletableFuture<CctvSnapshotResponse> fetchSnapshotAsync(String icdId, String districtName) {
+        return CompletableFuture.supplyAsync(() -> txdotFeignClient.getCctvSnapshotByIcdId(icdId, districtName));
+    }
+
     public List<CctvSnapshotResponse> getSnapshotsByCity(City city) throws IOException {
         double latitude = Double.parseDouble(city.getProperties().getIntptlat());
         double longitude = Double.parseDouble(city.getProperties().getIntptlon());
@@ -89,11 +94,12 @@ public class CctvService {
         Resource resource = new ClassPathResource("unavailable.png");
         String unavailableSnippet = Base64.getEncoder().encodeToString(resource.getContentAsByteArray());
         List<Camera> cameras = cameraRepository.findByLocationNear(point, new Distance(0.4), Limit.of(cameraLimit));
-        return cameras.stream().map(camera -> {
-            CctvSnapshotResponse cctvSnapshotResponse = txdotFeignClient.getCctvSnapshotByIcdId(camera.getIcdId(), camera.getDistrictAbbreviation());
+        List<CompletableFuture<CctvSnapshotResponse>> cctvFutures = cameras.stream().map(camera -> fetchSnapshotAsync(camera.getIcdId(), camera.getDistrictAbbreviation())).toList();
+        return cctvFutures.stream().map(future -> {
+            CctvSnapshotResponse cctvSnapshotResponse = future.join();
             if (null == cctvSnapshotResponse) {
                 cctvSnapshotResponse = new CctvSnapshotResponse();
-                cctvSnapshotResponse.setIcdId(camera.getIcdId());
+                cctvSnapshotResponse.setIcdId("");
                 cctvSnapshotResponse.setSnippet(unavailableSnippet);
             } else if (null == cctvSnapshotResponse.getSnippet() || cctvSnapshotResponse.getSnippet().isEmpty()) {
                 cctvSnapshotResponse.setSnippet(unavailableSnippet);

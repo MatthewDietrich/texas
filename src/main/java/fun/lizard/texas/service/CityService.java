@@ -103,6 +103,8 @@ public class CityService {
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         ImageIO.write(finalImage, "png", outputStream);
-        return Base64.getEncoder().encodeToString(outputStream.toByteArray());
+        String result = Base64.getEncoder().encodeToString(outputStream.toByteArray());
+        outputStream.close();
+        return result;
     }
 }

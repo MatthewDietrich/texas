@@ -94,4 +94,5 @@ div#weather-icon {
 
 img#city-map {
     width: 16em;
+    padding-top: 1em;
 }

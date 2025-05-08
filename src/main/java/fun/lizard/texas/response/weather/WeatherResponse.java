@@ -3,20 +3,14 @@ package fun.lizard.texas.response.weather;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 public class WeatherResponse {
 
     private Double latitude;
     private Double longitude;
-    private String description;
-    private Double windSpeed;
-    private Integer windDirection;
-    private Integer precipitation;
-    private Integer cloudCover;
-    private Integer rain;
-    private Integer humidity;
-    private Integer temperature;
-    private Integer apparentTemperature;
-    private String iconClass;
+    private List<Forecast> forecasts;
+    private Current current;
 }

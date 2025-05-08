@@ -54,12 +54,6 @@ public class CityService {
         }
     }
 
-    @Scheduled(fixedRate = 7200000)
-    @CacheEvict("cities")
-    public void emptyCitiesCache() {
-        log.info("Emptying cities cache");
-    }
-
     public SimpleCity findCountyAndSimplify(City city) {
         SimpleCity simpleCity = new SimpleCity();
         simpleCity.setName(city.getProperties().getName());

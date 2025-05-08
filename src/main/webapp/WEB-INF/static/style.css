@@ -13,7 +13,8 @@ input#submit-button {
 }
 
 div#weather,
-div#snapshots {
+div#snapshots,
+div#forecast {
     background: #eee8d5;
     color: #002b36;
     padding: 1.5em;
@@ -73,10 +74,10 @@ div#weather-icon {
     background-color: #eee8d5;
 }
 
-.wi {
+div#weather-icon i {
     font-size: 8em;
     font-weight: lighter;
-    padding-top: 0.25em;
+    padding-top: 0.5em;
 }
 
 #county-name {
@@ -95,4 +96,13 @@ div#weather-icon {
 img#city-map {
     width: 16em;
     padding-top: 1em;
+}
+
+table,
+h3 {
+    color: #002b36;
+}
+
+#forecast table {
+    width: 100%
 }

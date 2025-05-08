@@ -4,6 +4,7 @@ import fun.lizard.texas.document.City;
 import fun.lizard.texas.exception.CityNotFoundException;
 import fun.lizard.texas.response.SimpleCity;
 import fun.lizard.texas.response.txdot.CctvSnapshotResponse;
+import fun.lizard.texas.response.weather.Current;
 import fun.lizard.texas.response.weather.WeatherResponse;
 import fun.lizard.texas.service.CctvService;
 import fun.lizard.texas.service.CityService;

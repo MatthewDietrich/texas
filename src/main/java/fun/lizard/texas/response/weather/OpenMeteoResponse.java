@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 public class OpenMeteoResponse {
@@ -11,6 +14,7 @@ public class OpenMeteoResponse {
     private Double latitude;
     private Double longitude;
     private Current current;
+    private Daily daily;
 
     @Data
     @NoArgsConstructor
@@ -33,5 +37,19 @@ public class OpenMeteoResponse {
         @JsonProperty("cloud_cover")
         private Integer cloudCover;
         private Integer rain;
+    }
+
+    @Data
+    @NoArgsConstructor
+    public static class Daily {
+        List<LocalDate> time;
+        @JsonProperty("weather_code")
+        List<Integer> weatherCode;
+        @JsonProperty("temperature_2m_max")
+        List<Double> maxTemperature;
+        @JsonProperty("temperature_2m_min")
+        List<Double> minTemperature;
+        @JsonProperty("precipitation_probability_max")
+        List<Integer> precipitationChance;
     }
 }

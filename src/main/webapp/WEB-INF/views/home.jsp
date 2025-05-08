@@ -16,7 +16,8 @@
                 <div id="city-typeahead">
                     <form id="city-name-form" method="POST">
                         <input id="city-name" name="cityName" type="text" placeholder="City name" autocomplete="off" />
-                        <input type="submit" value="Submit" id="submit-button" />
+                        <input type="submit" value="Search" id="submit-button" /> or
+                        <input type="submit" value="Random City" id="random-button" />
                     </form>
                 </div>
             </div>

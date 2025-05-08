@@ -1,5 +1,7 @@
 const form = document.getElementById('city-name-form');
 const searchIndicatorSpan = document.getElementById("searching-indicator");
+const randomButton = document.getElementById("random-button")
+const cityInput = document.getElementById("city-name")
 let animationInterval;
 
 function startSearchingAnimation() {
@@ -17,10 +19,21 @@ form.addEventListener("submit", (event) => {
     startSearchingAnimation();
 });
 
+function getRandomElement(array) {
+    const randomIndex = Math.floor(Math.random() * array.length);
+    return array[randomIndex];
+}
+
 $(function () {
     fetch("/citynames").then(response => {
         return response.json();
     }).then(cities => {
+        randomButton.addEventListener("click", (event) => {
+            event.preventDefault();
+            cityInput.value = getRandomElement(cities);
+            form.submit();
+            startSearchingAnimation();
+        });
         $("#city-name").autocomplete({
             source: cities
         });

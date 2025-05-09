@@ -10,16 +10,18 @@
 
 <body>
     <div id="main" class="container">
-        <div class="row">
-            <div class="col-sm">
-                <h1 id="city-name">${city.name}</h1>
-                <small id="county-name">${city.countyName} County, Texas</small><br />
-                <small id="coordinates">${city.latitude}&deg;N, ${city.longitude}&deg;W</small>
+        <header>
+            <div class="row">
+                <div class="col">
+                    <h1 id="city-name">${city.name}</h1>
+                    <small id="county-name">${city.countyName} County, Texas</small><br />
+                    <small id="coordinates">${city.latitude}&deg;N, ${city.longitude}&deg;W</small>
+                </div>
+                <div class="col">
+                    <img src="data:image/png;base64,${cityMap}" id="city-map" />
+                </div>
             </div>
-            <div class="col-sm">
-                <img src="data:image/png;base64,${cityMap}" id="city-map" />
-            </div>
-        </div>
+        </header>
         <br />
         <div class="row">
             <h2>Weather</h2>

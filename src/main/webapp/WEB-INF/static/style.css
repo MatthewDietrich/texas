@@ -61,12 +61,7 @@ a {
 }
 
 h1#city-name {
-    font-size: 8em;
-}
-
-small#welcome-message {
-    font-size: 2em;
-    text-align: center;
+    font-size: 6em;
 }
 
 div#weather-icon {
@@ -85,16 +80,12 @@ div#weather-icon i {
     text-align: center;
 }
 
-#coordinates {
-    text-align: center;
-}
-
 #searching-indicator {
     font-size: 2em;
 }
 
 img#city-map {
-    width: 16em;
+    max-width: 16em;
     padding-top: 1em;
 }
 
@@ -109,4 +100,9 @@ h3 {
 
 #weather-container {
     background-color: #eee8d5;
+}
+
+header {
+    margin: 0 auto;
+    text-align: center;
 }

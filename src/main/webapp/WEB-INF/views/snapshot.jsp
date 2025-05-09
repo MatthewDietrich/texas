@@ -33,10 +33,10 @@
                     <div class="col-sm" id="weather">
                         <h3>Current</h3>
                         <div class="row">
-                            <div class="col-4 text-center" id="weather-icon">
+                            <div class="col-4 col-md-6 text-center" id="weather-icon">
                                 <i class="wi ${weather.current.iconClass}"></i>
                             </div>
-                            <div class="col-8">
+                            <div class="col-8 col-md-6">
                                 <table>
                                     <tbody>
                                         <tr>

@@ -106,3 +106,7 @@ h3 {
 #forecast table {
     width: 100%
 }
+
+#weather-container {
+    background-color: #eee8d5;
+}

@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <div id="main" class="container">
+    <div id="search-main" class="container">
         <div class="row">
             <div class="col-sm">
                 <h1>Enter the name of a city or town in Texas:</h1>

@@ -2,6 +2,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Welcome to ${city.name} - Texas City Snapshot</title>
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.3.5/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="weather-icons.min.css" />
@@ -32,32 +33,40 @@
                     <div class="col-sm" id="weather">
                         <h3>Current</h3>
                         <div class="row">
-                            <div class="col-sm"><strong>Temperature</strong></div>
-                            <div class="col-sm">${weather.current.temperature}&deg;F</div>
+                            <div class="col-4 text-center" id="weather-icon">
+                                <i class="wi ${weather.current.iconClass}"></i>
+                            </div>
+                            <div class="col-8">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Temperature</th>
+                                            <td>${weather.current.temperature}&deg;F</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Feels Like</th>
+                                            <td>${weather.current.apparentTemperature}&deg;F</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Humidity</th>
+                                            <td>${weather.current.humidity}%</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Description</th>
+                                            <td>${weather.current.description}</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Precipitation Chance</th>
+                                            <td>${weather.current.precipitation}%</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Cloud Cover</th>
+                                            <td>${weather.current.cloudCover}%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm"><strong>Feels Like</strong></div>
-                            <div class="col-sm">${weather.current.apparentTemperature}&deg;F</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm"><strong>Humidity</strong></div>
-                            <div class="col-sm">${weather.current.humidity}%</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm"><strong>Description</strong></div>
-                            <div class="col-sm">${weather.current.description}</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm"><strong>Precipitation Chance</strong></div>
-                            <div class="col-sm">${weather.current.precipitation}%</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm"><strong>Cloud Cover</strong></div>
-                            <div class="col-sm">${weather.current.cloudCover}%</div>
-                        </div>
-                    </div>
-                    <div class="col-sm" id="weather-icon">
-                        <i class="wi ${weather.current.iconClass}"></i>
                     </div>
                 </div>
                 <div class="row">

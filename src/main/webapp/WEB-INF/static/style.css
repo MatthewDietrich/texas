@@ -70,9 +70,9 @@ div#weather-icon {
 }
 
 div#weather-icon i {
-    font-size: 8em;
+    font-size: 6em;
     font-weight: lighter;
-    padding-top: 0.5em;
+    padding-top: 0.25em;
 }
 
 #county-name {
@@ -105,4 +105,8 @@ h3 {
 header {
     margin: 0 auto;
     text-align: center;
+}
+
+#weather th {
+    padding-right: 1em;
 }

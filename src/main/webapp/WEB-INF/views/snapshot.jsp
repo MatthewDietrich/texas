@@ -30,13 +30,13 @@
         <div class="container" id="weather-container">
             <div class="row">
                 <div class="row">
-                    <div class="col-sm" id="weather">
+                    <div class="col-md-12 col-lg-6" id="weather">
                         <h3>Current</h3>
                         <div class="row">
-                            <div class="col-5 col-md-6 text-center" id="weather-icon">
+                            <div class="col text-center" id="weather-icon">
                                 <i class="wi ${weather.current.iconClass}"></i>
                             </div>
-                            <div class="col-7 col-md-6">
+                            <div class="col">
                                 <table>
                                     <tbody>
                                         <tr>
@@ -68,10 +68,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm" id="forecast">
-                        <h3>3-Day Forecast</h3>
+                    <div class="col-md-12 col-lg-6" id="forecast">
+                        <h3>5-Day Forecast</h3>
                         <table>
                             <thead>
                                 <tr>
@@ -83,6 +81,14 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <tr>
+                                    <th scope="row">${weather.forecasts[0].shortWeekday}</th>
+                                    <td><i class="wi ${weather.forecasts[0].iconClass}"></i>
+                                        ${weather.forecasts[0].description}</td>
+                                    <td>${weather.forecasts[0].highTemperature}&deg;F</td>
+                                    <td>${weather.forecasts[0].lowTemperature}&deg;F</td>
+                                    <td>${weather.forecasts[0].precipitationChance}%</td>
+                                </tr>
                                 <tr>
                                     <th scope="row">${weather.forecasts[1].shortWeekday}</th>
                                     <td><i class="wi ${weather.forecasts[1].iconClass}"></i>
@@ -106,6 +112,14 @@
                                     <td>${weather.forecasts[3].highTemperature}&deg;F</td>
                                     <td>${weather.forecasts[3].lowTemperature}&deg;F</td>
                                     <td>${weather.forecasts[3].precipitationChance}%</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">${weather.forecasts[4].shortWeekday}</th>
+                                    <td><i class="wi ${weather.forecasts[4].iconClass}"></i>
+                                        ${weather.forecasts[4].description}</td>
+                                    <td>${weather.forecasts[4].highTemperature}&deg;F</td>
+                                    <td>${weather.forecasts[4].lowTemperature}&deg;F</td>
+                                    <td>${weather.forecasts[4].precipitationChance}%</td>
                                 </tr>
                             </tbody>
                         </table>

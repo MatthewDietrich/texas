@@ -15,7 +15,8 @@
                 <h1>Enter the name of a city or town in Texas:</h1>
                 <div id="city-typeahead">
                     <form id="city-name-form" method="POST">
-                        <input id="city-name" name="cityName" type="text" placeholder="City name" autocomplete="off" />
+                        <input id="city-name" name="cityName" type="text" placeholder="City name" autocomplete="off"
+                            required />
                         <input type="submit" value="Search" id="submit-button" /> or
                         <input type="submit" value="Random City" id="random-button" />
                     </form>

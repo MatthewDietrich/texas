@@ -6,6 +6,7 @@
     <title>Welcome to ${city.name} - Texas City Snapshot</title>
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.3.5/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="weather-icons.min.css" />
+    <link rel="stylesheet" type="text/css" href="weather-icons-wind.min.css" />
     <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 
@@ -40,6 +41,10 @@
                                 <table>
                                     <tbody>
                                         <tr>
+                                            <th scope="row">Description</th>
+                                            <td>${weather.current.description}</td>
+                                        </tr>
+                                        <tr>
                                             <th scope="row">Temperature</th>
                                             <td>${weather.current.temperature}&deg;F</td>
                                         </tr>
@@ -52,16 +57,17 @@
                                             <td>${weather.current.humidity}%</td>
                                         </tr>
                                         <tr>
-                                            <th scope="row">Description</th>
-                                            <td>${weather.current.description}</td>
-                                        </tr>
-                                        <tr>
                                             <th scope="row">Precipitation Chance</th>
                                             <td>${weather.current.precipitation}%</td>
                                         </tr>
                                         <tr>
                                             <th scope="row">Cloud Cover</th>
                                             <td>${weather.current.cloudCover}%</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Wind</th>
+                                            <td><i class="wi wi-wind from-${weather.current.windDirection}-deg"></i>
+                                                ${weather.current.windSpeed} mph</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -238,7 +244,13 @@
                     href="https://www.txdot.gov/discover/live-traffic-cameras.html">Texas
                     Department of
                     Transportation</a></small></div>
-        <div class="row"><a href="/">Back to search</a></div>
+        <div class="row">
+            <footer class="pt-4">
+                <p><a href="/">Back to search</a></p>
+                <p><small>Copyright 2025 <a href="https://lizard.fun">Squam</a> &bull; Made with &hearts; in
+                        Carrollton</small></p>
+            </footer>
+        </div>
     </div>
 
     <script src="/webjars/bootstrap/5.3.5/js/bootstrap.min.js"></script>

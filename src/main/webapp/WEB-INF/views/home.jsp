@@ -19,6 +19,7 @@
                         <input type="submit" value="Search" id="submit-button" /> or
                         <input type="submit" value="Random City" id="random-button" />
                     </form>
+                    <a href="/about">About this app</a>
                 </div>
             </div>
         </div>

@@ -60,6 +60,11 @@ public class HomeController {
         return "snapshot";
     }
 
+    @GetMapping("/about")
+    public String getAbout(ModelMap modelMap) {
+        return "about";
+    }
+
     @GetMapping("/citynames")
     public ResponseEntity<List<String>> getCityNames() {
         return ResponseEntity.ok(cityService.findAllNames());

@@ -238,6 +238,7 @@
                     href="https://www.txdot.gov/discover/live-traffic-cameras.html">Texas
                     Department of
                     Transportation</a></small></div>
+        <div class="row"><a href="/">Back to search</a></div>
     </div>
 
     <script src="/webjars/bootstrap/5.3.5/js/bootstrap.min.js"></script>

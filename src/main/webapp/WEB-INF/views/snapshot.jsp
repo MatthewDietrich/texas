@@ -33,17 +33,18 @@
                 <div class="row">
                     <div class="col-md-12 col-lg-6" id="weather">
                         <h3>Current</h3>
-                        <div class="row">
-                            <div class="col text-center" id="weather-icon">
-                                <i class="wi ${weather.current.iconClass}"></i>
+                        <div class="row align-items-center">
+                            <div class="col-md-12 col-lg-6 text-center" id="weather-icon">
+                                <div class="row">
+                                    <div class="col-6 col-lg-12"><i
+                                            class="wi ${weather.current.iconClass} display-2"></i></div>
+                                    <div class="col"><strong
+                                            class="display-6 fw-normal">${weather.current.description}</strong></div>
+                                </div>
                             </div>
-                            <div class="col">
+                            <div class="col-md-12 col-lg-6">
                                 <table>
                                     <tbody>
-                                        <tr>
-                                            <th scope="row">Description</th>
-                                            <td>${weather.current.description}</td>
-                                        </tr>
                                         <tr>
                                             <th scope="row">Temperature</th>
                                             <td>${weather.current.temperature}&deg;F</td>

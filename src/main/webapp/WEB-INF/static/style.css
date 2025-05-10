@@ -65,12 +65,6 @@ div#weather-icon {
     background-color: #eee8d5;
 }
 
-div#weather-icon i {
-    font-size: 6em;
-    font-weight: lighter;
-    padding-top: 0.25em;
-}
-
 #searching-indicator {
     font-size: 2em;
 }

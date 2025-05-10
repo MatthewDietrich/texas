@@ -60,10 +60,6 @@ a {
     display: none;
 }
 
-h1#city-name {
-    font-size: 6em;
-}
-
 div#weather-icon {
     color: #002b36;
     background-color: #eee8d5;
@@ -73,11 +69,6 @@ div#weather-icon i {
     font-size: 6em;
     font-weight: lighter;
     padding-top: 0.25em;
-}
-
-#county-name {
-    font-size: 2em;
-    text-align: center;
 }
 
 #searching-indicator {

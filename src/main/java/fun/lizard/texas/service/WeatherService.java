@@ -50,7 +50,7 @@ public class WeatherService {
     private static Current getCurrent(OpenMeteoResponse openMeteoResponse) {
         Current current = new Current();
         current.setDescription(WmoWeatherCode.fromCode(openMeteoResponse.getCurrent().getWeatherCode()).getDescription());
-        current.setWindSpeed(openMeteoResponse.getCurrent().getWindSpeed());
+        current.setWindSpeed(openMeteoResponse.getCurrent().getWindSpeed().intValue());
         current.setWindDirection(openMeteoResponse.getCurrent().getWindDirection());
         current.setPrecipitation(openMeteoResponse.getCurrent().getPrecipitationProbability());
         current.setCloudCover(openMeteoResponse.getCurrent().getCloudCover());

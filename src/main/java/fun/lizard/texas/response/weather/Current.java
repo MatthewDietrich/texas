@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 public class Current {
 
     private String description;
-    private Double windSpeed;
+    private Integer windSpeed;
     private Integer windDirection;
     private Integer precipitation;
     private Integer cloudCover;

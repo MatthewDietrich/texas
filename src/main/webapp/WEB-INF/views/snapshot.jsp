@@ -129,7 +129,9 @@
                                 <div class="img-container"><img src="data:image/png;base64,${snapshots[0].snippet}" />
                                 </div>
                             </div>
-                            <div class="row"><span class="icdId">${snapshots[0].icdId}</span></div>
+                            <div class="row"><span class="icdId">${snapshots[0].icdId}</span>
+                                <small>${snapshots[0].direction}</small>
+                            </div>
                         </div>
                     </div>
                     <div class="col-sm">
@@ -138,7 +140,9 @@
                                 <div class="img-container"><img src="data:image/png;base64,${snapshots[1].snippet}" />
                                 </div>
                             </div>
-                            <div class="row"><span class="icdId">${snapshots[1].icdId}</span></div>
+                            <div class="row"><span class="icdId">${snapshots[1].icdId}</span>
+                                <small>${snapshots[1].direction}</small>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -149,7 +153,9 @@
                                 <div class="img-container"><img src="data:image/png;base64,${snapshots[2].snippet}" />
                                 </div>
                             </div>
-                            <div class="row"><span class="icdId">${snapshots[2].icdId}</span></div>
+                            <div class="row"><strong class="icdId">${snapshots[2].icdId}</strong>
+                                <small>${snapshots[2].direction}</small>
+                            </div>
                         </div>
                     </div>
                     <div class="col-sm">
@@ -158,7 +164,9 @@
                                 <div class="img-container"><img src="data:image/png;base64,${snapshots[3].snippet}" />
                                 </div>
                             </div>
-                            <div class="row"><span class="icdId">${snapshots[3].icdId}</span></div>
+                            <div class="row"><strong class="icdId">${snapshots[3].icdId}</strong>
+                                <small>${snapshots[3].direction}</small>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -169,7 +177,9 @@
                                 <div class="img-container"><img src="data:image/png;base64,${snapshots[4].snippet}" />
                                 </div>
                             </div>
-                            <div class="row"><span class="icdId">${snapshots[4].icdId}</span></div>
+                            <div class="row"><strong class="icdId">${snapshots[4].icdId}</strong>
+                                <small>${snapshots[4].direction}</small>
+                            </div>
                         </div>
                     </div>
                     <div class="col-sm">
@@ -178,7 +188,9 @@
                                 <div class="img-container"><img src="data:image/png;base64,${snapshots[5].snippet}" />
                                 </div>
                             </div>
-                            <div class="row"><span class="icdId">${snapshots[5].icdId}</span></div>
+                            <div class="row"><strong class="icdId">${snapshots[5].icdId}</strong>
+                                <small>${snapshots[5].direction}</small>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -189,8 +201,10 @@
                                 <div class="img-container"><img src="data:image/png;base64,${snapshots[6].snippet}" />
                                 </div>
                             </div>
+                            <div class="row"><strong class="icdId">${snapshots[6].icdId}</strong>
+                                <small>${snapshots[6].direction}</small>
+                            </div>
                         </div>
-                        <div class="row"><span class="icdId">${snapshots[6].icdId}</span></div>
                     </div>
                     <div class="col-sm">
                         <div class="container">
@@ -198,7 +212,9 @@
                                 <div class="img-container"><img src="data:image/png;base64,${snapshots[7].snippet}" />
                                 </div>
                             </div>
-                            <div class="row"><span class="icdId">${snapshots[7].icdId}</span></div>
+                            <div class="row"><strong class="icdId">${snapshots[7].icdId}</strong>
+                                <small>${snapshots[7].direction}</small>
+                            </div>
                         </div>
                     </div>
                 </div>

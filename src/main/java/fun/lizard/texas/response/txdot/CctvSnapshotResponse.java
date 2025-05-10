@@ -12,4 +12,5 @@ public class CctvSnapshotResponse {
     private String icdId;
     private String snippet;
     private String timestampFormatted;
+    private String direction;
 }

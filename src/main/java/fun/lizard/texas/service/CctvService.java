@@ -27,9 +27,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
 @Slf4j
@@ -94,6 +92,8 @@ public class CctvService {
         Resource resource = new ClassPathResource("unavailable.png");
         String unavailableSnippet = Base64.getEncoder().encodeToString(resource.getContentAsByteArray());
         List<Camera> cameras = cameraRepository.findByLocationNear(point, new Distance(0.4), Limit.of(cameraLimit));
+        Map<String, String> cameraDirections = new HashMap<>();
+        cameras.forEach(camera -> cameraDirections.put(camera.getIcdId(), camera.getDirection()));
         List<CompletableFuture<CctvSnapshotResponse>> cctvFutures = cameras.stream().map(camera -> fetchSnapshotAsync(camera.getIcdId(), camera.getDistrictAbbreviation())).toList();
         return cctvFutures.stream().map(future -> {
             CctvSnapshotResponse cctvSnapshotResponse = future.join();
@@ -101,8 +101,17 @@ public class CctvService {
                 cctvSnapshotResponse = new CctvSnapshotResponse();
                 cctvSnapshotResponse.setIcdId("");
                 cctvSnapshotResponse.setSnippet(unavailableSnippet);
-            } else if (null == cctvSnapshotResponse.getSnippet() || cctvSnapshotResponse.getSnippet().isEmpty()) {
-                cctvSnapshotResponse.setSnippet(unavailableSnippet);
+                cctvSnapshotResponse.setDirection("");
+            } else {
+                String direction = cameraDirections.get(cctvSnapshotResponse.getIcdId());
+                if (null == direction) {
+                    cctvSnapshotResponse.setDirection("");
+                } else {
+                    cctvSnapshotResponse.setDirection("Facing " + direction);
+                }
+                if (null == cctvSnapshotResponse.getSnippet() || cctvSnapshotResponse.getSnippet().isEmpty()) {
+                    cctvSnapshotResponse.setSnippet(unavailableSnippet);
+                }
             }
             return cctvSnapshotResponse;
         }).toList();

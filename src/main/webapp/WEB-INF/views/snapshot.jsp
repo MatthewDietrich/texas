@@ -14,7 +14,7 @@
         <header>
             <div class="row">
                 <div class="col">
-                    <h1 id="city-name" class="display-1">${city.name}</h1>
+                    <h1 id="city-name" class="display-1 fw-normal">${city.name}</h1>
                     <small id="county-name">${city.countyName} County, Texas</small><br />
                     <small id="coordinates">${city.latitude}&deg;N, ${city.longitude}&deg;W</small>
                 </div>

@@ -12,8 +12,8 @@
 <body>
     <div id="main" class="container">
         <header>
-            <div class="row">
-                <div class="col">
+            <div class="row align-items-center">
+                <div class="col flex-column justify-content-center">
                     <h1 id="city-name" class="display-1 fw-normal">${city.name}</h1>
                     <small id="county-name">${city.countyName} County, Texas</small><br />
                     <small id="coordinates">${city.latitude}&deg;N, ${city.longitude}&deg;W</small>

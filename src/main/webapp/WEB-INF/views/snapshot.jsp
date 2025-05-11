@@ -39,7 +39,7 @@
                                     <div class="col-6 col-lg-12"><i
                                             class="wi ${weather.current.iconClass} display-2"></i></div>
                                     <div class="col"><strong
-                                            class="display-6 fw-normal">${weather.current.description}</strong></div>
+                                            class="h5 fw-normal">${weather.current.description}</strong></div>
                                 </div>
                             </div>
                             <div class="col-md-12 col-lg-6">

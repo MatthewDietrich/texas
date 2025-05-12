@@ -16,8 +16,8 @@
                 <p><strong>Texas City Snapshot</strong> is a tool to find weather data and road camera images from
                     cities around Texas.</p>
                 <h2>Weather</h2>
-                <p>Weather data is provided by <a href="https://open-meteo.com/">Open-Meteo</a> and is updated every 15
-                    minutes.</p>
+                <p>Weather data is provided by <a href="https://open-meteo.com/">Open-Meteo</a> and is updated every
+                    five minutes.</p>
                 <h2>Road Camera Snapshots</h2>
                 <p>Images are sourced from road cameras owned by the <a
                         href="https://www.txdot.gov/discover/live-traffic-cameras.html">Texas

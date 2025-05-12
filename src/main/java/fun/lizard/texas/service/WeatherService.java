@@ -3,7 +3,6 @@ package fun.lizard.texas.service;
 import fun.lizard.texas.constant.WmoWeatherCode;
 import fun.lizard.texas.document.City;
 import fun.lizard.texas.feign.OpenMeteoFeignClient;
-import fun.lizard.texas.repository.CityRepository;
 import fun.lizard.texas.response.weather.OpenMeteoResponse;
 import fun.lizard.texas.response.weather.WeatherResponse;
 import fun.lizard.texas.response.weather.Current;
@@ -24,14 +23,12 @@ import java.util.Locale;
 public class WeatherService {
 
     @Autowired
-    CityRepository cityRepository;
-
-    @Autowired
     OpenMeteoFeignClient openMeteoFeignClient;
 
     public WeatherResponse getCurrentWeatherByCity(City city) {
         double latitude = Double.parseDouble(city.getProperties().getIntptlat());
         double longitude = Double.parseDouble(city.getProperties().getIntptlon());
+        log.info("Retrieving weather for city {}", city.getProperties().getName());
         OpenMeteoResponse openMeteoResponse = openMeteoFeignClient.getCurrentWeather(latitude, longitude);
         Current current = getCurrent(openMeteoResponse);
         List<Forecast> forecasts = new ArrayList<>();
@@ -74,9 +71,9 @@ public class WeatherService {
         return forecast;
     }
 
-    @Scheduled(fixedRate = 900000)
+    @Scheduled(fixedRate = 300000)
     @CacheEvict("forecasts")
     public void emptyForecastsCache() {
-        log.info("Emptying forecasts cache");
+        log.info("Emptying forecast cache");
     }
 }

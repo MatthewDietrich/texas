@@ -48,20 +48,27 @@ public class CityService {
 
     public City findOneByName(String name) {
         try {
+            log.info("Searching for city: \"{}\"", name);
             return cityRepository.findAllByName(name).get(0);
         } catch (IndexOutOfBoundsException e) {
+            log.info("City not found: \"{}\"", name);
             throw new CityNotFoundException(name);
         }
     }
 
     public SimpleCity findCountyAndSimplify(City city) {
+        String cityName = city.getProperties().getName();
         SimpleCity simpleCity = new SimpleCity();
-        simpleCity.setName(city.getProperties().getName());
+        simpleCity.setName(cityName);
         double latitude = Double.parseDouble(city.getProperties().getIntptlat());
         double longitude = Double.parseDouble(city.getProperties().getIntptlon());
         List<County> counties = countyRepository.findByGeometryNear(new Point(longitude, latitude), new Distance(distanceToCheck), Limit.of(1));
         if (!counties.isEmpty()) {
-            simpleCity.setCountyName(counties.get(0).getProperties().getName());
+            String countyName = counties.get(0).getProperties().getName();
+            simpleCity.setCountyName(countyName);
+            log.info("Found county \"{}\" for city \"{}\"", countyName, cityName);
+        } else {
+            log.warn("Failed to resolve county for city \"{}\"", city);
         }
         simpleCity.setLatitude(latitude);
         simpleCity.setLongitude(longitude);

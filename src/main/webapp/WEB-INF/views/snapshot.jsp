@@ -36,7 +36,7 @@
                         <div class="row align-items-center">
                             <div class="col-md-12 col-lg-6 text-center" id="weather-icon">
                                 <div class="row">
-                                    <div class="col-6 col-lg-12"><i
+                                    <div class="col-6 col-lg-12 pb-2"><i
                                             class="wi ${weather.current.iconClass} display-2"></i></div>
                                     <div class="col"><strong
                                             class="h5 fw-normal">${weather.current.description}</strong></div>

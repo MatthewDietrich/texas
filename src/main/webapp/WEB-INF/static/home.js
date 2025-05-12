@@ -19,6 +19,13 @@ form.addEventListener("submit", (event) => {
     startSearchingAnimation();
 });
 
+window.addEventListener('pageshow', function (event) {
+    if (event.persisted) {
+        clearInterval(animationInterval);
+        searchIndicatorSpan.textContent = "";
+    }
+});
+
 function getRandomElement(array) {
     const randomIndex = Math.floor(Math.random() * array.length);
     return array[randomIndex];

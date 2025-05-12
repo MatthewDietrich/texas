@@ -4,17 +4,16 @@ import fun.lizard.texas.document.City;
 import fun.lizard.texas.exception.CityNotFoundException;
 import fun.lizard.texas.response.SimpleCity;
 import fun.lizard.texas.response.txdot.CctvSnapshotResponse;
-import fun.lizard.texas.response.weather.Current;
 import fun.lizard.texas.response.weather.WeatherResponse;
 import fun.lizard.texas.service.CctvService;
 import fun.lizard.texas.service.CityService;
 import fun.lizard.texas.service.WeatherService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -23,6 +22,7 @@ import java.util.List;
 
 @Controller
 @SessionAttributes({"cityName"})
+@Slf4j
 public class HomeController {
 
     @Autowired
@@ -39,13 +39,15 @@ public class HomeController {
         return "home";
     }
 
-    @PostMapping("/")
-    public String getSnapshot(ModelMap modelMap, @RequestParam String cityName) throws IOException {
-        String cityNameStripped = cityName.strip();
+    @GetMapping("/city")
+    public String getSnapshot(ModelMap modelMap, @RequestParam String name) throws IOException {
+        log.info("City search called with input: \"{}\"", name);
+        String cityNameStripped = name.strip();
         City city;
         try {
             city = cityService.findOneByName(cityNameStripped);
         } catch (CityNotFoundException e) {
+            log.info("Result not found for city search with input: \"{}\"", name);
             modelMap.put("cityName", cityNameStripped);
             return "notfound";
         }
@@ -57,6 +59,7 @@ public class HomeController {
         modelMap.put("weather", weather);
         modelMap.put("city", simpleCity);
         modelMap.put("cityMap", cityMap);
+        log.info("Result returned for city search with input: \"{}\"", name);
         return "snapshot";
     }
 

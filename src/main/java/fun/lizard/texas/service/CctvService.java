@@ -80,21 +80,25 @@ public class CctvService {
     }
 
     public List<CctvSnapshotResponse> getSnapshotsByCity(City city) throws IOException {
+        String cityName = city.getProperties().getName();
         double latitude = Double.parseDouble(city.getProperties().getIntptlat());
         double longitude = Double.parseDouble(city.getProperties().getIntptlon());
         Point point = new Point(longitude, latitude);
-        District district = districtRepository.findByGeometryNear(point, new Distance(distanceToCheck)).get(0);
-        if (null == district) {
-            log.info("District not found for city: {}", city.getProperties().getName());
+        List<District> districts = districtRepository.findByGeometryNear(point, new Distance(distanceToCheck));
+        if (districts.isEmpty()) {
+            log.info("District not found for city: {}", cityName);
             return null;
         }
-        updateCamerasByDistrictId(district.getProperties().getDIST_ABRVN());
+        District district = districts.get(0);
+        String districtAbbreviation = district.getProperties().getDIST_ABRVN();
+        updateCamerasByDistrictId(districtAbbreviation);
         Resource resource = new ClassPathResource("unavailable.png");
         String unavailableSnippet = Base64.getEncoder().encodeToString(resource.getContentAsByteArray());
         List<Camera> cameras = cameraRepository.findByLocationNear(point, new Distance(0.4), Limit.of(cameraLimit));
         Map<String, String> cameraDirections = new HashMap<>();
         cameras.forEach(camera -> cameraDirections.put(camera.getIcdId(), camera.getDirection()));
         List<CompletableFuture<CctvSnapshotResponse>> cctvFutures = cameras.stream().map(camera -> fetchSnapshotAsync(camera.getIcdId(), camera.getDistrictAbbreviation())).toList();
+        log.info("Retrieving camera images for city {} (district {})", cityName, districtAbbreviation);
         return cctvFutures.stream().map(future -> {
             CctvSnapshotResponse cctvSnapshotResponse = future.join();
             if (null == cctvSnapshotResponse) {

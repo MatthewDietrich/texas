@@ -34,12 +34,13 @@
                     <div class="col-md-12 col-lg-6" id="weather">
                         <h3>Current</h3>
                         <div class="row align-items-center">
-                            <div class="col-md-12 col-lg-6 text-center" id="weather-icon">
+                            <div class="col-md-12 col-lg-6 text-lg-center" id="weather-icon">
                                 <div class="row">
-                                    <div class="col-6 col-lg-12 pb-2"><i
+                                    <div class="col-2 col-md-2 col-lg-12 pb-2"><i
                                             class="wi ${weather.current.iconClass} display-2"></i></div>
-                                    <div class="col"><strong
-                                            class="h5 fw-normal">${weather.current.description}</strong></div>
+                                    <div class="col pt-2 pt-lg-0"><strong
+                                            class="h5 fw-normal text-md-left">${weather.current.description}</strong>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-12 col-lg-6">

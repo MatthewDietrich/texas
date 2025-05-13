@@ -17,6 +17,7 @@ function startSearchingAnimation() {
 
 form.addEventListener("submit", (event) => {
     startSearchingAnimation();
+    $("#city-name").autocomplete("close")
 });
 
 window.addEventListener('pageshow', function (event) {

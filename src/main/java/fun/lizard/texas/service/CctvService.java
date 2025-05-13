@@ -56,7 +56,6 @@ public class CctvService {
     Integer cameraLimit;
 
     public void updateCamerasByDistrictId(String districtId) {
-        List<Camera> cameras = new ArrayList<>();
         CctvStatusResponse cctvStatusResponse = txdotFeignClient.getCctvStatusListByDistrict(districtId);
         cctvStatusResponse.getRoadwayCctvStatuses().forEach((roadwayName, cctvStatuses) -> cctvStatuses.forEach((roadwayCctvStatus -> {
             Camera camera = new Camera();
@@ -108,12 +107,14 @@ public class CctvService {
                 cctvSnapshotResponse.setDirection("");
             } else {
                 String direction = cameraDirections.get(cctvSnapshotResponse.getIcdId());
+                String snippet = cctvSnapshotResponse.getSnippet();
+                String objectUnavailableBase64 = "PGJvZHk+PGgxPkhUVFAvMS4wIDQwNCBPYmplY3Qgbm90IGF2YWlsYWJsZSBvbiB0aGlzIFdlYnNlcnZlcjwvaDE+PC9ib2R5Pg==";
                 if (null == direction) {
                     cctvSnapshotResponse.setDirection("");
                 } else {
                     cctvSnapshotResponse.setDirection("Facing " + direction);
                 }
-                if (null == cctvSnapshotResponse.getSnippet() || cctvSnapshotResponse.getSnippet().isEmpty()) {
+                if (null == snippet|| snippet.isEmpty() || snippet.equals(objectUnavailableBase64)) {
                     cctvSnapshotResponse.setSnippet(unavailableSnippet);
                 }
             }

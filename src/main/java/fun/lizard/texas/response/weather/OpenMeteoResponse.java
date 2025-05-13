@@ -37,6 +37,8 @@ public class OpenMeteoResponse {
         @JsonProperty("cloud_cover")
         private Integer cloudCover;
         private Integer rain;
+        @JsonProperty("is_day")
+        private Integer isDay;
     }
 
     @Data

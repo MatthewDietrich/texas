@@ -13,6 +13,8 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,17 +47,23 @@ public class WeatherService {
     }
 
     private static Current getCurrent(OpenMeteoResponse openMeteoResponse) {
+        OpenMeteoResponse.Current openMeteoCurrent = openMeteoResponse.getCurrent();
         Current current = new Current();
-        current.setDescription(WmoWeatherCode.fromCode(openMeteoResponse.getCurrent().getWeatherCode()).getDescription());
-        current.setWindSpeed(openMeteoResponse.getCurrent().getWindSpeed().intValue());
-        current.setWindDirection(openMeteoResponse.getCurrent().getWindDirection());
-        current.setPrecipitation(openMeteoResponse.getCurrent().getPrecipitationProbability());
-        current.setCloudCover(openMeteoResponse.getCurrent().getCloudCover());
-        current.setRain(openMeteoResponse.getCurrent().getRain());
-        current.setHumidity(openMeteoResponse.getCurrent().getRelativeHumidity());
-        current.setTemperature(openMeteoResponse.getCurrent().getTemperature().intValue());
-        current.setApparentTemperature(openMeteoResponse.getCurrent().getApparentTemperature().intValue());
-        current.setIconClass(WmoWeatherCode.fromCode(openMeteoResponse.getCurrent().getWeatherCode()).getIconClass());
+        current.setDescription(WmoWeatherCode.fromCode(openMeteoCurrent.getWeatherCode()).getDescription());
+        current.setWindSpeed(openMeteoCurrent.getWindSpeed().intValue());
+        current.setWindDirection(openMeteoCurrent.getWindDirection());
+        current.setPrecipitation(openMeteoCurrent.getPrecipitationProbability());
+        current.setCloudCover(openMeteoCurrent.getCloudCover());
+        current.setRain(openMeteoCurrent.getRain());
+        current.setHumidity(openMeteoCurrent.getRelativeHumidity());
+        current.setTemperature(openMeteoCurrent.getTemperature().intValue());
+        current.setApparentTemperature(openMeteoCurrent.getApparentTemperature().intValue());
+        String iconClass = WmoWeatherCode.fromCode(openMeteoCurrent.getWeatherCode()).getIconClass();
+        if (openMeteoCurrent.getIsDay().equals(0)) {
+            iconClass = iconClass.replace("day", "night");
+            iconClass = iconClass.replace("sunny", "clear");
+        }
+        current.setIconClass(iconClass);
         return current;
     }
 

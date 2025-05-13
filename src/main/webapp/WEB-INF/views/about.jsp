@@ -22,7 +22,7 @@
                 <p>Images are sourced from road cameras owned by the <a
                         href="https://www.txdot.gov/discover/live-traffic-cameras.html">Texas
                         Department of
-                        Transportation</a> and are updated every five minutes</p>
+                        Transportation</a> and are updated every five minutes.</p>
             </div>
         </div>
         <footer class="pt-4">

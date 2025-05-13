@@ -34,5 +34,5 @@ app:
 
 spring.mvc.view.prefix: /WEB-INF/views
 spring.mvc.view.suffix: .jsp
-logging.file.name: /home/ubuntu/logs/texas.log
+logging.file.name: /var/log/texas/texas.log
 server.address: 0.0.0.0

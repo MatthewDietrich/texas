@@ -14,7 +14,8 @@ input#submit-button {
 
 div#weather,
 div#snapshots,
-div#forecast {
+div#forecast,
+div#airports {
     background: #eee8d5;
     color: #002b36;
     padding: 1.5em;

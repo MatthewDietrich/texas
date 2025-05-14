@@ -247,6 +247,23 @@
                     href="https://www.txdot.gov/discover/live-traffic-cameras.html">Texas
                     Department of
                     Transportation</a></small></div>
+        <br />
+        <div class="row">
+            <h2>Nearby Airports</h2>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="container" id="airports">
+                    <ul>
+                        <li>${airports[0].name} (${airports[0].code}) - ${airports[0].cityName}</li>
+                        <li>${airports[1].name} (${airports[1].code}) - ${airports[1].cityName}</li>
+                        <li>${airports[2].name} (${airports[2].code}) - ${airports[2].cityName}</li>
+                        <li>${airports[3].name} (${airports[3].code}) - ${airports[3].cityName}</li>
+                        <li>${airports[4].name} (${airports[4].code}) - ${airports[4].cityName}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <footer class="pt-4">
                 <p><a href="/">Back to search</a></p>

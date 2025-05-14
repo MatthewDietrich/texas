@@ -2,6 +2,7 @@ package fun.lizard.texas.controller;
 
 import fun.lizard.texas.document.City;
 import fun.lizard.texas.exception.CityNotFoundException;
+import fun.lizard.texas.response.SimpleAirport;
 import fun.lizard.texas.response.SimpleCity;
 import fun.lizard.texas.response.txdot.CctvSnapshotResponse;
 import fun.lizard.texas.response.WeatherResponse;
@@ -55,10 +56,12 @@ public class HomeController {
         WeatherResponse weather = weatherService.getCurrentWeatherByCity(city);
         SimpleCity simpleCity = cityService.findCountyAndSimplify(city);
         String cityMap = cityService.plotCity(city);
+        List<SimpleAirport> simpleAirports = cityService.findNearbyAirports(city);
         modelMap.put("snapshots", snapshots);
         modelMap.put("weather", weather);
         modelMap.put("city", simpleCity);
         modelMap.put("cityMap", cityMap);
+        modelMap.put("airports", simpleAirports);
         log.info("Result returned for city search with input: \"{}\"", name);
         return "snapshot";
     }

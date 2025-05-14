@@ -1,7 +1,7 @@
 package fun.lizard.texas.repository;
 
 import fun.lizard.texas.document.City;
-import org.springframework.data.geo.Distance;
+import org.springframework.data.domain.Limit;
 import org.springframework.data.geo.Point;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
@@ -18,5 +18,5 @@ public interface CityRepository extends MongoRepository<City, String> {
     @Query(value = "{ 'properties.name': {$regex : '^?0$', $options: 'i'}}")
     List<City> findAllByName(String name);
 
-    List<City> findByGeometryNear(Point point, Distance distance);
+    List<City> findByGeometryNear(Point point, Limit limit);
 }

@@ -1,10 +1,13 @@
 package fun.lizard.texas.service;
 
+import fun.lizard.texas.document.Airport;
 import fun.lizard.texas.document.City;
 import fun.lizard.texas.document.County;
 import fun.lizard.texas.exception.CityNotFoundException;
+import fun.lizard.texas.repository.AirportRepository;
 import fun.lizard.texas.repository.CityRepository;
 import fun.lizard.texas.repository.CountyRepository;
+import fun.lizard.texas.response.SimpleAirport;
 import fun.lizard.texas.response.SimpleCity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +40,9 @@ public class CityService {
 
     @Autowired
     CountyRepository countyRepository;
+
+    @Autowired
+    AirportRepository airportRepository;
 
     @Value("${app.check-distance}")
     Double distanceToCheck;
@@ -107,5 +113,20 @@ public class CityService {
         String result = Base64.getEncoder().encodeToString(outputStream.toByteArray());
         outputStream.close();
         return result;
+    }
+
+    public List<SimpleAirport> findNearbyAirports(City city) {
+        double latitude = Double.parseDouble(city.getProperties().getIntptlat());
+        double longitude = Double.parseDouble(city.getProperties().getIntptlon());
+        Point point = new Point(longitude, latitude);
+        List<Airport> airports = airportRepository.findByGeometryNear(point, Limit.of(5));
+        return airports.stream().map(airport -> {
+            SimpleAirport simpleAirport = new SimpleAirport();
+            simpleAirport.setCode(airport.getProperties().getFAA_CD());
+            simpleAirport.setName(airport.getProperties().getARPRT_NM());
+            City airportCity = cityRepository.findByGeometryNear(airport.getGeometry(), Limit.of(1)).get(0);
+            simpleAirport.setCityName(airportCity.getProperties().getName());
+            return simpleAirport;
+        }).toList();
     }
 }

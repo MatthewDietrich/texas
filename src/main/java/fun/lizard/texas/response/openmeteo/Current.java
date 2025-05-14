@@ -1,4 +1,4 @@
-package fun.lizard.texas.response.weather;
+package fun.lizard.texas.response.openmeteo;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

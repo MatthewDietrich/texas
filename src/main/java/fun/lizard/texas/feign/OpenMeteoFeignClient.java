@@ -1,6 +1,6 @@
 package fun.lizard.texas.feign;
 
-import fun.lizard.texas.response.weather.OpenMeteoResponse;
+import fun.lizard.texas.response.openmeteo.OpenMeteoResponse;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;

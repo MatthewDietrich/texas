@@ -1,10 +1,11 @@
-package fun.lizard.texas.response.weather;
+package fun.lizard.texas.response.openmeteo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -15,6 +16,7 @@ public class OpenMeteoResponse {
     private Double longitude;
     private Current current;
     private Daily daily;
+    private Hourly hourly;
 
     @Data
     @NoArgsConstructor
@@ -53,5 +55,13 @@ public class OpenMeteoResponse {
         List<Double> minTemperature;
         @JsonProperty("precipitation_probability_max")
         List<Integer> precipitationChance;
+    }
+
+    @Data
+    @NoArgsConstructor
+    public static class Hourly {
+        List<LocalDateTime> time;
+        @JsonProperty("weather_code")
+        List<Integer> weatherCode;
     }
 }

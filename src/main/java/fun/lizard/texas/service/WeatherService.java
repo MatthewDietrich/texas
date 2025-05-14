@@ -3,22 +3,20 @@ package fun.lizard.texas.service;
 import fun.lizard.texas.constant.WmoWeatherCode;
 import fun.lizard.texas.document.City;
 import fun.lizard.texas.feign.OpenMeteoFeignClient;
-import fun.lizard.texas.response.weather.OpenMeteoResponse;
-import fun.lizard.texas.response.weather.WeatherResponse;
-import fun.lizard.texas.response.weather.Current;
-import fun.lizard.texas.response.weather.Forecast;
+import fun.lizard.texas.response.openmeteo.OpenMeteoResponse;
+import fun.lizard.texas.response.WeatherResponse;
+import fun.lizard.texas.response.openmeteo.Current;
+import fun.lizard.texas.response.openmeteo.Forecast;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.TextStyle;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -32,12 +30,20 @@ public class WeatherService {
         double longitude = Double.parseDouble(city.getProperties().getIntptlon());
         log.info("Retrieving weather for city {}", city.getProperties().getName());
         OpenMeteoResponse openMeteoResponse = openMeteoFeignClient.getCurrentWeather(latitude, longitude);
+        Map<LocalDate, WmoWeatherCode> dailyCodes = computeDailyCodes(openMeteoResponse.getHourly());
         Current current = getCurrent(openMeteoResponse);
         List<Forecast> forecasts = new ArrayList<>();
         for (int i = 0; i < openMeteoResponse.getDaily().getWeatherCode().size(); i++) {
             Forecast forecast = getForecast(openMeteoResponse, i);
             forecasts.add(forecast);
         }
+        forecasts.forEach(forecast -> {
+            WmoWeatherCode weatherCode = dailyCodes.getOrDefault(forecast.getDate(), WmoWeatherCode.UNKNOWN);
+            if (weatherCode != WmoWeatherCode.UNKNOWN) {
+                forecast.setIconClass(weatherCode.getIconClass());
+                forecast.setDescription(weatherCode.getDescription());
+            }
+        });
         WeatherResponse weatherResponse = new WeatherResponse();
         weatherResponse.setLatitude(latitude);
         weatherResponse.setLongitude(longitude);
@@ -69,14 +75,41 @@ public class WeatherService {
 
     private static Forecast getForecast(OpenMeteoResponse openMeteoResponse, int i) {
         Forecast forecast = new Forecast();
-        forecast.setDate(openMeteoResponse.getDaily().getTime().get(i));
-        forecast.setIconClass(WmoWeatherCode.fromCode(openMeteoResponse.getDaily().getWeatherCode().get(i)).getIconClass());
-        forecast.setHighTemperature(openMeteoResponse.getDaily().getMaxTemperature().get(i).intValue());
-        forecast.setLowTemperature(openMeteoResponse.getDaily().getMinTemperature().get(i).intValue());
-        forecast.setPrecipitationChance(openMeteoResponse.getDaily().getPrecipitationChance().get(i));
-        forecast.setDescription(WmoWeatherCode.fromCode(openMeteoResponse.getDaily().getWeatherCode().get(i)).getDescription());
-        forecast.setShortWeekday(openMeteoResponse.getDaily().getTime().get(i).getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.US));
+        OpenMeteoResponse.Daily daily = openMeteoResponse.getDaily();
+        forecast.setDate(daily.getTime().get(i));
+        forecast.setHighTemperature(daily.getMaxTemperature().get(i).intValue());
+        forecast.setLowTemperature(daily.getMinTemperature().get(i).intValue());
+        forecast.setPrecipitationChance(daily.getPrecipitationChance().get(i));
+        forecast.setShortWeekday(daily.getTime().get(i).getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.US));
+        forecast.setDescription(WmoWeatherCode.fromCode(daily.getWeatherCode().get(i)).getDescription());
+        forecast.setIconClass(WmoWeatherCode.fromCode(daily.getWeatherCode().get(i)).getIconClass());
         return forecast;
+    }
+
+    private static Map<LocalDate, WmoWeatherCode> computeDailyCodes(OpenMeteoResponse.Hourly hourly) {
+        List<LocalDateTime> times = hourly.getTime();
+        List<Integer> codes = hourly.getWeatherCode();
+        Map<LocalDate, List<Integer>> dailyCodeLists = new HashMap<>();
+        Map<LocalDate, WmoWeatherCode> dailyCodes = new HashMap<>();
+        for (int i = 0; i < times.size(); i++) {
+            LocalDate date = times.get(i).toLocalDate();
+            dailyCodeLists.computeIfAbsent(date, k -> new ArrayList<>()).add(codes.get(i));
+        }
+        for (Map.Entry<LocalDate, List<Integer>> codeList : dailyCodeLists.entrySet()) {
+            Map<Integer, Integer> codeFrequency = new HashMap<>();
+            int max = 0;
+            int maxCode = 0;
+            for (Integer code : codeList.getValue()) {
+                codeFrequency.put(code, codeFrequency.getOrDefault(code, 0) + 1);
+                int currentFrequency = codeFrequency.get(code);
+                if (currentFrequency > max) {
+                    max = currentFrequency;
+                    maxCode = code;
+                }
+            }
+            dailyCodes.put(codeList.getKey(), WmoWeatherCode.fromCode(maxCode));
+        }
+        return dailyCodes;
     }
 
     @Scheduled(fixedRate = 300000)

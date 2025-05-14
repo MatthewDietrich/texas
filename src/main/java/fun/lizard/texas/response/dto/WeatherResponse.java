@@ -1,7 +1,5 @@
-package fun.lizard.texas.response;
+package fun.lizard.texas.response.dto;
 
-import fun.lizard.texas.response.openmeteo.Current;
-import fun.lizard.texas.response.openmeteo.Forecast;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

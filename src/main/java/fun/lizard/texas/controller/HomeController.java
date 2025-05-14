@@ -2,10 +2,10 @@ package fun.lizard.texas.controller;
 
 import fun.lizard.texas.document.City;
 import fun.lizard.texas.exception.CityNotFoundException;
-import fun.lizard.texas.response.SimpleAirport;
-import fun.lizard.texas.response.SimpleCity;
+import fun.lizard.texas.response.dto.SimpleAirport;
+import fun.lizard.texas.response.dto.SimpleCity;
 import fun.lizard.texas.response.txdot.CctvSnapshotResponse;
-import fun.lizard.texas.response.WeatherResponse;
+import fun.lizard.texas.response.dto.WeatherResponse;
 import fun.lizard.texas.service.CctvService;
 import fun.lizard.texas.service.CityService;
 import fun.lizard.texas.service.WeatherService;

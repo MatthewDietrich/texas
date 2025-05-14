@@ -1,4 +1,4 @@
-package fun.lizard.texas.response;
+package fun.lizard.texas.response.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class WeatherResponse {
+public class WeatherForecastResponse {
 
     private Double latitude;
     private Double longitude;

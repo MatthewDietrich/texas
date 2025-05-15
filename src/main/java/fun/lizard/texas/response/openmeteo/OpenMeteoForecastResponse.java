@@ -10,7 +10,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class OpenMeteoResponse {
+public class OpenMeteoForecastResponse {
 
     private Double latitude;
     private Double longitude;

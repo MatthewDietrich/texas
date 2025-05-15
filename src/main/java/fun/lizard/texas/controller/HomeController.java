@@ -4,8 +4,9 @@ import fun.lizard.texas.document.City;
 import fun.lizard.texas.exception.CityNotFoundException;
 import fun.lizard.texas.response.dto.SimpleAirport;
 import fun.lizard.texas.response.dto.SimpleCity;
+import fun.lizard.texas.response.dto.WeatherHistoricalResponse;
 import fun.lizard.texas.response.txdot.CctvSnapshotResponse;
-import fun.lizard.texas.response.dto.WeatherResponse;
+import fun.lizard.texas.response.dto.WeatherForecastResponse;
 import fun.lizard.texas.service.CctvService;
 import fun.lizard.texas.service.CityService;
 import fun.lizard.texas.service.WeatherService;
@@ -19,7 +20,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 @SessionAttributes({"cityName"})
@@ -53,15 +57,19 @@ public class HomeController {
             return "notfound";
         }
         List<CctvSnapshotResponse> snapshots = cctvService.getSnapshotsByCity(city);
-        WeatherResponse weather = weatherService.getCurrentWeatherByCity(city);
+        WeatherForecastResponse weather = weatherService.getForecastByCity(city);
+        List<WeatherHistoricalResponse> weatherHistory = weatherService.getHistoryByCity(city);
         SimpleCity simpleCity = cityService.findCountyAndSimplify(city);
         String cityMap = cityService.plotCity(city);
         List<SimpleAirport> simpleAirports = cityService.findNearbyAirports(city);
+        String dateString = LocalDate.now().format(DateTimeFormatter.ofPattern("MMMM dd", Locale.US));
         modelMap.put("snapshots", snapshots);
         modelMap.put("weather", weather);
         modelMap.put("city", simpleCity);
         modelMap.put("cityMap", cityMap);
         modelMap.put("airports", simpleAirports);
+        modelMap.put("weatherHistory", weatherHistory);
+        modelMap.put("dateString", dateString);
         log.info("Result returned for city search with input: \"{}\"", name);
         return "snapshot";
     }

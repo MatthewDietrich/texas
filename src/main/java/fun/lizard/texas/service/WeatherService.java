@@ -2,11 +2,14 @@ package fun.lizard.texas.service;
 
 import fun.lizard.texas.constant.WmoWeatherCode;
 import fun.lizard.texas.document.City;
-import fun.lizard.texas.feign.OpenMeteoFeignClient;
-import fun.lizard.texas.response.openmeteo.OpenMeteoResponse;
-import fun.lizard.texas.response.dto.WeatherResponse;
+import fun.lizard.texas.feign.OpenMeteoForecastFeignClient;
+import fun.lizard.texas.feign.OpenMeteoHistoricalFeignClient;
+import fun.lizard.texas.response.dto.WeatherHistoricalResponse;
+import fun.lizard.texas.response.openmeteo.OpenMeteoForecastResponse;
+import fun.lizard.texas.response.dto.WeatherForecastResponse;
 import fun.lizard.texas.response.dto.Current;
 import fun.lizard.texas.response.dto.Forecast;
+import fun.lizard.texas.response.openmeteo.OpenMeteoHistoricalResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -15,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.*;
 
@@ -23,18 +27,21 @@ import java.util.*;
 public class WeatherService {
 
     @Autowired
-    OpenMeteoFeignClient openMeteoFeignClient;
+    OpenMeteoForecastFeignClient openMeteoForecastFeignClient;
 
-    public WeatherResponse getCurrentWeatherByCity(City city) {
+    @Autowired
+    OpenMeteoHistoricalFeignClient openMeteoHistoricalFeignClient;
+
+    public WeatherForecastResponse getForecastByCity(City city) {
         double latitude = Double.parseDouble(city.getProperties().getIntptlat());
         double longitude = Double.parseDouble(city.getProperties().getIntptlon());
-        log.info("Retrieving weather for city {}", city.getProperties().getName());
-        OpenMeteoResponse openMeteoResponse = openMeteoFeignClient.getCurrentWeather(latitude, longitude);
-        Map<LocalDate, WmoWeatherCode> dailyCodes = computeDailyCodes(openMeteoResponse.getHourly());
-        Current current = getCurrent(openMeteoResponse);
+        log.info("Retrieving weather forecast for city {}", city.getProperties().getName());
+        OpenMeteoForecastResponse openMeteoForecastResponse = openMeteoForecastFeignClient.getCurrentWeather(latitude, longitude);
+        Map<LocalDate, WmoWeatherCode> dailyCodes = computeDailyCodes(openMeteoForecastResponse.getHourly());
+        Current current = getCurrent(openMeteoForecastResponse);
         List<Forecast> forecasts = new ArrayList<>();
-        for (int i = 0; i < openMeteoResponse.getDaily().getWeatherCode().size(); i++) {
-            Forecast forecast = getForecast(openMeteoResponse, i);
+        for (int i = 0; i < openMeteoForecastResponse.getDaily().getWeatherCode().size(); i++) {
+            Forecast forecast = getForecast(openMeteoForecastResponse, i);
             forecasts.add(forecast);
         }
         forecasts.forEach(forecast -> {
@@ -44,16 +51,16 @@ public class WeatherService {
                 forecast.setDescription(weatherCode.getDescription());
             }
         });
-        WeatherResponse weatherResponse = new WeatherResponse();
-        weatherResponse.setLatitude(latitude);
-        weatherResponse.setLongitude(longitude);
-        weatherResponse.setForecasts(forecasts);
-        weatherResponse.setCurrent(current);
-        return weatherResponse;
+        WeatherForecastResponse weatherForecastResponse = new WeatherForecastResponse();
+        weatherForecastResponse.setLatitude(latitude);
+        weatherForecastResponse.setLongitude(longitude);
+        weatherForecastResponse.setForecasts(forecasts);
+        weatherForecastResponse.setCurrent(current);
+        return weatherForecastResponse;
     }
 
-    private static Current getCurrent(OpenMeteoResponse openMeteoResponse) {
-        OpenMeteoResponse.Current openMeteoCurrent = openMeteoResponse.getCurrent();
+    private static Current getCurrent(OpenMeteoForecastResponse openMeteoForecastResponse) {
+        OpenMeteoForecastResponse.Current openMeteoCurrent = openMeteoForecastResponse.getCurrent();
         Current current = new Current();
         current.setDescription(WmoWeatherCode.fromCode(openMeteoCurrent.getWeatherCode()).getDescription());
         current.setWindSpeed(openMeteoCurrent.getWindSpeed().intValue());
@@ -73,9 +80,9 @@ public class WeatherService {
         return current;
     }
 
-    private static Forecast getForecast(OpenMeteoResponse openMeteoResponse, int i) {
+    private static Forecast getForecast(OpenMeteoForecastResponse openMeteoForecastResponse, int i) {
         Forecast forecast = new Forecast();
-        OpenMeteoResponse.Daily daily = openMeteoResponse.getDaily();
+        OpenMeteoForecastResponse.Daily daily = openMeteoForecastResponse.getDaily();
         forecast.setDate(daily.getTime().get(i));
         forecast.setHighTemperature(daily.getMaxTemperature().get(i).intValue());
         forecast.setLowTemperature(daily.getMinTemperature().get(i).intValue());
@@ -86,7 +93,7 @@ public class WeatherService {
         return forecast;
     }
 
-    private static Map<LocalDate, WmoWeatherCode> computeDailyCodes(OpenMeteoResponse.Hourly hourly) {
+    private static Map<LocalDate, WmoWeatherCode> computeDailyCodes(OpenMeteoForecastResponse.Hourly hourly) {
         List<LocalDateTime> times = hourly.getTime();
         List<Integer> codes = hourly.getWeatherCode();
         Map<LocalDate, List<Integer>> dailyCodeLists = new HashMap<>();
@@ -112,9 +119,44 @@ public class WeatherService {
         return dailyCodes;
     }
 
+    public List<WeatherHistoricalResponse> getHistoryByCity(City city) {
+        double latitude = Double.parseDouble(city.getProperties().getIntptlat());
+        double longitude = Double.parseDouble(city.getProperties().getIntptlon());
+        log.info("Retrieving historical weather for city {}", city.getProperties().getName());
+        LocalDate searchDate = LocalDate.now();
+        OpenMeteoHistoricalResponse openMeteoHistoricalResponse = openMeteoHistoricalFeignClient.getHistoricalData(latitude, longitude, searchDate.minusYears(3), searchDate.minusYears(1));
+        OpenMeteoHistoricalResponse.Daily daily = openMeteoHistoricalResponse.getDaily();
+        List<WeatherHistoricalResponse> weatherHistoricalResponses = new ArrayList<>();
+        for (int i = 0; i < daily.getWeatherCode().size(); i++) {
+            WeatherHistoricalResponse weatherHistoricalResponse = new WeatherHistoricalResponse();
+            weatherHistoricalResponse.setLatitude(latitude);
+            weatherHistoricalResponse.setLongitude(longitude);
+            WmoWeatherCode weatherCode = WmoWeatherCode.fromCode(daily.getWeatherCode().get(i));
+            weatherHistoricalResponse.setDescription(weatherCode.getDescription());
+            weatherHistoricalResponse.setIconClass(weatherCode.getIconClass());
+            weatherHistoricalResponse.setWindDirection(daily.getDominantWindDirection().get(i));
+            weatherHistoricalResponse.setSunrise(daily.getSunrise().get(i).format(DateTimeFormatter.ofPattern("hh:mm a")));
+            weatherHistoricalResponse.setSunset(daily.getSunset().get(i).format(DateTimeFormatter.ofPattern("hh:mm a")));
+            weatherHistoricalResponse.setMaxTemperature(daily.getMaxTemperature().get(i).intValue());
+            weatherHistoricalResponse.setMinTemperature(daily.getMinTemperature().get(i).intValue());
+            weatherHistoricalResponse.setPrecipitationSum(daily.getPrecipitationSum().get(i));
+            weatherHistoricalResponse.setWindSpeed(daily.getMeanWindSpeed().get(i).intValue());
+            weatherHistoricalResponse.setHumidity(daily.getHumidity().get(i).intValue());
+            weatherHistoricalResponse.setCloudCover(daily.getMeanCloudCover().get(0).intValue());
+            weatherHistoricalResponses.add(weatherHistoricalResponse);
+        }
+        return weatherHistoricalResponses;
+    }
+
     @Scheduled(fixedRate = 300000)
     @CacheEvict("forecasts")
     public void emptyForecastsCache() {
-        log.info("Emptying forecast cache");
+        log.info("Emptying weather forecast cache");
+    }
+
+    @Scheduled(fixedRate = 28800000)
+    @CacheEvict("histories")
+    public void emptyHistoriesCache() {
+        log.info("Emptying weather history cache");
     }
 }

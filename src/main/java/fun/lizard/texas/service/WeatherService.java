@@ -127,7 +127,7 @@ public class WeatherService {
         OpenMeteoHistoricalResponse openMeteoHistoricalResponse = openMeteoHistoricalFeignClient.getHistoricalData(latitude, longitude, searchDate.minusYears(3), searchDate.minusYears(1));
         OpenMeteoHistoricalResponse.Daily daily = openMeteoHistoricalResponse.getDaily();
         List<WeatherHistoricalResponse> weatherHistoricalResponses = new ArrayList<>();
-        for (int i = 0; i < daily.getWeatherCode().size(); i++) {
+        for (int i = 0; i < daily.getWeatherCode().size(); i += 365) {
             WeatherHistoricalResponse weatherHistoricalResponse = new WeatherHistoricalResponse();
             weatherHistoricalResponse.setLatitude(latitude);
             weatherHistoricalResponse.setLongitude(longitude);

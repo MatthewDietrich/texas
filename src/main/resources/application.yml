@@ -17,6 +17,7 @@ spring:
               temperature_unit: fahrenheit
               wind_speed_unit: mph
               timezone: America/Chicago
+              past_days: 1
           open-meteo-historical-client:
             defaultQueryParameters:
               daily: "weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,precipitation_sum,wind_speed_10m_mean,wind_direction_10m_dominant,relative_humidity_2m_mean,cloud_cover_mean"

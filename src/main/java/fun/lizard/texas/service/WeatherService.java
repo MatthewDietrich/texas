@@ -38,6 +38,7 @@ public class WeatherService {
         double longitude = Double.parseDouble(city.getProperties().getIntptlon());
         log.info("Retrieving weather forecast for city {}", city.getProperties().getName());
         OpenMeteoForecastResponse openMeteoForecastResponse = openMeteoForecastFeignClient.getCurrentWeather(latitude, longitude);
+
         Map<LocalDate, WmoWeatherCode> dailyCodes = computeDailyCodes(openMeteoForecastResponse.getHourly());
         Current current = getCurrent(openMeteoForecastResponse);
         List<Forecast> forecasts = new ArrayList<>();
@@ -52,6 +53,20 @@ public class WeatherService {
                 forecast.setDescription(weatherCode.getDescription());
             }
         });
+
+        Map<Integer, Integer> hourlyConditions = new HashMap<>();
+        for (int i = 0; i < openMeteoForecastResponse.getHourly().getTime().size(); i++) {
+            hourlyConditions.put(openMeteoForecastResponse.getHourly().getTime().get(i).getHour(), openMeteoForecastResponse.getHourly().getWeatherCode().get(i));
+        }
+        WmoWeatherCode weatherCode = WmoWeatherCode.fromCode(hourlyConditions.getOrDefault(LocalDateTime.now(ZoneId.of("America/Chicago")).getHour(), -1));
+        current.setDescription(weatherCode.getDescription());
+        String iconClass = weatherCode.getIconClass();
+        if (openMeteoForecastResponse.getCurrent().getIsDay().equals(0)) {
+            iconClass = iconClass.replace("day", "night");
+            iconClass = iconClass.replace("sunny", "clear");
+        }
+        current.setIconClass(iconClass);
+
         WeatherForecastResponse weatherForecastResponse = new WeatherForecastResponse();
         weatherForecastResponse.setLatitude(latitude);
         weatherForecastResponse.setLongitude(longitude);

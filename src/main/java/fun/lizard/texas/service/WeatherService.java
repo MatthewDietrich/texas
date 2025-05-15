@@ -42,7 +42,7 @@ public class WeatherService {
         Map<LocalDate, WmoWeatherCode> dailyCodes = computeDailyCodes(openMeteoForecastResponse.getHourly());
         Current current = getCurrent(openMeteoForecastResponse);
         List<Forecast> forecasts = new ArrayList<>();
-        for (int i = 0; i < openMeteoForecastResponse.getDaily().getWeatherCode().size(); i++) {
+        for (int i = 1; i < openMeteoForecastResponse.getDaily().getWeatherCode().size(); i++) {
             Forecast forecast = getForecast(openMeteoForecastResponse, i);
             forecasts.add(forecast);
         }

@@ -79,11 +79,10 @@
                     <div class="col-md-12 col-lg-6" id="forecast">
                         <h3>5-Day Forecast</h3>
                         <table class="table-bordered">
-                            <thead>
+                            <thead class="text-center">
                                 <tr>
-                                    <th scope="col"></th>
-                                    <th scope="col"></th>
-                                    <th scope="col"></th>
+                                    <th scope="col">Day</th>
+                                    <th scope="col" colspan="2">Condition</th>
                                     <th scope="col">High</th>
                                     <th scope="col">Low</th>
                                     <th scope="col">Precip. Chance</th>
@@ -139,8 +138,8 @@
                         <div class="container">
                             <h3>Almanac for ${dateString}</h3>
                             <table class="table-bordered">
-                                <thead>
-                                    <th scope="col"></th>
+                                <thead class="text-center">
+                                    <th scope="col">Measurement</th>
                                     <th scope="col">1 yr ago</th>
                                     <th scope="col">5 yrs ago</th>
                                     <th scope="col">10 yrs ago</th>

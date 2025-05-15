@@ -111,5 +111,5 @@ table {
 
 .table-bordered th,
 .table-bordered td {
-    padding: 0.5rem;
+    line-height: 2.5rem;
 }

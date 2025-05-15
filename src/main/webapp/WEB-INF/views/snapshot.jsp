@@ -136,77 +136,79 @@
                 </div>
                 <div class="row pb-4">
                     <div class="col-12" id="almanac">
-                        <h3>Almanac for ${dateString}</h3>
-                        <table class="table-bordered">
-                            <thead>
-                                <th scope="col"></th>
-                                <th scope="col">1 yr ago</th>
-                                <th scope="col">5 yrs ago</th>
-                                <th scope="col">10 yrs ago</th>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">Condition</th>
-                                    <td>${weatherHistory[0].description}</td>
-                                    <td>${weatherHistory[1].description}</td>
-                                    <td>${weatherHistory[2].description}</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">High</th>
-                                    <td>${weatherHistory[0].maxTemperature}&deg;F</td>
-                                    <td>${weatherHistory[1].maxTemperature}&deg;F</td>
-                                    <td>${weatherHistory[2].maxTemperature}&deg;F</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Low</th>
-                                    <td>${weatherHistory[0].maxTemperature}&deg;F</td>
-                                    <td>${weatherHistory[1].maxTemperature}&deg;F</td>
-                                    <td>${weatherHistory[2].maxTemperature}&deg;F</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Total Precip.</th>
-                                    <td>${weatherHistory[0].precipitationSum} in</td>
-                                    <td>${weatherHistory[1].precipitationSum} in</td>
-                                    <td>${weatherHistory[2].precipitationSum} in</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Avg. Humidity</th>
-                                    <td>${weatherHistory[0].humidity}%</td>
-                                    <td>${weatherHistory[1].humidity}%</td>
-                                    <td>${weatherHistory[2].humidity}%</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Avg. Cloud Cover</th>
-                                    <td>${weatherHistory[0].cloudCover}%</td>
-                                    <td>${weatherHistory[1].cloudCover}%</td>
-                                    <td>${weatherHistory[2].cloudCover}%</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Avg. Wind</th>
-                                    <td><i class="wi wi-wind from-${weatherHistory[0].windDirection}-deg"></i>
-                                        ${weatherHistory[0].windSpeed}
-                                        mph</td>
-                                    <td><i class="wi wi-wind from-${weatherHistory[1].windDirection}-deg"></i>
-                                        ${weatherHistory[1].windSpeed}
-                                        mph</td>
-                                    <td><i class="wi wi-wind from-${weatherHistory[2].windDirection}-deg"></i>
-                                        ${weatherHistory[2].windSpeed}
-                                        mph</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Sunrise</th>
-                                    <td>${weatherHistory[0].sunrise}</td>
-                                    <td>${weatherHistory[1].sunrise}</td>
-                                    <td>${weatherHistory[2].sunrise}</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">Sunset</th>
-                                    <td>${weatherHistory[0].sunset}</td>
-                                    <td>${weatherHistory[1].sunset}</td>
-                                    <td>${weatherHistory[2].sunset}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="container">
+                            <h3>Almanac for ${dateString}</h3>
+                            <table class="table-bordered">
+                                <thead>
+                                    <th scope="col"></th>
+                                    <th scope="col">1 yr ago</th>
+                                    <th scope="col">5 yrs ago</th>
+                                    <th scope="col">10 yrs ago</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">Condition</th>
+                                        <td>${weatherHistory[0].description}</td>
+                                        <td>${weatherHistory[1].description}</td>
+                                        <td>${weatherHistory[2].description}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">High</th>
+                                        <td>${weatherHistory[0].maxTemperature}&deg;F</td>
+                                        <td>${weatherHistory[1].maxTemperature}&deg;F</td>
+                                        <td>${weatherHistory[2].maxTemperature}&deg;F</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Low</th>
+                                        <td>${weatherHistory[0].maxTemperature}&deg;F</td>
+                                        <td>${weatherHistory[1].maxTemperature}&deg;F</td>
+                                        <td>${weatherHistory[2].maxTemperature}&deg;F</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Total Precip.</th>
+                                        <td>${weatherHistory[0].precipitationSum} in</td>
+                                        <td>${weatherHistory[1].precipitationSum} in</td>
+                                        <td>${weatherHistory[2].precipitationSum} in</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Avg. Humidity</th>
+                                        <td>${weatherHistory[0].humidity}%</td>
+                                        <td>${weatherHistory[1].humidity}%</td>
+                                        <td>${weatherHistory[2].humidity}%</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Avg. Cloud Cover</th>
+                                        <td>${weatherHistory[0].cloudCover}%</td>
+                                        <td>${weatherHistory[1].cloudCover}%</td>
+                                        <td>${weatherHistory[2].cloudCover}%</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Avg. Wind</th>
+                                        <td><i class="wi wi-wind from-${weatherHistory[0].windDirection}-deg"></i>
+                                            ${weatherHistory[0].windSpeed}
+                                            mph</td>
+                                        <td><i class="wi wi-wind from-${weatherHistory[1].windDirection}-deg"></i>
+                                            ${weatherHistory[1].windSpeed}
+                                            mph</td>
+                                        <td><i class="wi wi-wind from-${weatherHistory[2].windDirection}-deg"></i>
+                                            ${weatherHistory[2].windSpeed}
+                                            mph</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Sunrise</th>
+                                        <td>${weatherHistory[0].sunrise}</td>
+                                        <td>${weatherHistory[1].sunrise}</td>
+                                        <td>${weatherHistory[2].sunrise}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Sunset</th>
+                                        <td>${weatherHistory[0].sunset}</td>
+                                        <td>${weatherHistory[1].sunset}</td>
+                                        <td>${weatherHistory[2].sunset}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

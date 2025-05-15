@@ -101,12 +101,12 @@ table {
 }
 
 .table-bordered {
-    background-color: #00222b;
+    background-color: #073642;
     color: #eee8d5;
 }
 
 .table-bordered thead {
-    background-color: #00171d;
+    background-color: #002b36;
 }
 
 .table-bordered th,

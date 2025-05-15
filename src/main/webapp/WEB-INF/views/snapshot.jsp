@@ -229,7 +229,7 @@
                                 <div class="img-container"><img src="data:image/png;base64,${snapshots[0].snippet}" />
                                 </div>
                             </div>
-                            <div class="row"><span class="icdId">${snapshots[0].icdId}</span>
+                            <div class="row"><strong class="icdId">${snapshots[0].icdId}</strong>
                                 <small>${snapshots[0].direction}</small>
                             </div>
                         </div>
@@ -240,7 +240,7 @@
                                 <div class="img-container"><img src="data:image/png;base64,${snapshots[1].snippet}" />
                                 </div>
                             </div>
-                            <div class="row"><span class="icdId">${snapshots[1].icdId}</span>
+                            <div class="row"><strong class="icdId">${snapshots[1].icdId}</strong>
                                 <small>${snapshots[1].direction}</small>
                             </div>
                         </div>

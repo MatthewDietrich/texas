@@ -22,18 +22,29 @@ div#airports {
 div.img-container {
     width: 100%;
     height: fit-content;
+    padding: 0;
 }
 
 div.img-container img {
     width: 100%;
 }
 
+div.img-caption {
+    padding: 0
+}
+
 .icdId {
     font-weight: bold;
+    padding: 0;
 }
 
 div#snapshots .container {
-    padding-top: 1.5em;
+    padding: 1.5rem 1.5rem 0 0;
+}
+
+div#snapshots small {
+    padding: 0;
+    font-weight: normal;
 }
 
 a {

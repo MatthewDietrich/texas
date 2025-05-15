@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
@@ -62,7 +63,7 @@ public class HomeController {
         SimpleCity simpleCity = cityService.findCountyAndSimplify(city);
         String cityMap = cityService.plotCity(city);
         List<SimpleAirport> simpleAirports = cityService.findNearbyAirports(city);
-        String dateString = LocalDate.now().format(DateTimeFormatter.ofPattern("MMMM dd", Locale.US));
+        String dateString = LocalDate.now(ZoneId.of("America/Chicago")).format(DateTimeFormatter.ofPattern("MMMM dd", Locale.US));
         modelMap.put("snapshots", snapshots);
         modelMap.put("weather", weather);
         modelMap.put("city", simpleCity);

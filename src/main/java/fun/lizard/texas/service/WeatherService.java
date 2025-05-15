@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.*;
@@ -123,29 +124,33 @@ public class WeatherService {
         double latitude = Double.parseDouble(city.getProperties().getIntptlat());
         double longitude = Double.parseDouble(city.getProperties().getIntptlon());
         log.info("Retrieving historical weather for city {}", city.getProperties().getName());
-        LocalDate searchDate = LocalDate.now();
-        OpenMeteoHistoricalResponse openMeteoHistoricalResponse = openMeteoHistoricalFeignClient.getHistoricalData(latitude, longitude, searchDate.minusYears(3), searchDate.minusYears(1));
+        LocalDate searchDate = LocalDate.now(ZoneId.of("America/Chicago"));
+        OpenMeteoHistoricalResponse openMeteoHistoricalResponse1yr = openMeteoHistoricalFeignClient.getHistoricalData(latitude, longitude, searchDate.minusYears(1), searchDate.minusYears(1));
+        OpenMeteoHistoricalResponse openMeteoHistoricalResponse5yr = openMeteoHistoricalFeignClient.getHistoricalData(latitude, longitude, searchDate.minusYears(5), searchDate.minusYears(5));
+        OpenMeteoHistoricalResponse openMeteoHistoricalResponse10yr = openMeteoHistoricalFeignClient.getHistoricalData(latitude, longitude, searchDate.minusYears(10), searchDate.minusYears(10));
+        return List.of(
+                getWeatherHistoricalResponse(openMeteoHistoricalResponse1yr),
+                getWeatherHistoricalResponse(openMeteoHistoricalResponse5yr),
+                getWeatherHistoricalResponse(openMeteoHistoricalResponse10yr)
+        );
+    }
+
+    private static WeatherHistoricalResponse getWeatherHistoricalResponse(OpenMeteoHistoricalResponse openMeteoHistoricalResponse) {
         OpenMeteoHistoricalResponse.Daily daily = openMeteoHistoricalResponse.getDaily();
-        List<WeatherHistoricalResponse> weatherHistoricalResponses = new ArrayList<>();
-        for (int i = 0; i < daily.getWeatherCode().size(); i += 365) {
-            WeatherHistoricalResponse weatherHistoricalResponse = new WeatherHistoricalResponse();
-            weatherHistoricalResponse.setLatitude(latitude);
-            weatherHistoricalResponse.setLongitude(longitude);
-            WmoWeatherCode weatherCode = WmoWeatherCode.fromCode(daily.getWeatherCode().get(i));
-            weatherHistoricalResponse.setDescription(weatherCode.getDescription());
-            weatherHistoricalResponse.setIconClass(weatherCode.getIconClass());
-            weatherHistoricalResponse.setWindDirection(daily.getDominantWindDirection().get(i));
-            weatherHistoricalResponse.setSunrise(daily.getSunrise().get(i).format(DateTimeFormatter.ofPattern("hh:mm a")));
-            weatherHistoricalResponse.setSunset(daily.getSunset().get(i).format(DateTimeFormatter.ofPattern("hh:mm a")));
-            weatherHistoricalResponse.setMaxTemperature(daily.getMaxTemperature().get(i).intValue());
-            weatherHistoricalResponse.setMinTemperature(daily.getMinTemperature().get(i).intValue());
-            weatherHistoricalResponse.setPrecipitationSum(daily.getPrecipitationSum().get(i));
-            weatherHistoricalResponse.setWindSpeed(daily.getMeanWindSpeed().get(i).intValue());
-            weatherHistoricalResponse.setHumidity(daily.getHumidity().get(i).intValue());
-            weatherHistoricalResponse.setCloudCover(daily.getMeanCloudCover().get(0).intValue());
-            weatherHistoricalResponses.add(weatherHistoricalResponse);
-        }
-        return weatherHistoricalResponses;
+        WeatherHistoricalResponse weatherHistoricalResponse = new WeatherHistoricalResponse();
+        WmoWeatherCode weatherCode = WmoWeatherCode.fromCode(daily.getWeatherCode().get(0));
+        weatherHistoricalResponse.setDescription(weatherCode.getDescription());
+        weatherHistoricalResponse.setIconClass(weatherCode.getIconClass());
+        weatherHistoricalResponse.setWindDirection(daily.getDominantWindDirection().get(0));
+        weatherHistoricalResponse.setSunrise(daily.getSunrise().get(0).format(DateTimeFormatter.ofPattern("hh:mm a")));
+        weatherHistoricalResponse.setSunset(daily.getSunset().get(0).format(DateTimeFormatter.ofPattern("hh:mm a")));
+        weatherHistoricalResponse.setMaxTemperature(daily.getMaxTemperature().get(0).intValue());
+        weatherHistoricalResponse.setMinTemperature(daily.getMinTemperature().get(0).intValue());
+        weatherHistoricalResponse.setPrecipitationSum(daily.getPrecipitationSum().get(0));
+        weatherHistoricalResponse.setWindSpeed(daily.getMeanWindSpeed().get(0).intValue());
+        weatherHistoricalResponse.setHumidity(daily.getHumidity().get(0).intValue());
+        weatherHistoricalResponse.setCloudCover(daily.getMeanCloudCover().get(0).intValue());
+        return weatherHistoricalResponse;
     }
 
     @Scheduled(fixedRate = 300000)

@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class WeatherHistoricalResponse {
 
-    private Double latitude;
-    private Double longitude;
     private String description;
     private String iconClass;
     private Integer maxTemperature;

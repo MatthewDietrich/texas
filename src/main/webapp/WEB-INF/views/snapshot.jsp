@@ -141,8 +141,8 @@
                             <thead>
                                 <th scope="col"></th>
                                 <th scope="col">1 yr ago</th>
-                                <th scope="col">2 yrs ago</th>
-                                <th scope="col">3 yrs ago</th>
+                                <th scope="col">5 yrs ago</th>
+                                <th scope="col">10 yrs ago</th>
                             </thead>
                             <tbody>
                                 <tr>

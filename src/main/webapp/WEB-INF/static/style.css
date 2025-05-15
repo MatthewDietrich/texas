@@ -16,8 +16,6 @@ div#weather,
 div#snapshots,
 div#forecast,
 div#airports {
-    background: #eee8d5;
-    color: #002b36;
     padding: 1.5em;
 }
 
@@ -61,11 +59,6 @@ a {
     display: none;
 }
 
-div#weather-icon {
-    color: #002b36;
-    background-color: #eee8d5;
-}
-
 #searching-indicator {
     font-size: 2em;
 }
@@ -75,17 +68,8 @@ img#city-map {
     padding-top: 1em;
 }
 
-table,
-h3 {
-    color: #002b36;
-}
-
 #forecast table {
     width: 100%
-}
-
-#weather-container {
-    background-color: #eee8d5;
 }
 
 header {
@@ -95,4 +79,26 @@ header {
 
 #weather th {
     padding-right: 1em;
+}
+
+#weather-container,
+#snapshots,
+#airports-container,
+table {
+    background-color: #eee8d5;
+    color: #002b36;
+}
+
+.table-bordered {
+    background-color: #00222b;
+    color: #eee8d5;
+}
+
+.table-bordered thead {
+    background-color: #00171d;
+}
+
+.table-bordered th,
+.table-bordered td {
+    padding: 0.5rem;
 }

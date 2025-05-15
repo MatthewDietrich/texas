@@ -328,7 +328,7 @@
         <div class="row">
             <h2>Nearby Airports</h2>
         </div>
-        <div class="container">
+        <div class="container" id="airports-container">
             <div class="row">
                 <div class="container" id="airports">
                     <ul>

@@ -1,5 +1,6 @@
 package fun.lizard.texas.service;
 
+import com.fasterxml.jackson.core.util.ByteArrayBuilder;
 import fun.lizard.texas.document.City;
 import fun.lizard.texas.document.Camera;
 import fun.lizard.texas.document.District;
@@ -78,7 +79,7 @@ public class CctvService {
         return CompletableFuture.supplyAsync(() -> txdotFeignClient.getCctvSnapshotByIcdId(icdId, districtName));
     }
 
-    public List<CctvSnapshotResponse> getSnapshotsByCity(City city) throws IOException {
+    public List<CctvSnapshotResponse> getSnapshotsByCity(City city) {
         String cityName = city.getProperties().getName();
         double latitude = Double.parseDouble(city.getProperties().getIntptlat());
         double longitude = Double.parseDouble(city.getProperties().getIntptlon());
@@ -92,7 +93,13 @@ public class CctvService {
         String districtAbbreviation = district.getProperties().getDIST_ABRVN();
         updateCamerasByDistrictId(districtAbbreviation);
         Resource resource = new ClassPathResource("unavailable.png");
-        String unavailableSnippet = Base64.getEncoder().encodeToString(resource.getContentAsByteArray());
+        byte[] resourceContent;
+        try {
+            resourceContent = resource.getContentAsByteArray();
+        } catch (IOException e) {
+            resourceContent = ByteArrayBuilder.NO_BYTES;
+        }
+        String unavailableSnippet = Base64.getEncoder().encodeToString(resourceContent);
         List<Camera> cameras = cameraRepository.findByLocationNear(point, new Distance(0.4), Limit.of(cameraLimit));
         Map<String, String> cameraDirections = new HashMap<>();
         cameras.forEach(camera -> cameraDirections.put(camera.getIcdId(), camera.getDirection()));

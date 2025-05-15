@@ -25,6 +25,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.CompletableFuture;
 
 @Controller
 @SessionAttributes({"cityName"})
@@ -57,20 +58,20 @@ public class HomeController {
             modelMap.put("cityName", cityNameStripped);
             return "notfound";
         }
-        List<CctvSnapshotResponse> snapshots = cctvService.getSnapshotsByCity(city);
-        WeatherForecastResponse weather = weatherService.getForecastByCity(city);
-        List<WeatherHistoricalResponse> weatherHistory = weatherService.getHistoryByCity(city);
+        CompletableFuture<List<CctvSnapshotResponse>> snapshots = CompletableFuture.supplyAsync(() -> cctvService.getSnapshotsByCity(city));
+        CompletableFuture<WeatherForecastResponse> weather = CompletableFuture.supplyAsync(() -> weatherService.getForecastByCity(city));
+        CompletableFuture<List<WeatherHistoricalResponse>> weatherHistory = CompletableFuture.supplyAsync(() -> weatherService.getHistoryByCity(city));
         SimpleCity simpleCity = cityService.findCountyAndSimplify(city);
         String cityMap = cityService.plotCity(city);
         List<SimpleAirport> simpleAirports = cityService.findNearbyAirports(city);
         String dateString = LocalDate.now(ZoneId.of("America/Chicago")).format(DateTimeFormatter.ofPattern("MMMM dd", Locale.US));
-        modelMap.put("snapshots", snapshots);
-        modelMap.put("weather", weather);
+        modelMap.put("weather", weather.join());
         modelMap.put("city", simpleCity);
         modelMap.put("cityMap", cityMap);
         modelMap.put("airports", simpleAirports);
-        modelMap.put("weatherHistory", weatherHistory);
+        modelMap.put("weatherHistory", weatherHistory.join());
         modelMap.put("dateString", dateString);
+        modelMap.put("snapshots", snapshots.join());
         log.info("Result returned for city search with input: \"{}\"", name);
         return "snapshot";
     }

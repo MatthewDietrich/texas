@@ -16,6 +16,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -32,6 +33,8 @@ public class WeatherService {
 
     @Autowired
     OpenMeteoHistoricalFeignClient openMeteoHistoricalFeignClient;
+
+    private static final double KPA_INHG = 0.02953;
 
     public WeatherForecastResponse getForecastByCity(City city) {
         double latitude = Double.parseDouble(city.getProperties().getIntptlat());
@@ -78,6 +81,7 @@ public class WeatherService {
     private static Current getCurrent(OpenMeteoForecastResponse openMeteoForecastResponse) {
         OpenMeteoForecastResponse.Current openMeteoCurrent = openMeteoForecastResponse.getCurrent();
         Current current = new Current();
+
         current.setDescription(WmoWeatherCode.fromCode(openMeteoCurrent.getWeatherCode()).getDescription());
         current.setWindSpeed(openMeteoCurrent.getWindSpeed().intValue());
         current.setWindDirection(openMeteoCurrent.getWindDirection());
@@ -87,12 +91,17 @@ public class WeatherService {
         current.setHumidity(openMeteoCurrent.getRelativeHumidity());
         current.setTemperature(openMeteoCurrent.getTemperature().intValue());
         current.setApparentTemperature(openMeteoCurrent.getApparentTemperature().intValue());
+
+        double pressureInHg = Double.parseDouble(new DecimalFormat("#.##").format(openMeteoCurrent.getPressureMsl() * KPA_INHG));
+        current.setPressureMsl(pressureInHg);
+
         String iconClass = WmoWeatherCode.fromCode(openMeteoCurrent.getWeatherCode()).getIconClass();
         if (openMeteoCurrent.getIsDay().equals(0)) {
             iconClass = iconClass.replace("day", "night");
             iconClass = iconClass.replace("sunny", "clear");
         }
         current.setIconClass(iconClass);
+
         return current;
     }
 
@@ -153,9 +162,11 @@ public class WeatherService {
     private static WeatherHistoricalResponse getWeatherHistoricalResponse(OpenMeteoHistoricalResponse openMeteoHistoricalResponse) {
         OpenMeteoHistoricalResponse.Daily daily = openMeteoHistoricalResponse.getDaily();
         WeatherHistoricalResponse weatherHistoricalResponse = new WeatherHistoricalResponse();
+
         WmoWeatherCode weatherCode = WmoWeatherCode.fromCode(daily.getWeatherCode().get(0));
         weatherHistoricalResponse.setDescription(weatherCode.getDescription());
         weatherHistoricalResponse.setIconClass(weatherCode.getIconClass());
+
         weatherHistoricalResponse.setWindDirection(daily.getDominantWindDirection().get(0));
         weatherHistoricalResponse.setSunrise(daily.getSunrise().get(0).format(DateTimeFormatter.ofPattern("hh:mm a")));
         weatherHistoricalResponse.setSunset(daily.getSunset().get(0).format(DateTimeFormatter.ofPattern("hh:mm a")));
@@ -165,6 +176,10 @@ public class WeatherService {
         weatherHistoricalResponse.setWindSpeed(daily.getMeanWindSpeed().get(0).intValue());
         weatherHistoricalResponse.setHumidity(daily.getHumidity().get(0).intValue());
         weatherHistoricalResponse.setCloudCover(daily.getMeanCloudCover().get(0).intValue());
+
+        double pressureInHg = Double.parseDouble(new DecimalFormat("#.##").format(daily.getPressureMsl().get(0) * KPA_INHG));
+        weatherHistoricalResponse.setPressureMsl(pressureInHg);
+
         return weatherHistoricalResponse;
     }
 

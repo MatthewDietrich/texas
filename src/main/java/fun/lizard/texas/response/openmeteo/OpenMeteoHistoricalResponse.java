@@ -36,5 +36,7 @@ public class OpenMeteoHistoricalResponse {
         List<Double> humidity;
         @JsonProperty("cloud_cover_mean")
         List<Double> meanCloudCover;
+        @JsonProperty("pressure_msl_mean")
+        List<Integer> pressureMsl;
     }
 }

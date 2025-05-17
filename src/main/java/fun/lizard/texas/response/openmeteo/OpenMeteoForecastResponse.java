@@ -41,6 +41,8 @@ public class OpenMeteoForecastResponse {
         private Integer rain;
         @JsonProperty("is_day")
         private Integer isDay;
+        @JsonProperty("pressure_msl")
+        private Integer pressureMsl;
     }
 
     @Data

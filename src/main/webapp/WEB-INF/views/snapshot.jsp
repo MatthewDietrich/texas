@@ -71,6 +71,10 @@
                                             <td><i class="wi wi-wind from-${weather.current.windDirection}-deg"></i>
                                                 ${weather.current.windSpeed} mph</td>
                                         </tr>
+                                        <tr>
+                                            <th scope="row">Pressure</th>
+                                            <td>${weather.current.pressureMsl} inHg</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -192,6 +196,12 @@
                                         <td><i class="wi wi-wind from-${weatherHistory[2].windDirection}-deg"></i>
                                             ${weatherHistory[2].windSpeed}
                                             mph</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Pressure</th>
+                                        <td>${weatherHistory[0].pressureMsl} inHg</td>
+                                        <td>${weatherHistory[1].pressureMsl} inHg</td>
+                                        <td>${weatherHistory[2].pressureMsl} inHg</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Sunrise</th>

@@ -18,4 +18,5 @@ public class WeatherHistoricalResponse {
     private Integer windDirection;
     private Integer humidity;
     private Integer cloudCover;
+    private Double pressureMsl;
 }

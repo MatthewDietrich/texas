@@ -17,4 +17,5 @@ public class Current {
     private Integer temperature;
     private Integer apparentTemperature;
     private String iconClass;
+    private Double pressureMsl;
 }

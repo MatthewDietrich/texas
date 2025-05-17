@@ -13,8 +13,5 @@ import java.util.List;
 @Repository
 public interface CountyRepository extends MongoRepository<County, String> {
 
-    @Query(value = "{ 'properties.name': ?0 }")
-    County findOneByName(String name);
-
     List<County> findByGeometryNear(Point point, Distance distance, Limit limit);
 }

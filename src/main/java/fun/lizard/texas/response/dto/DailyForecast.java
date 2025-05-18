@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
-public class Forecast {
+public class DailyForecast {
 
     private String iconClass;
     private String description;

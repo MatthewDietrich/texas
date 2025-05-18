@@ -4,11 +4,8 @@ import fun.lizard.texas.constant.WmoWeatherCode;
 import fun.lizard.texas.document.City;
 import fun.lizard.texas.feign.OpenMeteoForecastFeignClient;
 import fun.lizard.texas.feign.OpenMeteoHistoricalFeignClient;
-import fun.lizard.texas.response.dto.WeatherHistoricalResponse;
+import fun.lizard.texas.response.dto.*;
 import fun.lizard.texas.response.openmeteo.OpenMeteoForecastResponse;
-import fun.lizard.texas.response.dto.WeatherForecastResponse;
-import fun.lizard.texas.response.dto.Current;
-import fun.lizard.texas.response.dto.Forecast;
 import fun.lizard.texas.response.openmeteo.OpenMeteoHistoricalResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,18 +41,27 @@ public class WeatherService {
 
         Map<LocalDate, WmoWeatherCode> dailyCodes = computeDailyCodes(openMeteoForecastResponse.getHourly());
         Current current = getCurrent(openMeteoForecastResponse);
-        List<Forecast> forecasts = new ArrayList<>();
+        List<DailyForecast> dailyForecasts = new ArrayList<>();
         for (int i = 1; i < openMeteoForecastResponse.getDaily().getWeatherCode().size(); i++) {
-            Forecast forecast = getForecast(openMeteoForecastResponse, i);
-            forecasts.add(forecast);
+            DailyForecast dailyForecast = getDailyForecast(openMeteoForecastResponse, i);
+            dailyForecasts.add(dailyForecast);
         }
-        forecasts.forEach(forecast -> {
-            WmoWeatherCode weatherCode = dailyCodes.getOrDefault(forecast.getDate(), WmoWeatherCode.UNKNOWN);
+        dailyForecasts.forEach(dailyForecast -> {
+            WmoWeatherCode weatherCode = dailyCodes.getOrDefault(dailyForecast.getDate(), WmoWeatherCode.UNKNOWN);
             if (weatherCode != WmoWeatherCode.UNKNOWN) {
-                forecast.setIconClass(weatherCode.getIconClass());
-                forecast.setDescription(weatherCode.getDescription());
+                dailyForecast.setIconClass(weatherCode.getIconClass());
+                dailyForecast.setDescription(weatherCode.getDescription());
             }
         });
+
+        Map<LocalDateTime, HourlyForecast> hourlyForecastMap = getHourlyForecastMap(openMeteoForecastResponse);
+        List<HourlyForecast> hourlyForecasts = new ArrayList<>();
+        LocalDateTime currentTime = LocalDateTime.now(ZoneId.of("America/Chicago"));
+        for (int i = 2; i <= 12; i += 2) {
+            LocalDateTime searchTime = currentTime.plusHours(i).withMinute(0).withSecond(0).withNano(0);
+            log.info("Searching {}", searchTime);
+            hourlyForecasts.add(hourlyForecastMap.get(searchTime));
+        }
 
         Map<Integer, Integer> hourlyConditions = new HashMap<>();
         for (int i = 0; i < openMeteoForecastResponse.getHourly().getTime().size(); i++) {
@@ -73,7 +79,8 @@ public class WeatherService {
         WeatherForecastResponse weatherForecastResponse = new WeatherForecastResponse();
         weatherForecastResponse.setLatitude(latitude);
         weatherForecastResponse.setLongitude(longitude);
-        weatherForecastResponse.setForecasts(forecasts);
+        weatherForecastResponse.setDailyForecasts(dailyForecasts);
+        weatherForecastResponse.setHourlyForecasts(hourlyForecasts);
         weatherForecastResponse.setCurrent(current);
         return weatherForecastResponse;
     }
@@ -105,17 +112,40 @@ public class WeatherService {
         return current;
     }
 
-    private static Forecast getForecast(OpenMeteoForecastResponse openMeteoForecastResponse, int i) {
-        Forecast forecast = new Forecast();
+    private static DailyForecast getDailyForecast(OpenMeteoForecastResponse openMeteoForecastResponse, int i) {
+        DailyForecast dailyForecast = new DailyForecast();
         OpenMeteoForecastResponse.Daily daily = openMeteoForecastResponse.getDaily();
-        forecast.setDate(daily.getTime().get(i));
-        forecast.setHighTemperature(daily.getMaxTemperature().get(i).intValue());
-        forecast.setLowTemperature(daily.getMinTemperature().get(i).intValue());
-        forecast.setPrecipitationChance(daily.getPrecipitationChance().get(i));
-        forecast.setShortWeekday(daily.getTime().get(i).getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.US));
-        forecast.setDescription(WmoWeatherCode.fromCode(daily.getWeatherCode().get(i)).getDescription());
-        forecast.setIconClass(WmoWeatherCode.fromCode(daily.getWeatherCode().get(i)).getIconClass());
-        return forecast;
+        dailyForecast.setDate(daily.getTime().get(i));
+        dailyForecast.setHighTemperature(daily.getMaxTemperature().get(i).intValue());
+        dailyForecast.setLowTemperature(daily.getMinTemperature().get(i).intValue());
+        dailyForecast.setPrecipitationChance(daily.getPrecipitationChance().get(i));
+        dailyForecast.setShortWeekday(daily.getTime().get(i).getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.US));
+        dailyForecast.setDescription(WmoWeatherCode.fromCode(daily.getWeatherCode().get(i)).getDescription());
+        dailyForecast.setIconClass(WmoWeatherCode.fromCode(daily.getWeatherCode().get(i)).getIconClass());
+        return dailyForecast;
+    }
+
+    private static Map<LocalDateTime, HourlyForecast> getHourlyForecastMap(OpenMeteoForecastResponse openMeteoForecastResponse) {
+        Map<LocalDateTime, HourlyForecast> hourlyForecastMap = new HashMap<>();
+        OpenMeteoForecastResponse.Hourly hourly = openMeteoForecastResponse.getHourly();
+        for (int i = 0; i < hourly.getTime().size(); i++) {
+            HourlyForecast hourlyForecast = new HourlyForecast();
+            LocalDateTime time = hourly.getTime().get(i);
+            hourlyForecast.setTime(time);
+            hourlyForecast.setTimeFormatted(time.format(DateTimeFormatter.ofPattern("h:mm a")));
+            hourlyForecast.setTemperature(hourly.getTemperature().get(i).intValue());
+            hourlyForecast.setPrecipitationChance(hourly.getPrecipitationChance().get(i));
+            WmoWeatherCode weatherCode = WmoWeatherCode.fromCode(hourly.getWeatherCode().get(i));
+            hourlyForecast.setDescription(weatherCode.getDescription());
+            String iconClass = weatherCode.getIconClass();
+            if (hourly.getIsDay().get(0).equals(0)) {
+                iconClass = iconClass.replace("day", "night");
+                iconClass = iconClass.replace("sunny", "clear");
+            }
+            hourlyForecast.setIconClass(iconClass);
+            hourlyForecastMap.put(time, hourlyForecast);
+        }
+        return hourlyForecastMap;
     }
 
     private static Map<LocalDate, WmoWeatherCode> computeDailyCodes(OpenMeteoForecastResponse.Hourly hourly) {
@@ -168,8 +198,8 @@ public class WeatherService {
         weatherHistoricalResponse.setIconClass(weatherCode.getIconClass());
 
         weatherHistoricalResponse.setWindDirection(daily.getDominantWindDirection().get(0));
-        weatherHistoricalResponse.setSunrise(daily.getSunrise().get(0).format(DateTimeFormatter.ofPattern("hh:mm a")));
-        weatherHistoricalResponse.setSunset(daily.getSunset().get(0).format(DateTimeFormatter.ofPattern("hh:mm a")));
+        weatherHistoricalResponse.setSunrise(daily.getSunrise().get(0).format(DateTimeFormatter.ofPattern("h:mm a")));
+        weatherHistoricalResponse.setSunset(daily.getSunset().get(0).format(DateTimeFormatter.ofPattern("h:mm a")));
         weatherHistoricalResponse.setMaxTemperature(daily.getMaxTemperature().get(0).intValue());
         weatherHistoricalResponse.setMinTemperature(daily.getMinTemperature().get(0).intValue());
         weatherHistoricalResponse.setPrecipitationSum(daily.getPrecipitationSum().get(0));

@@ -80,6 +80,91 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col" id="hourly">
+                        <h3>Next 12 hours</h3>
+                        <div class="row">
+                            <div class="col-2 align-items-center text-center">
+                                <div class="row">
+                                    <strong>${weather.hourlyForecasts[0].timeFormatted}</strong>
+                                </div>
+                                <div class="row">
+                                    <i class="wi ${weather.hourlyForecasts[0].iconClass}"></i>
+                                </div>
+                                <div class="row">
+                                    <p><small>${weather.hourlyForecasts[0].temperature}&deg;F &bull; <i
+                                                class="wi wi-raindrops"></i>
+                                            ${weather.hourlyForecasts[0].precipitationChance}%</small></p>
+                                </div>
+                            </div>
+                            <div class="col-2 align-items-center text-center">
+                                <div class="row">
+                                    <strong>${weather.hourlyForecasts[1].timeFormatted}</strong>
+                                </div>
+                                <div class="row">
+                                    <i class="wi ${weather.hourlyForecasts[1].iconClass}"></i>
+                                </div>
+                                <div class="row">
+                                    <p><small>${weather.hourlyForecasts[1].temperature}&deg;F &bull; <i
+                                                class="wi wi-raindrops"></i>
+                                            ${weather.hourlyForecasts[1].precipitationChance}%</small></p>
+                                </div>
+                            </div>
+                            <div class="col-2 align-items-center text-center">
+                                <div class="row">
+                                    <strong>${weather.hourlyForecasts[2].timeFormatted}</strong>
+                                </div>
+                                <div class="row">
+                                    <i class="wi ${weather.hourlyForecasts[2].iconClass}"></i>
+                                </div>
+                                <div class="row">
+                                    <p><small>${weather.hourlyForecasts[2].temperature}&deg;F &bull; <i
+                                                class="wi wi-raindrops"></i>
+                                            ${weather.hourlyForecasts[2].precipitationChance}%</small></p>
+                                </div>
+                            </div>
+                            <div class="col-2 align-items-center text-center">
+                                <div class="row">
+                                    <strong>${weather.hourlyForecasts[3].timeFormatted}</strong>
+                                </div>
+                                <div class="row">
+                                    <i class="wi ${weather.hourlyForecasts[3].iconClass}"></i>
+                                </div>
+                                <div class="row">
+                                    <p><small>${weather.hourlyForecasts[3].temperature}&deg;F &bull; <i
+                                                class="wi wi-raindrops"></i>
+                                            ${weather.hourlyForecasts[3].precipitationChance}%</small></p>
+                                </div>
+                            </div>
+                            <div class="col-2 align-items-center text-center">
+                                <div class="row">
+                                    <strong>${weather.hourlyForecasts[4].timeFormatted}</strong>
+                                </div>
+                                <div class="row">
+                                    <i class="wi ${weather.hourlyForecasts[4].iconClass}"></i>
+                                </div>
+                                <div class="row">
+                                    <p><small>${weather.hourlyForecasts[4].temperature}&deg;F &bull; <i
+                                                class="wi wi-raindrops"></i>
+                                            ${weather.hourlyForecasts[4].precipitationChance}%</small></p>
+                                </div>
+                            </div>
+                            <div class="col-2 align-items-center text-center">
+                                <div class="row">
+                                    <strong>${weather.hourlyForecasts[5].timeFormatted}</strong>
+                                </div>
+                                <div class="row">
+                                    <i class="wi ${weather.hourlyForecasts[5].iconClass}"></i>
+                                </div>
+                                <div class="row">
+                                    <p><small>${weather.hourlyForecasts[5].temperature}&deg;F &bull; <i
+                                                class="wi wi-raindrops"></i>
+                                            ${weather.hourlyForecasts[5].precipitationChance}%</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row pb-4">
                     <div class="col-md-12 col-lg-6" id="forecast">
                         <h3>5-Day Forecast</h3>
                         <table class="table-bordered">
@@ -94,51 +179,49 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <th scope="row">${weather.forecasts[0].shortWeekday}</th>
-                                    <td><i class="wi ${weather.forecasts[0].iconClass}"></i></td>
-                                    <td>${weather.forecasts[0].description}</td>
-                                    <td>${weather.forecasts[0].highTemperature}&deg;F</td>
-                                    <td>${weather.forecasts[0].lowTemperature}&deg;F</td>
-                                    <td>${weather.forecasts[0].precipitationChance}%</td>
+                                    <th scope="row">${weather.dailyForecasts[0].shortWeekday}</th>
+                                    <td><i class="wi ${weather.dailyForecasts[0].iconClass}"></i></td>
+                                    <td>${weather.dailyForecasts[0].description}</td>
+                                    <td>${weather.dailyForecasts[0].highTemperature}&deg;F</td>
+                                    <td>${weather.dailyForecasts[0].lowTemperature}&deg;F</td>
+                                    <td>${weather.dailyForecasts[0].precipitationChance}%</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">${weather.forecasts[1].shortWeekday}</th>
-                                    <td><i class="wi ${weather.forecasts[1].iconClass}"></i></td>
-                                    <td>${weather.forecasts[1].description}</td>
-                                    <td>${weather.forecasts[1].highTemperature}&deg;F</td>
-                                    <td>${weather.forecasts[1].lowTemperature}&deg;F</td>
-                                    <td>${weather.forecasts[1].precipitationChance}%</td>
+                                    <th scope="row">${weather.dailyForecasts[1].shortWeekday}</th>
+                                    <td><i class="wi ${weather.dailyForecasts[1].iconClass}"></i></td>
+                                    <td>${weather.dailyForecasts[1].description}</td>
+                                    <td>${weather.dailyForecasts[1].highTemperature}&deg;F</td>
+                                    <td>${weather.dailyForecasts[1].lowTemperature}&deg;F</td>
+                                    <td>${weather.dailyForecasts[1].precipitationChance}%</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">${weather.forecasts[2].shortWeekday}</th>
-                                    <td><i class="wi ${weather.forecasts[2].iconClass}"></i></td>
-                                    <td>${weather.forecasts[2].description}</td>
-                                    <td>${weather.forecasts[2].highTemperature}&deg;F</td>
-                                    <td>${weather.forecasts[2].lowTemperature}&deg;F</td>
-                                    <td>${weather.forecasts[2].precipitationChance}%</td>
+                                    <th scope="row">${weather.dailyForecasts[2].shortWeekday}</th>
+                                    <td><i class="wi ${weather.dailyForecasts[2].iconClass}"></i></td>
+                                    <td>${weather.dailyForecasts[2].description}</td>
+                                    <td>${weather.dailyForecasts[2].highTemperature}&deg;F</td>
+                                    <td>${weather.dailyForecasts[2].lowTemperature}&deg;F</td>
+                                    <td>${weather.dailyForecasts[2].precipitationChance}%</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">${weather.forecasts[3].shortWeekday}</th>
-                                    <td><i class="wi ${weather.forecasts[3].iconClass}"></i></td>
-                                    <td>${weather.forecasts[3].description}</td>
-                                    <td>${weather.forecasts[3].highTemperature}&deg;F</td>
-                                    <td>${weather.forecasts[3].lowTemperature}&deg;F</td>
-                                    <td>${weather.forecasts[3].precipitationChance}%</td>
+                                    <th scope="row">${weather.dailyForecasts[3].shortWeekday}</th>
+                                    <td><i class="wi ${weather.dailyForecasts[3].iconClass}"></i></td>
+                                    <td>${weather.dailyForecasts[3].description}</td>
+                                    <td>${weather.dailyForecasts[3].highTemperature}&deg;F</td>
+                                    <td>${weather.dailyForecasts[3].lowTemperature}&deg;F</td>
+                                    <td>${weather.dailyForecasts[3].precipitationChance}%</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">${weather.forecasts[4].shortWeekday}</th>
-                                    <td><i class="wi ${weather.forecasts[4].iconClass}"></i></td>
-                                    <td>${weather.forecasts[4].description}</td>
-                                    <td>${weather.forecasts[4].highTemperature}&deg;F</td>
-                                    <td>${weather.forecasts[4].lowTemperature}&deg;F</td>
-                                    <td>${weather.forecasts[4].precipitationChance}%</td>
+                                    <th scope="row">${weather.dailyForecasts[4].shortWeekday}</th>
+                                    <td><i class="wi ${weather.dailyForecasts[4].iconClass}"></i></td>
+                                    <td>${weather.dailyForecasts[4].description}</td>
+                                    <td>${weather.dailyForecasts[4].highTemperature}&deg;F</td>
+                                    <td>${weather.dailyForecasts[4].lowTemperature}&deg;F</td>
+                                    <td>${weather.dailyForecasts[4].precipitationChance}%</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                </div>
-                <div class="row pb-4">
-                    <div class="col-12" id="almanac">
+                    <div class="col-12 col-lg-6" id="almanac">
                         <div class="container">
                             <h3>Almanac for ${dateString}</h3>
                             <table class="table-bordered">

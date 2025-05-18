@@ -17,26 +17,26 @@ public class OpenMeteoHistoricalResponse {
 
     @Data
     @NoArgsConstructor
-    public class Daily {
+    public static class Daily {
         @JsonProperty("weather_code")
-        List<Integer> weatherCode;
+        private List<Integer> weatherCode;
         @JsonProperty("temperature_2m_max")
-        List<Double> maxTemperature;
+        private List<Double> maxTemperature;
         @JsonProperty("temperature_2m_min")
-        List<Double> minTemperature;
-        List<LocalDateTime> sunrise;
-        List<LocalDateTime> sunset;
+        private List<Double> minTemperature;
+        private List<LocalDateTime> sunrise;
+        private List<LocalDateTime> sunset;
         @JsonProperty("precipitation_sum")
-        List<Double> precipitationSum;
+        private List<Double> precipitationSum;
         @JsonProperty("wind_speed_10m_mean")
-        List<Double> meanWindSpeed;
+        private List<Double> meanWindSpeed;
         @JsonProperty("wind_direction_10m_dominant")
-        List<Integer> dominantWindDirection;
+        private List<Integer> dominantWindDirection;
         @JsonProperty("relative_humidity_2m_mean")
-        List<Double> humidity;
+        private List<Double> humidity;
         @JsonProperty("cloud_cover_mean")
-        List<Double> meanCloudCover;
+        private List<Double> meanCloudCover;
         @JsonProperty("pressure_msl_mean")
-        List<Integer> pressureMsl;
+        private List<Integer> pressureMsl;
     }
 }

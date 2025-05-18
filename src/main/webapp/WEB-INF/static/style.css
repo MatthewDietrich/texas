@@ -15,7 +15,8 @@ input#submit-button {
 div#weather,
 div#snapshots,
 div#forecast,
-div#airports {
+div#airports,
+div#hourly {
     padding: 1.5em;
 }
 

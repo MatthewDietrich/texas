@@ -48,22 +48,28 @@ public class OpenMeteoForecastResponse {
     @Data
     @NoArgsConstructor
     public static class Daily {
-        List<LocalDate> time;
+        private List<LocalDate> time;
         @JsonProperty("weather_code")
-        List<Integer> weatherCode;
+        private List<Integer> weatherCode;
         @JsonProperty("temperature_2m_max")
-        List<Double> maxTemperature;
+        private List<Double> maxTemperature;
         @JsonProperty("temperature_2m_min")
-        List<Double> minTemperature;
+        private List<Double> minTemperature;
         @JsonProperty("precipitation_probability_max")
-        List<Integer> precipitationChance;
+        private List<Integer> precipitationChance;
     }
 
     @Data
     @NoArgsConstructor
     public static class Hourly {
-        List<LocalDateTime> time;
+        private List<LocalDateTime> time;
         @JsonProperty("weather_code")
-        List<Integer> weatherCode;
+        private List<Integer> weatherCode;
+        @JsonProperty("temperature_2m")
+        private List<Double> temperature;
+        @JsonProperty("precipitation_probability")
+        private List<Integer> precipitationChance;
+        @JsonProperty("is_day")
+        private List<Integer> isDay;
     }
 }

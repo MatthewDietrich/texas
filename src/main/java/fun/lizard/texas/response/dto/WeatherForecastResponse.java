@@ -11,6 +11,7 @@ public class WeatherForecastResponse {
 
     private Double latitude;
     private Double longitude;
-    private List<Forecast> forecasts;
+    private List<DailyForecast> dailyForecasts;
+    private List<HourlyForecast> hourlyForecasts;
     private Current current;
 }

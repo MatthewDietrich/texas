@@ -171,7 +171,7 @@
                                         <div class="row">
                                             <div class="col-2 col-md-2 col-lg-12 pb-2"><i
                                                     class="wi ${weather.current.iconClass} display-2"></i></div>
-                                            <div class="col pt-2 pt-lg-0 pl-2 pl-lg-0"><strong
+                                            <div class="col pt-2 pt-lg-0 px-4 px-lg-0"><strong
                                                     class="h5 fw-normal text-md-left">${weather.current.description}</strong>
                                             </div>
                                         </div>

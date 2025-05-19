@@ -59,7 +59,6 @@ public class WeatherService {
         LocalDateTime currentTime = LocalDateTime.now(ZoneId.of("America/Chicago"));
         for (int i = 2; i <= 12; i += 2) {
             LocalDateTime searchTime = currentTime.plusHours(i).withMinute(0).withSecond(0).withNano(0);
-            log.info("Searching {}", searchTime);
             hourlyForecasts.add(hourlyForecastMap.get(searchTime));
         }
 

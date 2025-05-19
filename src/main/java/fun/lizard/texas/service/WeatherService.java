@@ -138,7 +138,7 @@ public class WeatherService {
             WmoWeatherCode weatherCode = WmoWeatherCode.fromCode(hourly.getWeatherCode().get(i));
             hourlyForecast.setDescription(weatherCode.getDescription());
             String iconClass = weatherCode.getIconClass();
-            if (hourly.getIsDay().get(0).equals(0)) {
+            if (hourly.getIsDay().get(i).equals(0)) {
                 iconClass = iconClass.replace("day", "night");
                 iconClass = iconClass.replace("sunny", "clear");
             }

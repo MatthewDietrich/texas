@@ -44,7 +44,6 @@
                                 </div>
                                 <div class="row">
                                     <p><strong class="icdId">${snapshots[0].icdId}</strong>
-                                        <small>${snapshots[0].direction}</small>
                                     </p>
                                 </div>
                             </div>
@@ -58,7 +57,6 @@
                                 </div>
                                 <div class="row">
                                     <p><strong class="icdId">${snapshots[1].icdId}</strong>
-                                        <small>${snapshots[1].direction}</small>
                                     </p>
                                 </div>
                             </div>
@@ -74,7 +72,6 @@
                                 </div>
                                 <div class="row">
                                     <p><strong class="icdId">${snapshots[2].icdId}</strong>
-                                        <small>${snapshots[2].direction}</small>
                                     </p>
                                 </div>
                             </div>
@@ -88,7 +85,6 @@
                                 </div>
                                 <div class="row">
                                     <p><strong class="icdId">${snapshots[3].icdId}</strong>
-                                        <small>${snapshots[3].direction}</small>
                                     </p>
                                 </div>
                             </div>
@@ -104,7 +100,6 @@
                                 </div>
                                 <div class="row">
                                     <p><strong class="icdId">${snapshots[4].icdId}</strong>
-                                        <small>${snapshots[4].direction}</small>
                                     </p>
                                 </div>
                             </div>
@@ -118,7 +113,6 @@
                                 </div>
                                 <div class="row">
                                     <p><strong class="icdId">${snapshots[5].icdId}</strong>
-                                        <small>${snapshots[5].direction}</small>
                                     </p>
                                 </div>
                             </div>
@@ -134,7 +128,6 @@
                                 </div>
                                 <div class="row">
                                     <p><strong class="icdId">${snapshots[6].icdId}</strong>
-                                        <small>${snapshots[6].direction}</small>
                                     </p>
                                 </div>
                             </div>
@@ -148,7 +141,6 @@
                                 </div>
                                 <div class="row">
                                     <p><strong class="icdId">${snapshots[7].icdId}</strong>
-                                        <small>${snapshots[7].direction}</small>
                                     </p>
                                 </div>
                             </div>

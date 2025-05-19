@@ -12,14 +12,6 @@ input#submit-button {
     margin: 0.5em 0;
 }
 
-div#weather,
-div#snapshots,
-div#forecast,
-div#airports,
-div#hourly {
-    padding: 1.5em;
-}
-
 div.img-container {
     width: 100%;
     height: fit-content;

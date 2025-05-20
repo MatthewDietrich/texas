@@ -46,4 +46,35 @@ $(function () {
             source: cities
         });
     });
+
+});
+
+$(document).ready(function () {
+    $("#texas-img").on("click", function (event) {
+        bounds = this.getBoundingClientRect();
+        var left = bounds.left;
+        var top = bounds.top;
+        var x = event.pageX - left;
+        var y = event.pageY - top;
+        var cw = this.clientWidth;
+        var ch = this.clientHeight;
+        var iw = this.naturalWidth;
+        var ih = this.naturalHeight;
+        var px = x / cw * iw;
+        var py = y / ch * ih;
+
+        var minLon = -106.65;
+        var maxLon = -93.51;
+        var minLat = 25.84;
+        var maxLat = 36.5;
+        var borderWidth = 20;
+        var ew = iw - 2 * borderWidth;
+        var eh = ih - 2 * borderWidth;
+        var lon = minLon + (px / ew) * (maxLon - minLon);
+        var lat = maxLat - ((py - borderWidth) / eh) * (maxLat - minLat);
+        $('input[name="lat"]').val(lat);
+        $('input[name="lon"]').val(lon);
+        $("#texas-img-form").submit();
+        startSearchingAnimation();
+    });
 });

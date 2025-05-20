@@ -11,7 +11,7 @@
 <body>
     <div id="search-main" class="container">
         <div class="row">
-            <div class="col-sm">
+            <div class="col-12">
                 <h1>Enter the name of a city or town in Texas:</h1>
                 <div id="city-typeahead">
                     <form id="city-name-form" method="GET" action="/city">
@@ -20,13 +20,27 @@
                         <input type="submit" value="Search" id="submit-button" /> or
                         <input type="submit" value="Random City" id="random-button" />
                     </form>
-                    <a href="/about">About this app</a>
                 </div>
+            </div>
+            <div class="col">
+                <h1>
+                    or Throw a dart at the map:
+                </h1>
+                <form id="texas-img-form" action="/coordinates" method="GET">
+                    <input name="lat" id="lat" hidden />
+                    <input name="lon" id="lon" hidden />
+                    <img id="texas-img" src="data:image/png;base64,${texasMap}" />
+                </form>
             </div>
         </div>
         <div class="row">
             <div class="col-sm">
                 <span id="searching-indicator"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <a href="/about">About this app</a>
             </div>
         </div>
     </div>

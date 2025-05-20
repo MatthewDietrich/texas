@@ -42,7 +42,9 @@ public class HomeController {
     CityService cityService;
 
     @GetMapping("/")
-    public String getHome(ModelMap modelMap) {
+    public String getHome(ModelMap modelMap) throws IOException {
+        String texasMap = cityService.getBlankMap();
+        modelMap.put("texasMap", texasMap);
         return "home";
     }
 
@@ -74,6 +76,12 @@ public class HomeController {
         modelMap.put("snapshots", snapshots.join());
         log.info("Result returned for city search with input: \"{}\"", name);
         return "snapshot";
+    }
+
+    @GetMapping("/coordinates")
+    public String getByCoordinates(@RequestParam Double lat, @RequestParam Double lon) {
+        City city = cityService.findOneNearPoint(lat, lon);
+        return "forward:/city?name=" + city.getProperties().getName();
     }
 
     @GetMapping("/about")

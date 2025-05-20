@@ -68,6 +68,10 @@ img#city-map {
     padding-top: 1em;
 }
 
+img#texas-img {
+    max-width: 16rem;
+}
+
 #forecast table {
     width: 100%
 }

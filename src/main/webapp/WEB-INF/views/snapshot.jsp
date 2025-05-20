@@ -371,9 +371,9 @@
                                         </tr>
                                         <tr>
                                             <th scope="row">Low</th>
-                                            <td>${weatherHistory[0].maxTemperature}&deg;F</td>
-                                            <td>${weatherHistory[1].maxTemperature}&deg;F</td>
-                                            <td>${weatherHistory[2].maxTemperature}&deg;F</td>
+                                            <td>${weatherHistory[0].minTemperature}&deg;F</td>
+                                            <td>${weatherHistory[1].minTemperature}&deg;F</td>
+                                            <td>${weatherHistory[2].minTemperature}&deg;F</td>
                                         </tr>
                                         <tr>
                                             <th scope="row">Total Precip.</th>

@@ -127,4 +127,15 @@ public class CityService {
             return simpleAirport;
         }).toList();
     }
+
+    public String getBlankMap() throws IOException {
+        Resource resource = new ClassPathResource("texas.png");
+        byte[] resourceBytes = resource.getContentAsByteArray();
+        return Base64.getEncoder().encodeToString(resourceBytes);
+    }
+
+    public City findOneNearPoint(double latitude, double longitude) {
+        Point point = new Point(longitude, latitude);
+        return cityRepository.findByGeometryNear(point, Limit.of(1)).get(0);
+    }
 }

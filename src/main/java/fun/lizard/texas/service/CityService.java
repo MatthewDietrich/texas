@@ -101,7 +101,7 @@ public class CityService {
         int borderWidth = 20;
         int drawWidth = width - 2 * borderWidth;
         int drawHeight = width - 2 * borderWidth;
-        int x = (int) ((longitude - minLon) / (maxLon - minLon) * drawWidth);
+        int x = (int) ((longitude - minLon) / (maxLon - minLon) * drawWidth) + borderWidth;
         int y = (int) ((maxLat - latitude) / (maxLat - minLat) * drawHeight) + borderWidth;
         g2d.setColor(Color.decode("#268bd2"));
         g2d.fillOval(x - 5, y - 5, 20, 20);

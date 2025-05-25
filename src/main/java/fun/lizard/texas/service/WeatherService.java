@@ -131,7 +131,7 @@ public class WeatherService {
             HourlyForecast hourlyForecast = new HourlyForecast();
             LocalDateTime time = hourly.getTime().get(i);
             hourlyForecast.setTime(time);
-            hourlyForecast.setTimeFormatted(time.format(DateTimeFormatter.ofPattern("h:mm a")));
+            hourlyForecast.setTimeFormatted(time.format(DateTimeFormatter.ofPattern("h a")));
             hourlyForecast.setTemperature(hourly.getTemperature().get(i).intValue());
             hourlyForecast.setPrecipitationChance(hourly.getPrecipitationChance().get(i));
             WmoWeatherCode weatherCode = WmoWeatherCode.fromCode(hourly.getWeatherCode().get(i));

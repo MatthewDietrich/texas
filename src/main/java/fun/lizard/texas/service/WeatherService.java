@@ -2,9 +2,11 @@ package fun.lizard.texas.service;
 
 import fun.lizard.texas.constant.WmoWeatherCode;
 import fun.lizard.texas.document.City;
+import fun.lizard.texas.feign.NwsFeignClient;
 import fun.lizard.texas.feign.OpenMeteoForecastFeignClient;
 import fun.lizard.texas.feign.OpenMeteoHistoricalFeignClient;
 import fun.lizard.texas.response.dto.*;
+import fun.lizard.texas.response.nws.NwsAlertResponse;
 import fun.lizard.texas.response.openmeteo.OpenMeteoForecastResponse;
 import fun.lizard.texas.response.openmeteo.OpenMeteoHistoricalResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +32,9 @@ public class WeatherService {
 
     @Autowired
     OpenMeteoHistoricalFeignClient openMeteoHistoricalFeignClient;
+
+    @Autowired
+    NwsFeignClient nwsFeignClient;
 
     private static final double KPA_INHG = 0.02953;
 
@@ -212,6 +217,22 @@ public class WeatherService {
         return weatherHistoricalResponse;
     }
 
+    public List<WeatherAlert> getWeatherAlertsByCity(City city) {
+        double latitude = Double.parseDouble(city.getProperties().getIntptlat());
+        double longitude = Double.parseDouble(city.getProperties().getIntptlon());
+        String pointString = "%s,%s".formatted(latitude, longitude);
+        NwsAlertResponse nwsAlertResponse = nwsFeignClient.getActiveAlerts(pointString);
+        return nwsAlertResponse.getFeatures().stream().map(nwsAlertFeature -> {
+            WeatherAlert weatherAlert = new WeatherAlert();
+            weatherAlert.setEvent(nwsAlertFeature.getProperties().getEvent());
+            weatherAlert.setCertainty(nwsAlertFeature.getProperties().getCertainty());
+            weatherAlert.setUrgency(nwsAlertFeature.getProperties().getUrgency());
+            weatherAlert.setSeverity(nwsAlertFeature.getProperties().getSeverity());
+            weatherAlert.setEndTime(nwsAlertFeature.getProperties().getExpires().format(DateTimeFormatter.ofPattern("h:mm a")));
+            return weatherAlert;
+        }).toList();
+    }
+
     @Scheduled(fixedRate = 300000)
     @CacheEvict("forecasts")
     public void emptyForecastsCache() {
@@ -222,5 +243,11 @@ public class WeatherService {
     @CacheEvict("histories")
     public void emptyHistoriesCache() {
         log.info("Emptying weather history cache");
+    }
+
+    @Scheduled(fixedRate = 300000)
+    @CacheEvict("alerts")
+    public void emptyAlertsCache() {
+        log.info("Emptying weather alert cache");
     }
 }

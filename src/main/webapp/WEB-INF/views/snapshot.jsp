@@ -160,6 +160,9 @@
                             <div class="row">
                                 <div class="col-md-12 col-lg-6" id="weather">
                                     <h3>Current</h3>
+                                    <c:forEach items="${weatherAlerts}" var="alert">
+                                        <p>${alert.event} until ${alert.endTime}</p>
+                                    </c:forEach>
                                     <div class="row align-items-center">
                                         <div class="col-md-12 col-lg-6 text-lg-center" id="weather-icon">
                                             <div class="row">
@@ -341,7 +344,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row"><small>Weather data from <a href="https://open-meteo.com/">Open-Meteo</a></small>
+                    <div class="row"><small>Weather forecasts and historical data from <a
+                                href="https://open-meteo.com/">Open-Meteo</a>. Weather alerts from the <a
+                                href="https://www.weather.gov/alerts">National Weather Service.</a></small>
                     </div>
                 </div>
                 <div id="tabs-3">

@@ -2,11 +2,8 @@ package fun.lizard.texas.controller;
 
 import fun.lizard.texas.document.City;
 import fun.lizard.texas.exception.CityNotFoundException;
-import fun.lizard.texas.response.dto.SimpleAirport;
-import fun.lizard.texas.response.dto.SimpleCity;
-import fun.lizard.texas.response.dto.WeatherHistoricalResponse;
+import fun.lizard.texas.response.dto.*;
 import fun.lizard.texas.response.txdot.CctvSnapshotResponse;
-import fun.lizard.texas.response.dto.WeatherForecastResponse;
 import fun.lizard.texas.service.CctvService;
 import fun.lizard.texas.service.CityService;
 import fun.lizard.texas.service.WeatherService;
@@ -63,6 +60,7 @@ public class HomeController {
         CompletableFuture<List<CctvSnapshotResponse>> snapshots = CompletableFuture.supplyAsync(() -> cctvService.getSnapshotsByCity(city));
         CompletableFuture<WeatherForecastResponse> weather = CompletableFuture.supplyAsync(() -> weatherService.getForecastByCity(city));
         CompletableFuture<List<WeatherHistoricalResponse>> weatherHistory = CompletableFuture.supplyAsync(() -> weatherService.getHistoryByCity(city));
+        CompletableFuture<List<WeatherAlert>> weatherAlerts = CompletableFuture.supplyAsync(() -> weatherService.getWeatherAlertsByCity(city));
         SimpleCity simpleCity = cityService.findCountyAndSimplify(city);
         String cityMap = cityService.plotCity(city);
         List<SimpleAirport> simpleAirports = cityService.findNearbyAirports(city);
@@ -72,6 +70,7 @@ public class HomeController {
         modelMap.put("cityMap", cityMap);
         modelMap.put("airports", simpleAirports);
         modelMap.put("weatherHistory", weatherHistory.join());
+        modelMap.put("weatherAlerts", weatherAlerts.join());
         modelMap.put("dateString", dateString);
         modelMap.put("snapshots", snapshots.join());
         log.info("Result returned for city search with input: \"{}\"", name);

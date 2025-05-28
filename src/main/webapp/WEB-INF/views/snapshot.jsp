@@ -346,7 +346,7 @@
                     </div>
                     <div class="row"><small>Weather forecasts and historical data from <a
                                 href="https://open-meteo.com/">Open-Meteo</a>. Weather alerts from the <a
-                                href="https://www.weather.gov/alerts">National Weather Service.</a></small>
+                                href="https://www.weather.gov/alerts">National Weather Service</a>.</small>
                     </div>
                 </div>
                 <div id="tabs-3">

@@ -12,12 +12,14 @@ import fun.lizard.texas.response.dto.SimpleCity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Limit;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Point;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
@@ -26,6 +28,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.List;
 
@@ -76,6 +79,9 @@ public class CityService {
         }
         simpleCity.setLatitude(latitude);
         simpleCity.setLongitude(longitude);
+        simpleCity.setLastSearched(city.getLastSearched());
+        simpleCity.setTimesSearched(city.getTimesSearched());
+
         return simpleCity;
     }
 
@@ -137,5 +143,35 @@ public class CityService {
     public City findOneNearPoint(double latitude, double longitude) {
         Point point = new Point(longitude, latitude);
         return cityRepository.findByGeometryNear(point, Limit.of(1)).get(0);
+    }
+
+    public void updateCity(City city) {
+        Integer timesSearched = city.getTimesSearched();
+        if (null == timesSearched) {
+            timesSearched = 0;
+        }
+        city.setTimesSearched(timesSearched + 1);
+        city.setLastSearched(LocalDateTime.now());
+        cityRepository.save(city);
+    }
+
+    @Cacheable("mostSearched")
+    public List<City> getMostSearched() {
+        return cityRepository.findTop10ByTimesSearchedGreaterThanOrderByTimesSearchedDesc(0);
+    }
+
+    @Cacheable("recentlySearched")
+    public List<City> getRecentlySearched() {
+        return cityRepository.findTop10ByLastSearchedNotNullOrderByLastSearchedDesc();
+    }
+
+    @Scheduled(fixedRate = 10000)
+    @CacheEvict("mostSearched")
+    public void clearMostSearched() {
+    }
+
+    @Scheduled(fixedRate = 10000)
+    @CacheEvict("recentlySearched")
+    public void clearRecentlySearched() {
     }
 }

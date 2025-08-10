@@ -19,4 +19,8 @@ public interface CityRepository extends MongoRepository<City, String> {
     List<City> findAllByName(String name);
 
     List<City> findByGeometryNear(Point point, Limit limit);
+
+    List<City> findTop10ByLastSearchedNotNullOrderByLastSearchedDesc();
+
+    List<City> findTop10ByTimesSearchedGreaterThanOrderByTimesSearchedDesc(int minTimesSearched);
 }

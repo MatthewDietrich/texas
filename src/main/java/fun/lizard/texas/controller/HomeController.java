@@ -41,7 +41,11 @@ public class HomeController {
     @GetMapping("/")
     public String getHome(ModelMap modelMap) throws IOException {
         String texasMap = cityService.getBlankMap();
+        List<City> mostSearched = cityService.getMostSearched();
+        List<City> recentlySearched = cityService.getRecentlySearched();
         modelMap.put("texasMap", texasMap);
+        modelMap.put("mostSearched", mostSearched);
+        modelMap.put("recentlySearched", recentlySearched);
         return "home";
     }
 
@@ -57,6 +61,7 @@ public class HomeController {
             modelMap.put("cityName", cityNameStripped);
             return "notfound";
         }
+        cityService.updateCity(city);
         CompletableFuture<List<CctvSnapshotResponse>> snapshots = CompletableFuture.supplyAsync(() -> cctvService.getSnapshotsByCity(city));
         CompletableFuture<WeatherForecastResponse> weather = CompletableFuture.supplyAsync(() -> weatherService.getForecastByCity(city));
         CompletableFuture<List<WeatherHistoricalResponse>> weatherHistory = CompletableFuture.supplyAsync(() -> weatherService.getHistoryByCity(city));

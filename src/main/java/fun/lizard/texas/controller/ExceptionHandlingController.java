@@ -1,5 +1,6 @@
 package fun.lizard.texas.controller;
 
+import feign.FeignException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -12,7 +13,7 @@ import java.net.SocketTimeoutException;
 public class ExceptionHandlingController {
 
     @ResponseStatus(HttpStatus.GATEWAY_TIMEOUT)
-    @ExceptionHandler({SocketTimeoutException.class})
+    @ExceptionHandler({SocketTimeoutException.class, FeignException.InternalServerError.class})
     public String getApiTimeoutErrorPage(ModelMap modelMap) {
         return "timeout";
     }

@@ -59,10 +59,6 @@ a {
     display: none;
 }
 
-#searching-indicator {
-    font-size: 2em;
-}
-
 img#city-map {
     max-width: 16em;
     padding-top: 1em;
@@ -119,4 +115,11 @@ table {
     background-color: #002b36 !important;
     color: #eee8d5;
     border: 0 !important;
+}
+
+dialog {
+    background-color: #eee8d5;
+    border: 0px;
+    border-radius: 3px;
+    width: 40%;
 }

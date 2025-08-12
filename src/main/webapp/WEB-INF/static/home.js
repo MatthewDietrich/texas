@@ -1,10 +1,12 @@
 const form = document.getElementById('city-name-form');
 const searchIndicatorSpan = document.getElementById("searching-indicator");
-const randomButton = document.getElementById("random-button")
-const cityInput = document.getElementById("city-name")
+const randomButton = document.getElementById("random-button");
+const cityInput = document.getElementById("city-name");
+const searchingModal = document.getElementById("searching-modal");
 let animationInterval;
 
 function startSearchingAnimation() {
+    searchingModal.showModal();
     clearInterval(animationInterval);
     let dotCount = 0;
     searchIndicatorSpan.textContent = 'Searching';
@@ -24,6 +26,7 @@ window.addEventListener('pageshow', function (event) {
     if (event.persisted) {
         clearInterval(animationInterval);
         searchIndicatorSpan.textContent = "";
+        searchingModal.close();
     }
 });
 
@@ -46,10 +49,10 @@ $(function () {
             source: cities
         });
     });
-
 });
 
 $(document).ready(function () {
+    $(".scoreboard-item").on("click", startSearchingAnimation);
     $("#texas-img").on("click", function (event) {
         bounds = this.getBoundingClientRect();
         var left = bounds.left;

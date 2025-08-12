@@ -12,12 +12,16 @@
 
     <body>
         <div id="search-main" class="container">
+            <dialog id="searching-modal" aria-modal="true" aria-labelledby="searching-indicator">
+                <span id="searching-indicator" class="h3 text-center"></span>
+            </dialog>
             <div class="col">
                 <div class="row">
                     <div class="col-12">
                         <h1>Enter the name of a city or town in Texas:</h1>
                         <div id="city-typeahead">
                             <form id="city-name-form" method="GET" action="/city">
+                                <label for="city-name" class="visually-hidden">City Name</label>
                                 <input id="city-name" name="name" type="text" placeholder="City name" autocomplete="off"
                                     required />
                                 <input type="submit" value="Search" id="submit-button" /> or
@@ -36,11 +40,6 @@
                         </form>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm">
-                        <span id="searching-indicator"></span>
-                    </div>
-                </div>
             </div>
             <div class="col">
                 <div class="row">
@@ -48,7 +47,8 @@
                         <h2>Most Searched</h2>
                         <ol>
                             <c:forEach items="${mostSearched}" var="msCity">
-                                <li><a href="city?name=${msCity.properties.name}">${msCity.properties.name}</a></li>
+                                <li><a class="scoreboard-item"
+                                        href="city?name=${msCity.properties.name}">${msCity.properties.name}</a></li>
                             </c:forEach>
                         </ol>
                     </div>
@@ -56,7 +56,8 @@
                         <h2>Recently Searched</h2>
                         <ol>
                             <c:forEach items="${recentlySearched}" var="rCity">
-                                <li><a href="city?name=${rCity.properties.name}">${rCity.properties.name}</a></li>
+                                <li><a class="scoreboard-item"
+                                        href="city?name=${rCity.properties.name}">${rCity.properties.name}</a></li>
                             </c:forEach>
                         </ol>
                     </div>

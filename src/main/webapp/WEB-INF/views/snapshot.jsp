@@ -6,6 +6,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Welcome to ${city.name} - Texas City Snapshot</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+            rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.3.5/css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="weather-icons.min.css" />
         <link rel="stylesheet" type="text/css" href="weather-icons-wind.min.css" />

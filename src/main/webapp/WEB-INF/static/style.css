@@ -1,58 +1,105 @@
+:root {
+    /* Color Variables */
+    --primary-bg: #1a5049;
+    --secondary-bg: rgb(74, 175, 165);
+    --tertiary-bg: #586e75;
+    --quaternary-bg: #657b83;
+    --light-bg: #159d8e;
+    --accent-bg: #268bd2;
+
+    --primary-text: #eee8d5;
+    --secondary-text: #fdf6e3;
+    --dark-text: #002b36;
+
+    /* Spacing Variables */
+    --spacing-xs: 0.5em;
+    --spacing-sm: 1em;
+    --spacing-md: 1.5em;
+    --spacing-lg: 2em;
+    --spacing-xl: 2.5rem;
+
+    /* Size Variables */
+    --max-width-sm: 16em;
+    --max-width-md: 16rem;
+    --max-width-lg: 60%;
+    --max-width-xl: 40%;
+    --full-width: 100%;
+
+    /* Border Variables */
+    --border-radius: 3px;
+    --border-width: 3px;
+    --no-border: 0;
+
+    /* Font Variables */
+    --primary-font-family: "Roboto Condensed", sans-serif;
+    --secondary-font-family: "Roboto", sans-serif;
+
+    /* Common Font Properties */
+    --font-optical-sizing: auto;
+    --font-style: normal;
+}
+
 body {
-    background: #002b36;
-    color: #eee8d5;
+    background: var(--primary-bg);
+    color: var(--primary-text);
+    font-family: var(--primary-font-family);
+    font-optical-sizing: var(--font-optical-sizing);
+    font-style: var(--font-style);
 }
 
 input#city-name {
-    padding: 0.5em;
-    width: 100%;
+    padding: var(--spacing-xs);
+    width: var(--full-width);
 }
 
 input#submit-button {
-    margin: 0.5em 0;
+    margin: var(--spacing-xs) var(--no-border);
 }
 
 div.img-container {
-    width: 100%;
+    width: var(--full-width);
     height: fit-content;
-    padding: 0;
+    padding: var(--no-border);
 }
 
 div.img-container img {
-    width: 100%;
+    width: var(--full-width);
 }
 
 div.img-caption {
-    padding: 0
+    padding: var(--no-border);
 }
 
 .icdId {
-    font-weight: bold;
-    padding: 0;
+    padding: var(--no-border);
+    font-family: var(--secondary-font-family);
+    font-optical-sizing: var(--font-optical-sizing);
+    font-style: var(--font-style);
+    font-weight: 700;
+    color: var(--dark-text);
 }
 
 div#snapshots small {
-    padding: 0;
-    font-weight: normal;
+    padding: var(--no-border);
 }
 
 a {
     text-decoration: underline;
-    color: #eee8d5;
+    color: var(--primary-text);
 }
 
 .ui-menu-item {
-    background-color: #586e75;
-    border-bottom: 1px solid #657b83;
-    color: #fdf6e3;
-    max-width: 60%;
-    padding: 0.5em;
+    background-color: var(--tertiary-bg);
+    border-bottom: var(--border-width) solid var(--quaternary-bg);
+    color: var(--secondary-text);
+    max-width: var(--max-width-lg);
+    padding: var(--spacing-xs);
     list-style: none;
     cursor: default;
 }
 
 .ui-menu-item:hover {
-    background-color: #268bd2;
+    background-color: var(--accent-bg);
 }
 
 .ui-helper-hidden-accessible {
@@ -60,66 +107,112 @@ a {
 }
 
 img#city-map {
-    max-width: 16em;
-    padding-top: 1em;
+    max-width: var(--max-width-sm);
+    padding-top: var(--spacing-sm);
 }
 
 img#texas-img {
-    max-width: 16rem;
+    max-width: var(--max-width-md);
 }
 
 #forecast table {
-    width: 100%
+    width: var(--full-width);
 }
 
 header {
-    margin: 0 auto;
+    margin: var(--no-border) auto;
     text-align: center;
 }
 
 #weather th {
-    padding-right: 1em;
+    padding-right: var(--spacing-sm);
 }
 
 #weather-container,
 #snapshots,
 #airports-container,
 table {
-    background-color: #eee8d5;
-    color: #002b36;
+    background-color: var(--light-bg);
+    color: var(--dark-text);
+    font-family: var(--secondary-font-family);
+    font-optical-sizing: var(--font-optical-sizing);
+    font-style: var(--font-style);
+    font-weight: 400;
 }
 
 .table-bordered {
-    background-color: #073642;
-    color: #eee8d5;
+    background-color: var(--secondary-bg);
 }
 
 .table-bordered thead {
-    background-color: #002b36;
+    background-color: var(--primary-bg);
 }
 
-.table-bordered th,
+.table-bordered td,
+.table-bordered thead th {
+    line-height: var(--spacing-xl);
+    font-family: var(--secondary-font-family);
+    font-optical-sizing: var(--font-optical-sizing);
+    font-style: var(--font-style);
+}
+
 .table-bordered td {
-    line-height: 2.5rem;
+    font-weight: 400;
+    color: var(--dark-text);
+}
+
+.table-bordered thead th {
+    font-weight: 600;
+    color: var(--primary-text);
 }
 
 .ui-tabs,
 .ui-tabs-nav,
-.ui-tabs-tab {
-    background-color: #eee8d5 !important;
-    color: #002b36;
-    border: 0 !important;
+.ui-tabs-tab,
+.ui-state-default a {
+    background-color: var(--light-bg);
+    color: var(--dark-text) !important;
+    border-radius: var(--border-radius);
+    border: var(--no-border) !important;
 }
 
-.ui-tabs-active {
-    background-color: #002b36 !important;
-    color: #eee8d5;
-    border: 0 !important;
+.ui-tabs-active,
+.ui-state-active a {
+    background-color: var(--primary-bg) !important;
+    color: var(--primary-text) !important;
+    border-radius: var(--border-radius);
+    border: var(--no-border) !important;
 }
 
 dialog {
-    background-color: #eee8d5;
-    border: 0px;
-    border-radius: 3px;
-    width: 40%;
+    background-color: var(--light-bg);
+    border: var(--no-border);
+    border-radius: var(--border-radius);
+    width: var(--max-width-xl);
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--primary-font-family);
+    font-optical-sizing: var(--font-optical-sizing);
+    font-style: var(--font-style);
+    font-weight: 600;
+}
+
+p,
+a {
+    font-family: var(--secondary-font-family);
+    font-optical-sizing: var(--font-optical-sizing);
+    font-style: var(--font-style);
+    font-weight: 400;
+}
+
+#tabs ul li,
+small,
+small a {
+    font-family: var(--primary-font-family);
+    font-optical-sizing: var(--font-optical-sizing);
+    font-style: var(--font-style);
+    font-weight: 400;
 }

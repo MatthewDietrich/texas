@@ -2,8 +2,8 @@
     /* Color Variables */
     --primary-bg: #1a5049;
     --secondary-bg: rgb(74, 175, 165);
-    --tertiary-bg: #586e75;
-    --quaternary-bg: #657b83;
+    --tertiary-bg: #256e65;
+    --quaternary-bg: #0c2723;
     --light-bg: #159d8e;
     --accent-bg: #268bd2;
 
@@ -27,7 +27,7 @@
 
     /* Border Variables */
     --border-radius: 3px;
-    --border-width: 3px;
+    --border-width: 1px;
     --no-border: 0;
 
     /* Font Variables */
@@ -99,7 +99,7 @@ a {
 }
 
 .ui-menu-item:hover {
-    background-color: var(--accent-bg);
+    background-color: var(--light-bg);
 }
 
 .ui-helper-hidden-accessible {

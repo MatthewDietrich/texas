@@ -158,11 +158,11 @@ table {
 }
 
 .table-bordered td:has(i.wi):not(:has(i.wi-wind)) {
-    border-right: var(--no-border) !important;
+    border-right: 0;
 }
 
 .table-bordered td:has(i.wi)+td {
-    border-left: var(--no-border) !important;
+    border-left: 0;
 }
 
 .table-bordered thead {

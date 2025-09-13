@@ -154,6 +154,15 @@ table {
 
 .table-bordered {
     background-color: var(--secondary-bg);
+    border-color: var(--primary-bg);
+}
+
+.table-bordered td:has(i.wi) {
+    border-right: var(--no-border) !important;
+}
+
+.table-bordered td:has(i.wi)+td {
+    border-left: var(--no-border) !important;
 }
 
 .table-bordered thead {

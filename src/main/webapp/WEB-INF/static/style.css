@@ -157,7 +157,7 @@ table {
     border-color: var(--primary-bg);
 }
 
-.table-bordered td:has(i.wi) {
+.table-bordered td:has(i.wi):not(:has(i.wi-wind)) {
     border-right: var(--no-border) !important;
 }
 

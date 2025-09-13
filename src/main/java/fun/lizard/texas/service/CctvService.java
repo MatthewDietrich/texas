@@ -3,11 +3,14 @@ package fun.lizard.texas.service;
 import com.fasterxml.jackson.core.util.ByteArrayBuilder;
 import fun.lizard.texas.document.City;
 import fun.lizard.texas.document.Camera;
+import fun.lizard.texas.document.County;
 import fun.lizard.texas.document.District;
 import fun.lizard.texas.feign.TxdotFeignClient;
 import fun.lizard.texas.repository.CameraRepository;
 import fun.lizard.texas.repository.CityRepository;
+import fun.lizard.texas.repository.CountyRepository;
 import fun.lizard.texas.repository.DistrictRepository;
+import fun.lizard.texas.response.dto.SimpleSnapshot;
 import fun.lizard.texas.response.txdot.CctvSnapshotResponse;
 import fun.lizard.texas.response.txdot.CctvStatusResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -48,6 +51,9 @@ public class CctvService {
     DistrictRepository districtRepository;
 
     @Autowired
+    CountyRepository countyRepository;
+
+    @Autowired
     MongoTemplate mongoTemplate;
 
     @Value("${app.check-distance}")
@@ -77,6 +83,43 @@ public class CctvService {
 
     public CompletableFuture<CctvSnapshotResponse> fetchSnapshotAsync(String icdId, String districtName) {
         return CompletableFuture.supplyAsync(() -> txdotFeignClient.getCctvSnapshotByIcdId(icdId, districtName));
+    }
+
+    public SimpleSnapshot fetchSnapshot(String icdId) {
+        Camera camera = cameraRepository.findOneByIcdId(icdId);
+        double lat = camera.getLocation().getCoordinates().get(1);
+        double lon = camera.getLocation().getCoordinates().get(0);
+        Point point = new Point(lon, lat);
+        List<District> districts = districtRepository.findByGeometryNear(point, new Distance(distanceToCheck));
+        if (districts.isEmpty()) {
+            log.info("District not found for camera: {}", icdId);
+            return null;
+        }
+        List<City> cities = cityRepository.findByGeometryNear(point, Limit.of(1));
+        if (cities.isEmpty()) {
+            log.info("City not found for camera: {}", icdId);
+            return null;
+        }
+        List<County> counties = countyRepository.findByGeometryNear(point, new Distance(distanceToCheck), Limit.of(1));
+        if (counties.isEmpty()) {
+            log.info("County not found for camera: {}", icdId);
+            return null;
+        }
+        District district = districts.get(0);
+        City city = cities.get(0);
+        County county = counties.get(0);
+        String districtAbbreviation = district.getProperties().getDIST_ABRVN();
+        CctvSnapshotResponse response = txdotFeignClient.getCctvSnapshotByIcdId(icdId, districtAbbreviation);
+        SimpleSnapshot simpleSnapshot = new SimpleSnapshot();
+        simpleSnapshot.setCameraId(camera.getIcdId());
+        simpleSnapshot.setCityName(city.getProperties().getName());
+        simpleSnapshot.setLongitude(lon);
+        simpleSnapshot.setLatitude(lat);
+        simpleSnapshot.setDistrictAbbreviation(districtAbbreviation);
+        simpleSnapshot.setSnapshot(response.getSnippet());
+        simpleSnapshot.setCountyName(county.getProperties().getName());
+        simpleSnapshot.setSnapshotTime(response.getTimestampFormatted());
+        return simpleSnapshot;
     }
 
     public List<CctvSnapshotResponse> getSnapshotsByCity(City city) {
@@ -127,6 +170,10 @@ public class CctvService {
             }
             return cctvSnapshotResponse;
         }).toList();
+    }
+
+    public Camera findOneByIcdId(String icdId) {
+        return cameraRepository.findOneByIcdId(icdId);
     }
 
     @Scheduled(fixedRate = 300000)

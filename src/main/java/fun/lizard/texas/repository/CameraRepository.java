@@ -13,4 +13,6 @@ import java.util.List;
 public interface CameraRepository extends MongoRepository<Camera, String> {
 
     List<Camera> findByLocationNear(Point point, Distance distance, Limit limit);
+
+    Camera findOneByIcdId(String icdId);
 }

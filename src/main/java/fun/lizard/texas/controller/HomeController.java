@@ -1,6 +1,9 @@
 package fun.lizard.texas.controller;
 
+import fun.lizard.texas.document.Camera;
 import fun.lizard.texas.document.City;
+import fun.lizard.texas.document.County;
+import fun.lizard.texas.document.District;
 import fun.lizard.texas.exception.CityNotFoundException;
 import fun.lizard.texas.response.dto.*;
 import fun.lizard.texas.response.txdot.CctvSnapshotResponse;
@@ -25,7 +28,7 @@ import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
 
 @Controller
-@SessionAttributes({"cityName"})
+@SessionAttributes({ "cityName" })
 @Slf4j
 public class HomeController {
 
@@ -59,17 +62,22 @@ public class HomeController {
         } catch (CityNotFoundException e) {
             log.info("Result not found for city search with input: \"{}\"", name);
             modelMap.put("cityName", cityNameStripped);
-            return "notfound";
+            return "citynotfound";
         }
         cityService.updateCity(city);
-        CompletableFuture<List<CctvSnapshotResponse>> snapshots = CompletableFuture.supplyAsync(() -> cctvService.getSnapshotsByCity(city));
-        CompletableFuture<WeatherForecastResponse> weather = CompletableFuture.supplyAsync(() -> weatherService.getForecastByCity(city));
-        CompletableFuture<List<WeatherHistoricalResponse>> weatherHistory = CompletableFuture.supplyAsync(() -> weatherService.getHistoryByCity(city));
-        CompletableFuture<List<WeatherAlert>> weatherAlerts = CompletableFuture.supplyAsync(() -> weatherService.getWeatherAlertsByCity(city));
+        CompletableFuture<List<CctvSnapshotResponse>> snapshots = CompletableFuture
+                .supplyAsync(() -> cctvService.getSnapshotsByCity(city));
+        CompletableFuture<WeatherForecastResponse> weather = CompletableFuture
+                .supplyAsync(() -> weatherService.getForecastByCity(city));
+        CompletableFuture<List<WeatherHistoricalResponse>> weatherHistory = CompletableFuture
+                .supplyAsync(() -> weatherService.getHistoryByCity(city));
+        CompletableFuture<List<WeatherAlert>> weatherAlerts = CompletableFuture
+                .supplyAsync(() -> weatherService.getWeatherAlertsByCity(city));
         SimpleCity simpleCity = cityService.findCountyAndSimplify(city);
         String cityMap = cityService.plotCity(city);
         List<SimpleAirport> simpleAirports = cityService.findNearbyAirports(city);
-        String dateString = LocalDate.now(ZoneId.of("America/Chicago")).format(DateTimeFormatter.ofPattern("MMMM dd", Locale.US));
+        String dateString = LocalDate.now(ZoneId.of("America/Chicago"))
+                .format(DateTimeFormatter.ofPattern("MMMM dd", Locale.US));
         modelMap.put("weather", weather.join());
         modelMap.put("city", simpleCity);
         modelMap.put("cityMap", cityMap);
@@ -79,7 +87,7 @@ public class HomeController {
         modelMap.put("dateString", dateString);
         modelMap.put("snapshots", snapshots.join());
         log.info("Result returned for city search with input: \"{}\"", name);
-        return "snapshot";
+        return "city";
     }
 
     @GetMapping("/coordinates")
@@ -96,5 +104,20 @@ public class HomeController {
     @GetMapping("/citynames")
     public ResponseEntity<List<String>> getCityNames() {
         return ResponseEntity.ok(cityService.findAllNames());
+    }
+
+    @GetMapping("/camera")
+    public String getCameraByIcdId(ModelMap modelMap, @RequestParam String id) {
+        String idStripped = id.strip();
+        SimpleSnapshot simpleSnapshot = cctvService.fetchSnapshot(idStripped);
+        modelMap.put("cityName", simpleSnapshot.getCityName());
+        modelMap.put("cameraId", simpleSnapshot.getCameraId());
+        modelMap.put("lat", simpleSnapshot.getLatitude());
+        modelMap.put("lon", simpleSnapshot.getLongitude());
+        modelMap.put("districtAbbreviation", simpleSnapshot.getDistrictAbbreviation());
+        modelMap.put("snapshot", simpleSnapshot.getSnapshot());
+        modelMap.put("countyName", simpleSnapshot.getCountyName());
+        modelMap.put("snapshotTime", simpleSnapshot.getSnapshotTime());
+        return "camera";
     }
 }

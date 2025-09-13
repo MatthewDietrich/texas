@@ -1,7 +1,7 @@
 :root {
     /* Color Variables */
     --primary-bg: #1a5049;
-    --secondary-bg: rgb(74, 175, 165);
+    --secondary-bg: #4aafa5;
     --tertiary-bg: #256e65;
     --quaternary-bg: #0c2723;
     --light-bg: #159d8e;
@@ -24,6 +24,7 @@
     --max-width-lg: 60%;
     --max-width-xl: 40%;
     --full-width: 100%;
+    --most-width: 80%;
 
     /* Border Variables */
     --border-radius: 3px;
@@ -70,13 +71,14 @@ div.img-caption {
     padding: var(--no-border);
 }
 
-.icdId {
-    padding: var(--no-border);
-    font-family: var(--secondary-font-family);
-    font-optical-sizing: var(--font-optical-sizing);
-    font-style: var(--font-style);
-    font-weight: 700;
-    color: var(--dark-text);
+div.img-container-lg {
+    width: var(--most-width);
+    height: fit-content;
+    margin: 0 auto;
+}
+
+div.img-container-lg img {
+    width: var(--full-width);
 }
 
 div#snapshots small {
@@ -86,6 +88,15 @@ div#snapshots small {
 a {
     text-decoration: underline;
     color: var(--primary-text);
+}
+
+.icdId {
+    padding: var(--no-border);
+    font-family: var(--secondary-font-family);
+    font-optical-sizing: var(--font-optical-sizing);
+    font-style: var(--font-style);
+    font-weight: 700;
+    color: var(--dark-text) !important;
 }
 
 .ui-menu-item {
@@ -129,7 +140,7 @@ header {
 }
 
 #weather-container,
-#snapshots,
+#snapshots-container,
 #airports-container,
 table {
     background-color: var(--light-bg);
@@ -138,6 +149,7 @@ table {
     font-optical-sizing: var(--font-optical-sizing);
     font-style: var(--font-style);
     font-weight: 400;
+    border-radius: var(--border-radius);
 }
 
 .table-bordered {
@@ -209,10 +221,11 @@ a {
 }
 
 #tabs ul li,
-small,
-small a {
+div#snapshots-container small,
+div#snapshots-container small a {
     font-family: var(--primary-font-family);
     font-optical-sizing: var(--font-optical-sizing);
     font-style: var(--font-style);
     font-weight: 400;
+    color: var(--dark-text);
 }

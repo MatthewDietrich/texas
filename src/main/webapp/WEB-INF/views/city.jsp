@@ -50,7 +50,8 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <p><strong class="icdId">${snapshots[0].icdId}</strong>
+                                        <p><a class="icdId"
+                                                href="/camera?id=${snapshots[0].icdId}">${snapshots[0].icdId}</a>
                                         </p>
                                     </div>
                                 </div>
@@ -63,7 +64,8 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <p><strong class="icdId">${snapshots[1].icdId}</strong>
+                                        <p><a class="icdId"
+                                                href="/camera?id=${snapshots[1].icdId}">${snapshots[1].icdId}</a>
                                         </p>
                                     </div>
                                 </div>
@@ -78,7 +80,8 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <p><strong class="icdId">${snapshots[2].icdId}</strong>
+                                        <p><a class="icdId"
+                                                href="/camera?id=${snapshots[2].icdId}">${snapshots[2].icdId}</a>
                                         </p>
                                     </div>
                                 </div>
@@ -91,7 +94,8 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <p><strong class="icdId">${snapshots[3].icdId}</strong>
+                                        <p><a class="icdId"
+                                                href="/camera?id=${snapshots[3].icdId}">${snapshots[3].icdId}</a>
                                         </p>
                                     </div>
                                 </div>
@@ -106,7 +110,8 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <p><strong class="icdId">${snapshots[4].icdId}</strong>
+                                        <p><a class="icdId"
+                                                href="/camera?id=${snapshots[4].icdId}">${snapshots[4].icdId}</a>
                                         </p>
                                     </div>
                                 </div>
@@ -119,7 +124,8 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <p><strong class="icdId">${snapshots[5].icdId}</strong>
+                                        <p><a class="icdId"
+                                                href="/camera?id=${snapshots[5].icdId}">${snapshots[5].icdId}</a>
                                         </p>
                                     </div>
                                 </div>
@@ -134,7 +140,8 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <p><strong class="icdId">${snapshots[6].icdId}</strong>
+                                        <p><a class="icdId"
+                                                href="/camera?id=${snapshots[6].icdId}">${snapshots[6].icdId}</a>
                                         </p>
                                     </div>
                                 </div>
@@ -147,7 +154,8 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <p><strong class="icdId">${snapshots[7].icdId}</strong>
+                                        <p><a class="icdId"
+                                                href="/camera?id=${snapshots[7].icdId}">${snapshots[7].icdId}</a>
                                         </p>
                                     </div>
                                 </div>

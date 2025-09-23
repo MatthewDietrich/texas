@@ -5,7 +5,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Welcome to ${city.name} - Texas City Snapshot</title>
+        <title>${cameraId} - Texas City Snapshot</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link
@@ -19,7 +19,7 @@
     </head>
 
     <body>
-        <div id="main" class="container">
+        <main id="main" class="container">
             <header>
                 <div class="row align-items-center">
                     <h1 id="camera-id">Viewing camera ${cameraId}</h1>
@@ -52,7 +52,7 @@
                             Carrollton</small></p>
                 </footer>
             </div>
-        </div>
+        </main>
     </body>
 
     </html>

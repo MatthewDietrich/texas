@@ -19,7 +19,7 @@
     </head>
 
     <body>
-        <div id="main" class="container">
+        <main id="main" class="container">
             <header>
                 <div class="row align-items-center">
                     <div class="col flex-column justify-content-center">
@@ -383,7 +383,7 @@
                             Carrollton</small></p>
                 </footer>
             </div>
-        </div>
+        </main>
 
         <script src="/webjars/bootstrap/5.3.5/js/bootstrap.min.js"></script>
         <script src="/webjars/jquery/3.6.0/jquery.js"></script>

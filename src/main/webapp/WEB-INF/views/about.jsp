@@ -12,23 +12,22 @@
 </head>
 
 <body>
-    <div id="main" class="container">
+    <main id="main" class="container">
         <div class="row">
             <div class="col-sm">
                 <h1>About</h1>
                 <p><strong>Texas City Snapshot</strong> is a tool to find weather data and road camera images from
-                    cities around Texas.</p>
+                    cities around Texas. Data is updated every five minutes.</p>
                 <h2>Weather</h2>
-                <p>Weather forecasts and historical weather data is provided by <a
-                        href="https://open-meteo.com/">Open-Meteo</a> and is updated every
-                    five minutes.</p>
+                <p>Weather forecasts and historical weather data are provided by <a
+                        href="https://open-meteo.com/">Open-Meteo</a>.</p>
                 <p>Weather alerts are provided by the <a href="https://www.weather.gov/alerts">National Weather
-                        Service</a> and are updated every five minutes.</p>
+                        Service</a>.</p>
                 <h2>Road Camera Snapshots</h2>
                 <p>Images are sourced from road cameras owned by the <a
                         href="https://www.txdot.gov/discover/live-traffic-cameras.html">Texas
                         Department of
-                        Transportation</a> and are updated every five minutes.</p>
+                        Transportation</a>.</p>
             </div>
         </div>
         <footer class="pt-4">
@@ -36,7 +35,7 @@
             <p><small>Copyright 2025 <a href="https://lizard.fun">Squam</a> &bull; Made with &hearts; in
                     Carrollton</small></p>
         </footer>
-    </div>
+    </main>
 
     <script src="/webjars/bootstrap/5.3.5/js/bootstrap.min.js"></script>
     <script src="/webjars/jquery/3.6.0/jquery.js"></script>

@@ -31,6 +31,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
@@ -89,6 +91,8 @@ public class CctvService {
         Camera camera = cameraRepository.findOneByIcdId(icdId);
         double lat = camera.getLocation().getCoordinates().get(1);
         double lon = camera.getLocation().getCoordinates().get(0);
+        BigDecimal bdLat = new BigDecimal(Double.toString(lat)).setScale(7, RoundingMode.HALF_UP);
+        BigDecimal bdLon = new BigDecimal(Double.toString(lon)).setScale(7, RoundingMode.HALF_UP);
         Point point = new Point(lon, lat);
         List<District> districts = districtRepository.findByGeometryNear(point, new Distance(distanceToCheck));
         if (districts.isEmpty()) {
@@ -113,8 +117,8 @@ public class CctvService {
         SimpleSnapshot simpleSnapshot = new SimpleSnapshot();
         simpleSnapshot.setCameraId(camera.getIcdId());
         simpleSnapshot.setCityName(city.getProperties().getName());
-        simpleSnapshot.setLongitude(lon);
-        simpleSnapshot.setLatitude(lat);
+        simpleSnapshot.setLongitude(bdLon.doubleValue());
+        simpleSnapshot.setLatitude(bdLat.doubleValue());
         simpleSnapshot.setDistrictAbbreviation(districtAbbreviation);
         simpleSnapshot.setSnapshot(response.getSnippet());
         simpleSnapshot.setCountyName(county.getProperties().getName());

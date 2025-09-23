@@ -16,7 +16,7 @@
     </head>
 
     <body>
-        <div id="search-main" class="container">
+        <main id="search-main" class="container">
             <dialog id="searching-modal" aria-modal="true" aria-labelledby="searching-indicator">
                 <span id="searching-indicator" class="h3 text-center"></span>
             </dialog>
@@ -76,7 +76,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
 
         <script src="/webjars/bootstrap/5.3.5/js/bootstrap.min.js"></script>
         <script src="/webjars/jquery/3.6.0/jquery.js"></script>

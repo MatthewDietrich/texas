@@ -28,6 +28,8 @@
                         href="https://www.txdot.gov/discover/live-traffic-cameras.html">Texas
                         Department of
                         Transportation</a>.</p>
+                <h2>Population</h2>
+                <p>Population data is taken from the 2020 United States Census.</p>
             </div>
         </div>
         <footer class="pt-4">

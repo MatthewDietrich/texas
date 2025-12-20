@@ -28,9 +28,11 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.List;
+import java.util.Locale;
 
 @Slf4j
 @Service
@@ -81,6 +83,7 @@ public class CityService {
         simpleCity.setLongitude(longitude);
         simpleCity.setLastSearched(city.getLastSearched());
         simpleCity.setTimesSearched(city.getTimesSearched());
+        simpleCity.setPopulation(NumberFormat.getNumberInstance(Locale.US).format(city.getPopulation()));
 
         return simpleCity;
     }

@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-    <html>
+    <html lang="en">
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -25,7 +25,8 @@
                     <div class="col flex-column justify-content-center">
                         <h1 id="city-name" class="display-1 fw-normal">${city.name}</h1>
                         <small id="county-name">${city.countyName} County, Texas</small><br />
-                        <small id="coordinates">${city.latitude}&deg;N, ${city.longitude}&deg;W</small>
+                        <small id="coordinates">${city.latitude}&deg;N, ${city.longitude}&deg;W</small><br />
+                        <small id="population">Population ${city.population}</small>
                     </div>
                     <div class="col">
                         <img src="data:image/png;base64,${cityMap}" id="city-map" />

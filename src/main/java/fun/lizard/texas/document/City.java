@@ -24,6 +24,7 @@ public class City {
     private GeoJsonMultiPolygon geometry;
     private LocalDateTime lastSearched;
     private Integer timesSearched;
+    private Integer population;
 
     @Data
     @NoArgsConstructor

@@ -1,9 +1,6 @@
 package fun.lizard.texas.controller;
 
-import fun.lizard.texas.document.Camera;
 import fun.lizard.texas.document.City;
-import fun.lizard.texas.document.County;
-import fun.lizard.texas.document.District;
 import fun.lizard.texas.exception.CityNotFoundException;
 import fun.lizard.texas.response.dto.*;
 import fun.lizard.texas.response.txdot.CctvSnapshotResponse;

@@ -15,4 +15,5 @@ public class SimpleCity {
     private Double longitude;
     private Integer timesSearched;
     private LocalDateTime lastSearched;
+    private String population;
 }

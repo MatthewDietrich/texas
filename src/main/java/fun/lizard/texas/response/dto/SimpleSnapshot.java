@@ -15,4 +15,5 @@ public class SimpleSnapshot {
     private String districtAbbreviation;
     private String countyName;
     private String snapshotTime;
+    private Integer timesViewed;
 }

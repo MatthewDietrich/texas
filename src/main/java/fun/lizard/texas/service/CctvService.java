@@ -33,6 +33,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
@@ -114,6 +115,16 @@ public class CctvService {
         County county = counties.get(0);
         String districtAbbreviation = district.getProperties().getDIST_ABRVN();
         CctvSnapshotResponse response = txdotFeignClient.getCctvSnapshotByIcdId(icdId, districtAbbreviation);
+        Integer timesViewed = camera.getTimesViewed();
+        if (null == timesViewed) {
+            timesViewed = 1;
+        } else {
+            timesViewed += 1;
+        }
+        camera.setTimesViewed(timesViewed);
+        camera.setLastViewed(LocalDateTime.now());
+        cameraRepository.save(camera);
+
         SimpleSnapshot simpleSnapshot = new SimpleSnapshot();
         simpleSnapshot.setCameraId(camera.getIcdId());
         simpleSnapshot.setCityName(city.getProperties().getName());
@@ -123,6 +134,7 @@ public class CctvService {
         simpleSnapshot.setSnapshot(response.getSnippet());
         simpleSnapshot.setCountyName(county.getProperties().getName());
         simpleSnapshot.setSnapshotTime(response.getTimestampFormatted());
+        simpleSnapshot.setTimesViewed(timesViewed);
         return simpleSnapshot;
     }
 

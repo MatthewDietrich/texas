@@ -47,6 +47,7 @@
             </div>
             <div class="row">
                 <footer class="pt-4">
+                    <p>Viewed ${timesViewed} times</p>
                     <p><a href="/">Back to search</a></p>
                     <p><small>Copyright 2025 <a href="https://lizard.fun">Squam</a> &bull; Made with &hearts; in
                             Carrollton</small></p>

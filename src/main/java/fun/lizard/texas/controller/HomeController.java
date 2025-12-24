@@ -115,6 +115,7 @@ public class HomeController {
         modelMap.put("snapshot", simpleSnapshot.getSnapshot());
         modelMap.put("countyName", simpleSnapshot.getCountyName());
         modelMap.put("snapshotTime", simpleSnapshot.getSnapshotTime());
+        modelMap.put("timesViewed", simpleSnapshot.getTimesViewed());
         return "camera";
     }
 }

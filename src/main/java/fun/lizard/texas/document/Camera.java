@@ -9,6 +9,8 @@ import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
+
 @Data
 @NoArgsConstructor
 @Document
@@ -23,4 +25,6 @@ public class Camera {
     private GeoJsonPoint location;
     private Boolean hasSnapshot;
     private String districtAbbreviation;
+    private Integer timesViewed;
+    private LocalDateTime lastViewed;
 }

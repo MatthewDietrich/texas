@@ -26,7 +26,7 @@
                         <h1 id="city-name" class="display-1 fw-normal">${city.name}</h1>
                         <small id="county-name">${city.countyName} County, Texas</small><br />
                         <small id="coordinates">${city.latitude}&deg;N, ${city.longitude}&deg;W</small><br />
-                        <small id="population">Population ${city.population}</small>
+                        <small id="population">Population: ${city.population}</small>
                     </div>
                     <div class="col">
                         <img src="data:image/png;base64,${cityMap}" id="city-map" />
@@ -379,6 +379,8 @@
             </div>
             <div class="row">
                 <footer class="pt-4">
+                    <p>Nearby: <a href="/city?name=${city.nearestThreeNames[0]}">${city.nearestThreeNames[0]}</a>, <a href="/city?name=${city.nearestThreeNames[1]}">${city.nearestThreeNames[1]}</a>, <a href="/city?name=${city.nearestThreeNames[2]}">${city.nearestThreeNames[2]}</a></p>
+                    <p>Searched ${city.timesSearched} times</p>
                     <p><a href="/">Back to search</a></p>
                     <p><small>Copyright 2025 <a href="https://lizard.fun">Squam</a> &bull; Made with &hearts; in
                             Carrollton</small></p>

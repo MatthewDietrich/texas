@@ -79,12 +79,17 @@ public class CityService {
         } else {
             log.warn("Failed to resolve county for city \"{}\"", city);
         }
+        List<String> nearestThreeNames = findNearestThree(city).stream().map(c -> c.getProperties().getName()).toList();
         simpleCity.setLatitude(latitude);
         simpleCity.setLongitude(longitude);
         simpleCity.setLastSearched(city.getLastSearched());
         simpleCity.setTimesSearched(city.getTimesSearched());
-        simpleCity.setPopulation(NumberFormat.getNumberInstance(Locale.US).format(city.getPopulation()));
-
+        simpleCity.setNearestThreeNames(nearestThreeNames);
+        try {
+            simpleCity.setPopulation(NumberFormat.getNumberInstance(Locale.US).format(city.getPopulation()));
+        } catch (IllegalArgumentException e) {
+            simpleCity.setPopulation("(no population data)");
+        }
         return simpleCity;
     }
 
@@ -156,6 +161,13 @@ public class CityService {
         city.setTimesSearched(timesSearched + 1);
         city.setLastSearched(LocalDateTime.now());
         cityRepository.save(city);
+    }
+
+    public List<City> findNearestThree(City city) {
+        double latitude = Double.parseDouble(city.getProperties().getIntptlat());
+        double longitude = Double.parseDouble(city.getProperties().getIntptlon());
+        Point point = new Point(longitude, latitude);
+        return cityRepository.findByGeometryNear(point, Limit.of(4)).subList(1, 4);
     }
 
     @Cacheable("mostSearched")

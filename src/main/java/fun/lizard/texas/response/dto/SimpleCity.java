@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -16,4 +17,5 @@ public class SimpleCity {
     private Integer timesSearched;
     private LocalDateTime lastSearched;
     private String population;
+    private List<String> nearestThreeNames;
 }

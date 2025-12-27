@@ -3,10 +3,12 @@ package fun.lizard.texas.service;
 import fun.lizard.texas.document.Airport;
 import fun.lizard.texas.document.City;
 import fun.lizard.texas.document.County;
+import fun.lizard.texas.document.Highway;
 import fun.lizard.texas.exception.CityNotFoundException;
 import fun.lizard.texas.repository.AirportRepository;
 import fun.lizard.texas.repository.CityRepository;
 import fun.lizard.texas.repository.CountyRepository;
+import fun.lizard.texas.repository.HighwayRepository;
 import fun.lizard.texas.response.dto.SimpleAirport;
 import fun.lizard.texas.response.dto.SimpleCity;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +35,7 @@ import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 @Slf4j
 @Service
@@ -46,6 +49,9 @@ public class CityService {
 
     @Autowired
     AirportRepository airportRepository;
+
+    @Autowired
+    HighwayRepository highwayRepository;
 
     @Value("${app.check-distance}")
     Double distanceToCheck;
@@ -128,9 +134,7 @@ public class CityService {
     }
 
     public List<SimpleAirport> findNearbyAirports(City city) {
-        double latitude = Double.parseDouble(city.getProperties().getIntptlat());
-        double longitude = Double.parseDouble(city.getProperties().getIntptlon());
-        Point point = new Point(longitude, latitude);
+        Point point = getPoint(city);
         List<Airport> airports = airportRepository.findByGeometryNear(point, Limit.of(5));
         return airports.stream().map(airport -> {
             SimpleAirport simpleAirport = new SimpleAirport();
@@ -140,6 +144,17 @@ public class CityService {
             simpleAirport.setCityName(airportCity.getProperties().getName());
             return simpleAirport;
         }).toList();
+    }
+
+    public List<String> findNearbyHighways(City city) {
+        Point point = getPoint(city);
+        return highwayRepository.findByGeometryNearAndNameNotNull(point, new Distance(distanceToCheck))
+                .stream()
+                .map(Highway::getName)
+                .filter(Objects::nonNull)
+                .distinct()
+                .sorted()
+                .toList();
     }
 
     public String getBlankMap() throws IOException {
@@ -168,6 +183,12 @@ public class CityService {
         double longitude = Double.parseDouble(city.getProperties().getIntptlon());
         Point point = new Point(longitude, latitude);
         return cityRepository.findByGeometryNear(point, Limit.of(4)).subList(1, 4);
+    }
+
+    private Point getPoint(City city) {
+        double latitude = Double.parseDouble(city.getProperties().getIntptlat());
+        double longitude = Double.parseDouble(city.getProperties().getIntptlon());
+        return new Point(longitude, latitude);
     }
 
     @Cacheable("mostSearched")

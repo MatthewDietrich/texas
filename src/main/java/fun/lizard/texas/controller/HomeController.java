@@ -73,12 +73,14 @@ public class HomeController {
         SimpleCity simpleCity = cityService.findCountyAndSimplify(city);
         String cityMap = cityService.plotCity(city);
         List<SimpleAirport> simpleAirports = cityService.findNearbyAirports(city);
+        List<String> highways = cityService.findNearbyHighways(city);
         String dateString = LocalDate.now(ZoneId.of("America/Chicago"))
                 .format(DateTimeFormatter.ofPattern("MMMM dd", Locale.US));
         modelMap.put("weather", weather.join());
         modelMap.put("city", simpleCity);
         modelMap.put("cityMap", cityMap);
         modelMap.put("airports", simpleAirports);
+        modelMap.put("highways", highways);
         modelMap.put("weatherHistory", weatherHistory.join());
         modelMap.put("weatherAlerts", weatherAlerts.join());
         modelMap.put("dateString", dateString);

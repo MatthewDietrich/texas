@@ -38,7 +38,7 @@
                 <ul>
                     <li><a href="#tabs-1">Snapshots</a></li>
                     <li><a href="#tabs-2">Weather</a></li>
-                    <li><a href="#tabs-3">Airports</a></li>
+                    <li><a href="#tabs-3">Transportation</a></li>
                 </ul>
                 <div id="tabs-1">
                     <div class="container" id="snapshots-container">
@@ -364,9 +364,16 @@
                     </div>
                 </div>
                 <div id="tabs-3">
-                    <div class="container" id="airports-container">
+                    <div class="container" id="trasportation-container">
                         <div class="row">
-                            <div class="container" id="airports">
+                            <div class="container" id="transporation">
+                                <h3>Highways</h3>
+                                <ul>
+                                    <c:forEach items="${highways}" var="highway">
+                                        <li>${highway}</li>
+                                    </c:forEach>
+                                </ul>
+                                <h3>Airports</h3>
                                 <ul>
                                     <c:forEach items="${airports}" var="airport">
                                         <li>${airport.name} (${airport.code}) - ${airport.cityName}</li>

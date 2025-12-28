@@ -42,14 +42,26 @@
 
 [data-theme="burntorange"] {
     --primary-bg: #b35f1a;
-    --secondary-bg: #bb651e;
+    --secondary-bg: #ce6c1b;
     --tertiary-bg: #964402;
     --quaternary-bg: #5f2b00;
     --light-bg: #cc5c00;
     --accent-bg: #eb7d23;
-    --primary-text: #eee8d5;
-    --secondary-text: #fdf6e3;
+    --primary-text: #472300;
+    --secondary-text: #ad4e00;
     --dark-text: #502400;
+}
+
+[data-theme="maroon"] {
+    --primary-bg: #500000;
+    --secondary-bg: #777777;
+    --tertiary-bg: #202020;
+    --quaternary-bg: #300000;
+    --light-bg: #aaaaaa;
+    --accent-bg: #200000;
+    --primary-text: #ffffff;
+    --secondary-text: #eeeeee;
+    --dark-text: #222222;
 }
 
 body {
@@ -185,12 +197,7 @@ a {
     display: none;
 }
 
-img#city-map {
-    max-width: var(--max-width-sm);
-    padding-top: var(--spacing-sm);
-}
-
-img#texas-img {
+img#texas-map {
     max-width: var(--max-width-md);
 }
 
@@ -292,6 +299,13 @@ div#weather-container small a {
 }
 
 details {
-    list-style: none;
     text-decoration: underline;
+}
+
+details ul li {
+    list-style: none;
+}
+
+details ul li a:hover {
+    cursor: pointer;
 }

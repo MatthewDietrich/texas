@@ -25,6 +25,16 @@
                     <div class="col">
                         <h1>Texas City Snapshot</h1>
                     </div>
+                    <div class="col">
+                        <details>
+                            <summary>Select theme</summary>
+                            <ul id="themes-list">
+                                <c:forEach items="${themes}" var="themeName">
+                                    <li><a>${themeName}</a></li>
+                                </c:forEach>
+                            </ul>
+                        </details>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
@@ -46,7 +56,7 @@
                         <form id="texas-img-form" action="/coordinates" method="GET">
                             <input name="lat" id="lat" hidden />
                             <input name="lon" id="lon" hidden />
-                            <img id="texas-img" src="data:image/png;base64,${texasMap}" />
+                            <img id="texas-map" src="data:image/png;base64,${texasMap}" />
                         </form>
                     </div>
                 </div>
@@ -83,6 +93,7 @@
         <script src="/webjars/bootstrap/5.3.5/js/bootstrap.min.js"></script>
         <script src="/webjars/jquery/3.6.0/jquery.js"></script>
         <script src="/webjars/jquery-ui/1.14.1/jquery-ui.js"></script>
+        <script src="theme.js"></script>
         <script src="home.js"></script>
     </body>
 

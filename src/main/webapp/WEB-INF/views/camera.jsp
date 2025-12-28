@@ -20,11 +20,23 @@
     <body>
         <main id="main" class="container">
             <header>
-                <div class="row align-items-center">
-                    <h1 id="camera-id">Viewing camera ${cameraId}</h1>
-                    <small id="coordinates">${lat}&deg;N, ${lon}&deg;W</small>
-                    <small id="county-name">Near <a href="/city?name=${cityName}">${cityName}</a>, ${countyName} County,
-                        Texas</small>
+                <div class="col">
+                    <div class="row align-items-center">
+                        <h1 id="camera-id">Viewing camera ${cameraId}</h1>
+                        <small id="coordinates">${lat}&deg;N, ${lon}&deg;W</small>
+                        <small id="county-name">Near <a href="/city?name=${cityName}">${cityName}</a>, ${countyName} County,
+                            Texas</small>
+                    </div>
+                </div>
+                <div class="col">
+                        <details>
+                            <summary>Select theme</summary>
+                            <ul id="themes-list">
+                                <c:forEach items="${themes}" var="themeName">
+                                    <li><a>${themeName}</a></li>
+                                </c:forEach>
+                            </ul>
+                        </details>
                 </div>
             </header>
             <br />
@@ -53,6 +65,9 @@
                 </footer>
             </div>
         </main>
+        
+        <script src="/webjars/jquery/3.6.0/jquery.js"></script>
+        <script src="theme.js"></script>
     </body>
 
     </html>

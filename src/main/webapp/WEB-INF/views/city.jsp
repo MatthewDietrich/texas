@@ -28,7 +28,17 @@
                         <small id="population">Population: ${city.population}</small>
                     </div>
                     <div class="col">
-                        <img src="data:image/png;base64,${cityMap}" id="city-map" />
+                        <img src="data:image/png;base64,${cityMap}" id="texas-map" />
+                    </div>
+                    <div class="col">
+                        <details>
+                            <summary>Select theme</summary>
+                            <ul id="themes-list">
+                                <c:forEach items="${themes}" var="themeName">
+                                    <li><a>${themeName}</a></li>
+                                </c:forEach>
+                            </ul>
+                        </details>
                     </div>
                 </div>
             </header>
@@ -399,7 +409,7 @@
 
         <script src="/webjars/bootstrap/5.3.5/js/bootstrap.min.js"></script>
         <script src="/webjars/jquery/3.6.0/jquery.js"></script>
-        <script src="snapshot.js"></script>
+        <script src="theme.js"></script>
     </body>
 
     </html>

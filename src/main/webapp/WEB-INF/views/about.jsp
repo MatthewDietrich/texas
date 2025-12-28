@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html lang="en">
 
 <head>
@@ -15,7 +17,21 @@
     <main id="main" class="container">
         <div class="row">
             <div class="col-sm">
-                <h1>About</h1>
+                <div class="row">
+                    <div class="col">
+                        <h1>About</h1>
+                    </div>
+                    <div class="col">
+                        <details>
+                            <summary>Select theme</summary>
+                            <ul id="themes-list">
+                                <c:forEach items="${themes}" var="themeName">
+                                    <li><a>${themeName}</a></li>
+                                </c:forEach>
+                            </ul>
+                        </details>
+                    </div>
+                </div>
                 <p><strong>Texas City Snapshot</strong> is a tool to find weather data and road camera images from
                     cities around Texas. Data is updated every five minutes.</p>
                 <h2>Weather</h2>
@@ -41,7 +57,7 @@
 
     <script src="/webjars/bootstrap/5.3.5/js/bootstrap.min.js"></script>
     <script src="/webjars/jquery/3.6.0/jquery.js"></script>
-    <script src="home.js"></script>
+    <script src="theme.js"></script>
 </body>
 
 </html>

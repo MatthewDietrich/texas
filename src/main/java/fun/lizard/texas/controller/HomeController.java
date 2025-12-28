@@ -25,7 +25,7 @@ import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
 
 @Controller
-@SessionAttributes({ "cityName" })
+@SessionAttributes({ "cityName", "theme" })
 @Slf4j
 public class HomeController {
 
@@ -38,12 +38,19 @@ public class HomeController {
     @Autowired
     CityService cityService;
 
+    private final List<String> themeNames = List.of("Default Green", "Burnt Orange", "Maroon");
+
     @GetMapping("/")
     public String getHome(ModelMap modelMap) throws IOException {
-        String texasMap = cityService.getBlankMap();
+        String theme = String.valueOf(modelMap.get("theme"));
+        if (theme == "null") {
+            theme = "default";
+        }
+        String texasMap = cityService.getBlankMap(theme);
         List<City> mostSearched = cityService.getMostSearched();
         List<City> recentlySearched = cityService.getRecentlySearched();
         modelMap.put("texasMap", texasMap);
+        modelMap.put("themes", themeNames);
         modelMap.put("mostSearched", mostSearched);
         modelMap.put("recentlySearched", recentlySearched);
         return "home";
@@ -52,6 +59,10 @@ public class HomeController {
     @GetMapping("/city")
     public String getSnapshot(ModelMap modelMap, @RequestParam String name) throws IOException {
         log.info("City search called with input: \"{}\"", name);
+        String theme = String.valueOf(modelMap.get("theme"));
+        if (theme == "null") {
+            theme = "default";
+        }
         String cityNameStripped = name.strip();
         City city;
         try {
@@ -71,7 +82,7 @@ public class HomeController {
         CompletableFuture<List<WeatherAlert>> weatherAlerts = CompletableFuture
                 .supplyAsync(() -> weatherService.getWeatherAlertsByCity(city));
         SimpleCity simpleCity = cityService.findCountyAndSimplify(city);
-        String cityMap = cityService.plotCity(city);
+        String cityMap = cityService.plotCity(city, theme);
         List<SimpleAirport> simpleAirports = cityService.findNearbyAirports(city);
         List<String> highways = cityService.findNearbyHighways(city);
         String dateString = LocalDate.now(ZoneId.of("America/Chicago"))
@@ -85,6 +96,7 @@ public class HomeController {
         modelMap.put("weatherAlerts", weatherAlerts.join());
         modelMap.put("dateString", dateString);
         modelMap.put("snapshots", snapshots.join());
+        modelMap.put("themes", themeNames);
         log.info("Result returned for city search with input: \"{}\"", name);
         return "city";
     }
@@ -95,8 +107,23 @@ public class HomeController {
         return "forward:/city?name=" + city.getProperties().getName();
     }
 
+    @GetMapping("/map")
+    public ResponseEntity<String> getMap(ModelMap modelMap, @RequestParam String theme, @RequestParam(required = false) String name, @RequestParam(required = false) Double lat, @RequestParam(required = false) Double lon) throws IOException {
+        modelMap.put("theme", theme);
+        modelMap.put("themes", themeNames);
+        if (null == lat || null == lon) {
+            if (null == name) {
+                return ResponseEntity.ok(cityService.getBlankMap(theme));
+            }
+            City city = cityService.findOneByName(name);
+            return ResponseEntity.ok(cityService.plotCity(city, theme));
+        }
+        return ResponseEntity.ok(cityService.getMapWithPoint(theme, lat, lon));
+    }
+
     @GetMapping("/about")
     public String getAbout(ModelMap modelMap) {
+        modelMap.put("themes", themeNames);
         return "about";
     }
 
@@ -118,6 +145,7 @@ public class HomeController {
         modelMap.put("countyName", simpleSnapshot.getCountyName());
         modelMap.put("snapshotTime", simpleSnapshot.getSnapshotTime());
         modelMap.put("timesViewed", simpleSnapshot.getTimesViewed());
+        modelMap.put("themes", themeNames);
         return "camera";
     }
 }

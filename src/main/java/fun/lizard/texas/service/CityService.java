@@ -99,7 +99,7 @@ public class CityService {
         return simpleCity;
     }
 
-    public String plotCity(City city) throws IOException {
+    public String plotCity(City city, String theme) throws IOException {
         double minLon = -106.65;
         double maxLon = -93.51;
         double minLat = 25.84;
@@ -107,7 +107,8 @@ public class CityService {
         double latitude = Double.parseDouble(city.getProperties().getIntptlat());
         double longitude = Double.parseDouble(city.getProperties().getIntptlon());
 
-        Resource resource = new ClassPathResource("texas.png");
+        String filename = getMapImageFilename(theme);
+        Resource resource = new ClassPathResource(filename);
         InputStream inputStream = resource.getInputStream();
         BufferedImage texasImage = ImageIO.read(inputStream);
         inputStream.close();
@@ -123,7 +124,8 @@ public class CityService {
         int drawHeight = width - 2 * borderWidth;
         int x = (int) ((longitude - minLon) / (maxLon - minLon) * drawWidth) + borderWidth;
         int y = (int) ((maxLat - latitude) / (maxLat - minLat) * drawHeight) + borderWidth;
-        g2d.setColor(Color.decode("#268bd2"));
+        String color = getMapPointColor(theme);
+        g2d.setColor(Color.decode(color));
         g2d.fillOval(x - 5, y - 5, 20, 20);
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -157,10 +159,65 @@ public class CityService {
                 .toList();
     }
 
-    public String getBlankMap() throws IOException {
-        Resource resource = new ClassPathResource("texas.png");
+    public String getBlankMap(String theme) throws IOException {
+        String filename = getMapImageFilename(theme);
+        Resource resource = new ClassPathResource(filename);
         byte[] resourceBytes = resource.getContentAsByteArray();
         return Base64.getEncoder().encodeToString(resourceBytes);
+    }
+
+    public String getMapWithPoint(String theme, double lat, double lon) throws IOException {
+        double minLon = -106.65;
+        double maxLon = -93.51;
+        double minLat = 25.84;
+        double maxLat = 36.5;
+
+        String filename = getMapImageFilename(theme);
+        Resource resource = new ClassPathResource(filename);
+        InputStream inputStream = resource.getInputStream();
+        BufferedImage texasImage = ImageIO.read(inputStream);
+        inputStream.close();
+        int width = texasImage.getWidth();
+        int height = texasImage.getHeight();
+
+        BufferedImage finalImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = finalImage.createGraphics();
+
+        String color = getMapPointColor(theme);
+        g2d.drawImage(texasImage, 0, 0, null);
+        int borderWidth = 20;
+        int drawWidth = width - 2 * borderWidth;
+        int drawHeight = width - 2 * borderWidth;
+        int x = (int) ((lon - minLon) / (maxLon - minLon) * drawWidth) + borderWidth;
+        int y = (int) ((maxLat - lat) / (maxLat - minLat) * drawHeight) + borderWidth;
+        g2d.setColor(Color.decode(color));
+        g2d.fillOval(x - 5, y - 5, 20, 20);
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        ImageIO.write(finalImage, "png", outputStream);
+        String result = Base64.getEncoder().encodeToString(outputStream.toByteArray());
+        outputStream.close();
+        return result;
+    }
+
+    private String getMapImageFilename(String theme) {
+        String filename;
+        switch (theme) {
+            case "burntorange" -> filename = "texas_burntorange.png";
+            case "maroon" -> filename = "texas_maroon.png";
+            default -> filename = "texas.png";
+        }
+        return filename;
+    }
+
+    private String getMapPointColor(String theme) {
+        String color;
+        switch (theme) {
+            case "burntorange" -> color = "#eb7d23";
+            case "maroon" -> color = "#ffffff";
+            default -> color = "#268bd2";
+        }
+        return color;
     }
 
     public City findOneNearPoint(double latitude, double longitude) {

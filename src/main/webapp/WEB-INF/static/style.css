@@ -141,7 +141,7 @@ header {
 
 #weather-container,
 #snapshots-container,
-#airports-container,
+#transportation-container,
 table {
     background-color: var(--light-bg);
     color: var(--dark-text);

@@ -14,7 +14,6 @@
         <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.3.5/css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="weather-icons.min.css" />
         <link rel="stylesheet" type="text/css" href="weather-icons-wind.min.css" />
-        <link rel="stylesheet" type="text/css" href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css" />
         <link rel="stylesheet" type="text/css" href="style.css" />
     </head>
 

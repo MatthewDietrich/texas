@@ -1,4 +1,4 @@
-:root {
+:root, [data-theme="default"] {
     /* Color Variables */
     --primary-bg: #1a5049;
     --secondary-bg: #4aafa5;
@@ -40,12 +40,80 @@
     --font-style: normal;
 }
 
+[data-theme="burntorange"] {
+    --primary-bg: #b35f1a;
+    --secondary-bg: #bb651e;
+    --tertiary-bg: #964402;
+    --quaternary-bg: #5f2b00;
+    --light-bg: #cc5c00;
+    --accent-bg: #eb7d23;
+    --primary-text: #eee8d5;
+    --secondary-text: #fdf6e3;
+    --dark-text: #502400;
+}
+
 body {
     background: var(--primary-bg);
     color: var(--primary-text);
     font-family: var(--primary-font-family);
     font-optical-sizing: var(--font-optical-sizing);
     font-style: var(--font-style);
+}
+
+.tab-container {
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+/* Hide radio buttons */
+.tab-container input[type="radio"] {
+    display: none;
+}
+
+/* Tab header styling */
+.tab-header {
+    display: flex;
+    background-color: var(--secondary-bg);
+    border: var(--no-border);
+}
+
+.tab-header label {
+    flex: 1;
+    padding: 15px 20px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--dark-text);
+    transition: all 0.2s ease;
+    border: var(--no-border);
+}
+
+.tab-header label:hover {
+    background-color: var(--light-bg);
+}
+
+/* Active tab styling */
+#tab1:checked ~ .tab-header label[for="tab1"],
+#tab2:checked ~ .tab-header label[for="tab2"],
+#tab3:checked ~ .tab-header label[for="tab3"] {
+    background-color: var(--light-bg);
+    color: var(--dark-text);
+}
+
+/* Hide all content by default */
+.tab-content {
+    display: none;
+    padding: 30px;
+    background-color: var(--light-bg);
+    animation: fadeIn 0.3s ease;
+}
+
+/* Show content when corresponding radio is checked */
+#tab1:checked ~ .content1,
+#tab2:checked ~ .content2,
+#tab3:checked ~ .content3 {
+    display: block;
 }
 
 input#city-name {
@@ -187,24 +255,6 @@ table {
     color: var(--primary-text);
 }
 
-.ui-tabs,
-.ui-tabs-nav,
-.ui-tabs-tab,
-.ui-state-default a {
-    background-color: var(--light-bg);
-    color: var(--dark-text) !important;
-    border-radius: var(--border-radius);
-    border: var(--no-border) !important;
-}
-
-.ui-tabs-active,
-.ui-state-active a {
-    background-color: var(--primary-bg) !important;
-    color: var(--primary-text) !important;
-    border-radius: var(--border-radius);
-    border: var(--no-border) !important;
-}
-
 dialog {
     background-color: var(--light-bg);
     border: var(--no-border);
@@ -229,12 +279,19 @@ a {
     font-weight: 400;
 }
 
-#tabs ul li,
+#tab-container ul li,
 div#snapshots-container small,
-div#snapshots-container small a {
+div#snapshots-container small a,
+div#weather-container small,
+div#weather-container small a {
     font-family: var(--primary-font-family);
     font-optical-sizing: var(--font-optical-sizing);
     font-style: var(--font-style);
     font-weight: 400;
     color: var(--dark-text);
+}
+
+details {
+    list-style: none;
+    text-decoration: underline;
 }

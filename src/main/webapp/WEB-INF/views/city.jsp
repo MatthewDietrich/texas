@@ -14,7 +14,6 @@
         <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.3.5/css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="weather-icons.min.css" />
         <link rel="stylesheet" type="text/css" href="weather-icons-wind.min.css" />
-        <link rel="stylesheet" type="text/css" href="/webjars/jquery-ui/1.12.1/jquery-ui.min.css" />
         <link rel="stylesheet" type="text/css" href="style.css" />
     </head>
 
@@ -34,13 +33,16 @@
                 </div>
             </header>
             <br />
-            <div id="tabs">
-                <ul>
-                    <li><a href="#tabs-1">Snapshots</a></li>
-                    <li><a href="#tabs-2">Weather</a></li>
-                    <li><a href="#tabs-3">Transportation</a></li>
-                </ul>
-                <div id="tabs-1">
+            <div class="tab-container">
+                <input type="radio" name="tabs" id="tab1" checked>
+                <input type="radio" name="tabs" id="tab2">
+                <input type="radio" name="tabs" id="tab3">
+                <div class="tab-header">
+                    <label for="tab1">Snapshots</label>
+                    <label for="tab2">Weather</label>
+                    <label for="tab3">Transportation</label>
+                </div>
+                <div class="tab-content content1">
                     <div class="container" id="snapshots-container">
                         <div class="row">
                             <div class="col-sm">
@@ -168,7 +170,7 @@
                                     Transportation</a></small></div>
                     </div>
                 </div>
-                <div id="tabs-2">
+                <div class="tab-content content2">
                     <div class="container" id="weather-container">
                         <div class="row">
                             <div class="row">
@@ -357,13 +359,13 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row"><small>Weather forecasts and historical data from <a
+                        <div class="row"><small>Weather forecasts and historical data from <a
                                 href="https://open-meteo.com/">Open-Meteo</a>. Weather alerts from the <a
                                 href="https://www.weather.gov/alerts">National Weather Service</a>.</small>
+                        </div>
                     </div>
                 </div>
-                <div id="tabs-3">
+                <div class="tab-content content3">
                     <div class="container" id="transportation-container">
                         <div class="row">
                             <div class="container" id="transporation">
@@ -397,7 +399,6 @@
 
         <script src="/webjars/bootstrap/5.3.5/js/bootstrap.min.js"></script>
         <script src="/webjars/jquery/3.6.0/jquery.js"></script>
-        <script src="/webjars/jquery-ui/1.12.1/jquery-ui.js"></script>
         <script src="snapshot.js"></script>
     </body>
 

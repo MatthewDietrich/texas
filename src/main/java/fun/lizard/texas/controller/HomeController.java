@@ -49,7 +49,6 @@ public class HomeController {
         String texasMap = cityService.getBlankMap(theme);
         List<City> mostSearched = cityService.getMostSearched();
         List<City> recentlySearched = cityService.getRecentlySearched();
-        modelMap.put("texasMap", texasMap);
         modelMap.put("themes", themeNames);
         modelMap.put("mostSearched", mostSearched);
         modelMap.put("recentlySearched", recentlySearched);
@@ -89,7 +88,6 @@ public class HomeController {
                 .format(DateTimeFormatter.ofPattern("MMMM dd", Locale.US));
         modelMap.put("weather", weather.join());
         modelMap.put("city", simpleCity);
-        modelMap.put("cityMap", cityMap);
         modelMap.put("airports", simpleAirports);
         modelMap.put("highways", highways);
         modelMap.put("weatherHistory", weatherHistory.join());

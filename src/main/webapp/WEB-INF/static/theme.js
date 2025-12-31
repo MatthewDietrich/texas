@@ -3,22 +3,11 @@ let theme = localStorage.getItem("theme") || "default";
 document.addEventListener("DOMContentLoaded", function() {
     document.documentElement.setAttribute("data-theme", theme);
 });
-$("#themes-list li a").on("click", (event) => {
+
+function setMap(themeName) {
     let name = queryParams.get("name");
     let lat = queryParams.get("lat");
     let lon = queryParams.get("lon");
-
-    switch (event.target.innerText) {
-        case "Default Green":
-            theme = "default";
-            break;
-        case "Burnt Orange":
-            theme = "burntorange";
-            break;
-        case "Maroon":
-            theme = "maroon";
-            break;
-1   }
     let url;
     if (lat !== null && lon !== null) {
         url = `/map?theme=${theme}&lat=${lat}&lon=${lon}`
@@ -30,8 +19,29 @@ $("#themes-list li a").on("click", (event) => {
     fetch(url)
         .then((response) => {return response.text()})
         .then((text) => {
-            document.getElementById("texas-map").setAttribute("src", `data:image/png;base64,${text}`)
+            document.getElementById("texas-map").setAttribute("src", `data:image/png;base64,${text}`);
     });
-    localStorage.setItem("theme", theme);
-    document.documentElement.setAttribute("data-theme", theme);
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    setMap(theme);
+});
+
+document.querySelectorAll("#themes-list li a").forEach(link => {
+    link.addEventListener("click", (event) => {
+        switch (event.target.innerText) {
+            case "Default Green":
+                theme = "default";
+                break;
+            case "Burnt Orange":
+                theme = "burntorange";
+                break;
+            case "Maroon":
+                theme = "maroon";
+                break;
+        }
+        setMap(theme);
+        localStorage.setItem("theme", theme);
+        document.documentElement.setAttribute("data-theme", theme);
+    });
 });

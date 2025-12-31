@@ -91,8 +91,6 @@
         </main>
 
         <script src="/webjars/bootstrap/5.3.5/js/bootstrap.min.js"></script>
-        <script src="/webjars/jquery/3.6.0/jquery.js"></script>
-        <script src="/webjars/jquery-ui/1.14.1/jquery-ui.js"></script>
         <script src="theme.js"></script>
         <script src="home.js"></script>
     </body>

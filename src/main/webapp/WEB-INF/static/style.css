@@ -179,7 +179,7 @@ a {
     color: var(--dark-text) !important;
 }
 
-.ui-menu-item {
+.ui-menu-item, datalist {
     background-color: var(--tertiary-bg);
     border-bottom: var(--border-width) solid var(--quaternary-bg);
     color: var(--secondary-text);

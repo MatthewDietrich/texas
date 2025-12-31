@@ -205,6 +205,7 @@ public class CityService {
         switch (theme) {
             case "burntorange" -> filename = "texas_burntorange.png";
             case "maroon" -> filename = "texas_maroon.png";
+            case "purple" -> filename = "texas_purple.png";
             default -> filename = "texas.png";
         }
         return filename;
@@ -214,7 +215,7 @@ public class CityService {
         String color;
         switch (theme) {
             case "burntorange" -> color = "#eb7d23";
-            case "maroon" -> color = "#ffffff";
+            case "maroon", "purple" -> color = "#ffffff";
             default -> color = "#268bd2";
         }
         return color;

@@ -39,6 +39,9 @@ document.querySelectorAll("#themes-list li a").forEach(link => {
             case "Maroon":
                 theme = "maroon";
                 break;
+            case "Purple":
+                theme = "purple";
+                break;
         }
         setMap(theme);
         localStorage.setItem("theme", theme);

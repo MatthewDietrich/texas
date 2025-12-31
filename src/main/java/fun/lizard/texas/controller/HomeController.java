@@ -38,7 +38,7 @@ public class HomeController {
     @Autowired
     CityService cityService;
 
-    private final List<String> themeNames = List.of("Default Green", "Burnt Orange", "Maroon");
+    private final List<String> themeNames = List.of("Default Green", "Burnt Orange", "Maroon", "Purple");
 
     @GetMapping("/")
     public String getHome(ModelMap modelMap) throws IOException {

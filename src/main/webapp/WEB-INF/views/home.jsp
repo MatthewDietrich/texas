@@ -56,7 +56,7 @@
                         <form id="texas-img-form" action="/coordinates" method="GET">
                             <input name="lat" id="lat" hidden />
                             <input name="lon" id="lon" hidden />
-                            <img id="texas-map" src="data:image/png;base64,${texasMap}" />
+                            <img id="texas-map" src="texas.png" />
                         </form>
                     </div>
                 </div>

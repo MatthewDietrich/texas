@@ -28,7 +28,7 @@
                         <small id="population">Population: ${city.population}</small>
                     </div>
                     <div class="col">
-                        <img src="data:image/png;base64,${cityMap}" id="texas-map" />
+                        <img src="texas.png" id="texas-map" />
                     </div>
                     <div class="col">
                         <details>

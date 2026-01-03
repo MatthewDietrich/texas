@@ -42,7 +42,7 @@
 
 [data-theme="burntorange"] {
     --primary-bg: #b35f1a;
-    --secondary-bg: #777777;
+    --secondary-bg: #969696;
     --tertiary-bg: #964402;
     --quaternary-bg: #3f1c00;
     --light-bg: #aaaaaa;
@@ -54,7 +54,7 @@
 
 [data-theme="maroon"] {
     --primary-bg: #500000;
-    --secondary-bg: #777777;
+    --secondary-bg: #969696;
     --tertiary-bg: #202020;
     --quaternary-bg: #300000;
     --light-bg: #aaaaaa;
@@ -66,7 +66,7 @@
 
 [data-theme="purple"] {
     --primary-bg: #4d1979;
-    --secondary-bg: #777777;
+    --secondary-bg: #969696;
     --tertiary-bg: #202020;
     --quaternary-bg: #32114d;
     --light-bg: #aaaaaa;

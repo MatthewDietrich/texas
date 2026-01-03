@@ -172,6 +172,10 @@ public class CityService {
         double minLat = 25.84;
         double maxLat = 36.5;
 
+        City city = findOneNearPoint(lat, lon);
+        double cityLat = Double.parseDouble(city.getProperties().getIntptlat());
+        double cityLon = Double.parseDouble(city.getProperties().getIntptlon());
+
         String filename = getMapImageFilename(theme);
         Resource resource = new ClassPathResource(filename);
         InputStream inputStream = resource.getInputStream();
@@ -188,8 +192,8 @@ public class CityService {
         int borderWidth = 20;
         int drawWidth = width - 2 * borderWidth;
         int drawHeight = width - 2 * borderWidth;
-        int x = (int) ((lon - minLon) / (maxLon - minLon) * drawWidth) + borderWidth;
-        int y = (int) ((maxLat - lat) / (maxLat - minLat) * drawHeight) + borderWidth;
+        int x = (int) ((cityLon - minLon) / (maxLon - minLon) * drawWidth) + borderWidth;
+        int y = (int) ((maxLat - cityLat) / (maxLat - minLat) * drawHeight) + borderWidth;
         g2d.setColor(Color.decode(color));
         g2d.fillOval(x - 5, y - 5, 20, 20);
 
@@ -214,8 +218,7 @@ public class CityService {
     private String getMapPointColor(String theme) {
         String color;
         switch (theme) {
-            case "burntorange" -> color = "#eb7d23";
-            case "maroon", "purple" -> color = "#ffffff";
+            case "burntorange", "maroon", "purple" -> color = "#ffffff";
             default -> color = "#268bd2";
         }
         return color;

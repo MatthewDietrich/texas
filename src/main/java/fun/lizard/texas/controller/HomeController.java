@@ -47,7 +47,7 @@ public class HomeController {
             theme = "default";
         }
         String texasMap = cityService.getBlankMap(theme);
-        List<City> mostSearched = cityService.getMostSearched();
+        List<City> mostSearched = cityService.getTop10MostSearched();
         List<City> recentlySearched = cityService.getRecentlySearched();
         modelMap.put("themes", themeNames);
         modelMap.put("mostSearched", mostSearched);
@@ -128,6 +128,14 @@ public class HomeController {
     @GetMapping("/citynames")
     public ResponseEntity<List<String>> getCityNames() {
         return ResponseEntity.ok(cityService.findAllNames());
+    }
+
+    @GetMapping("/mostsearched")
+    public String getMostSearched(ModelMap modelMap) {
+        List<City> mostSearched = cityService.getTop100MostSearched();
+        modelMap.put("themes", themeNames);
+        modelMap.put("cities", mostSearched);
+        return "mostsearched";
     }
 
     @GetMapping("/camera")

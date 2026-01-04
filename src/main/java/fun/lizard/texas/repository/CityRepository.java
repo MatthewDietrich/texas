@@ -23,4 +23,6 @@ public interface CityRepository extends MongoRepository<City, String> {
     List<City> findTop10ByLastSearchedNotNullOrderByLastSearchedDesc();
 
     List<City> findTop10ByTimesSearchedGreaterThanOrderByTimesSearchedDesc(int minTimesSearched);
+
+    List<City> findTop100ByTimesSearchedGreaterThanOrderByTimesSearchedDesc(int minTimesSearched);
 }

@@ -71,6 +71,7 @@
                                         href="city?name=${msCity.properties.name}">${msCity.properties.name}</a></li>
                             </c:forEach>
                         </ol>
+                        <small><a href="/mostsearched">View top 100</a></small>
                     </div>
                     <div class="col">
                         <h3>Recently Searched</h3>
@@ -84,7 +85,9 @@
                 </div>
                 <div class="row">
                     <div class="col">
+                        <br/>
                         <a href="/about">About this app</a>
+                        <br/>
                     </div>
                 </div>
             </div>

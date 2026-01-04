@@ -321,3 +321,11 @@ details ul li {
 details ul li a:hover {
     cursor: pointer;
 }
+
+table a {
+    color: var(--dark-text);
+}
+
+#most-searched tr:hover {
+    background-color: var(--secondary-bg);
+}

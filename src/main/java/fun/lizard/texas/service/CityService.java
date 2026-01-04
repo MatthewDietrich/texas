@@ -252,9 +252,14 @@ public class CityService {
         return new Point(longitude, latitude);
     }
 
-    @Cacheable("mostSearched")
-    public List<City> getMostSearched() {
+    @Cacheable("mostSearchedTop10")
+    public List<City> getTop10MostSearched() {
         return cityRepository.findTop10ByTimesSearchedGreaterThanOrderByTimesSearchedDesc(0);
+    }
+
+    @Cacheable("mostSearchedTop100")
+    public List<City> getTop100MostSearched() {
+        return cityRepository.findTop100ByTimesSearchedGreaterThanOrderByTimesSearchedDesc(0);
     }
 
     @Cacheable("recentlySearched")
@@ -263,8 +268,13 @@ public class CityService {
     }
 
     @Scheduled(fixedRate = 10000)
-    @CacheEvict("mostSearched")
-    public void clearMostSearched() {
+    @CacheEvict("mostSearchedTop10")
+    public void clearMostSearchedTop10() {
+    }
+
+    @Scheduled(fixedRate = 10000)
+    @CacheEvict("mostSearchedTop100")
+    public void clearMostSearchedTop100() {
     }
 
     @Scheduled(fixedRate = 10000)

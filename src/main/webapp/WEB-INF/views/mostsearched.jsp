@@ -42,7 +42,7 @@
                     <tbody>
                         <c:forEach items="${cities}" var="city" varStatus="status">
                             <tr>
-                                <td>${status.index}</td>
+                                <td>${status.index + 1}</td>
                                 <td><a href="/city?name=${city.properties.name}">${city.properties.name}</a></td>
                                 <td>${city.timesSearched}</td>
                             </tr>

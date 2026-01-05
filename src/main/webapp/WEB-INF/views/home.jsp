@@ -25,7 +25,7 @@
                     <div class="col">
                         <h1>Texas City Snapshot</h1>
                     </div>
-                    <div class="col">
+                    <div class="col pt-2">
                         <details>
                             <summary>Select theme</summary>
                             <ul id="themes-list">
@@ -84,7 +84,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col">
+                    <div class="col pb-3">
                         <br/>
                         <a href="/about">About this app</a>
                         <br/>

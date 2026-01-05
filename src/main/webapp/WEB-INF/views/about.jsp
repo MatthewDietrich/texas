@@ -18,7 +18,7 @@
         <div class="row">
             <div class="col-sm">
                 <div class="row">
-                    <div class="col">
+                    <div class="col pt-2">
                         <h1>About</h1>
                     </div>
                     <div class="col">

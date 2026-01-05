@@ -28,7 +28,7 @@
                             Texas</small>
                     </div>
                 </div>
-                <div class="col">
+                <div class="col pt-2">
                         <details>
                             <summary>Select theme</summary>
                             <ul id="themes-list">

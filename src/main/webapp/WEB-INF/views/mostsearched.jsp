@@ -21,7 +21,7 @@
                     <div class="col">
                         <h1>Top 100 Most Searched Cities</h1>
                     </div>
-                    <div class="col">
+                    <div class="col pt-2">
                         <details>
                             <summary>Select theme</summary>
                             <ul id="themes-list">
@@ -35,16 +35,18 @@
             <div class="row">
                 <table id="most-searched">
                     <thead>
-                        <th scope="col">Rank</th>
-                        <th scope="col">City name</th>
-                        <th scope="col">Times searched</th>
+                        <tr>
+                            <th scope="col" class="p-2">Rank</th>
+                            <th scope="col" class="p-2">City name</th>
+                            <th scope="col" class="p-2">Times searched</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <c:forEach items="${cities}" var="city" varStatus="status">
                             <tr>
-                                <td>${status.index + 1}</td>
-                                <td><a href="/city?name=${city.properties.name}">${city.properties.name}</a></td>
-                                <td>${city.timesSearched}</td>
+                                <td class="p-2">${status.index + 1}</td>
+                                <td class="p-2"><a href="/city?name=${city.properties.name}">${city.properties.name}</a></td>
+                                <td class="p-2">${city.timesSearched}</td>
                             </tr>
                         </c:forEach>
                     </tbody>
@@ -59,6 +61,7 @@
             </div>
         </main>
 
+        <script src="/webjars/bootstrap/5.3.5/js/bootstrap.min.js"></script>
         <script src="theme.js"></script>
     </body>
 

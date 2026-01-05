@@ -120,7 +120,8 @@ body {
 /* Active tab styling */
 #tab1:checked ~ .tab-header label[for="tab1"],
 #tab2:checked ~ .tab-header label[for="tab2"],
-#tab3:checked ~ .tab-header label[for="tab3"] {
+#tab3:checked ~ .tab-header label[for="tab3"],
+#tab4:checked ~ .tab-header label[for="tab4"] {
     background-color: var(--light-bg);
     color: var(--dark-text);
 }
@@ -136,7 +137,8 @@ body {
 /* Show content when corresponding radio is checked */
 #tab1:checked ~ .content1,
 #tab2:checked ~ .content2,
-#tab3:checked ~ .content3 {
+#tab3:checked ~ .content3,
+#tab4:checked ~ .content4 {
     display: block;
 }
 
@@ -211,6 +213,7 @@ header {
 #weather-container,
 #snapshots-container,
 #transportation-container,
+#water-container,
 table {
     background-color: var(--light-bg);
     color: var(--dark-text);
@@ -318,4 +321,8 @@ table a {
 
 #most-searched tr:hover {
     background-color: var(--accent-bg);
+}
+
+#dt-search {
+    padding-bottom: 1rem;
 }

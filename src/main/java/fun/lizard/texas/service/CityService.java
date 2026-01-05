@@ -1,16 +1,11 @@
 package fun.lizard.texas.service;
 
-import fun.lizard.texas.document.Airport;
-import fun.lizard.texas.document.City;
-import fun.lizard.texas.document.County;
-import fun.lizard.texas.document.Highway;
+import fun.lizard.texas.document.*;
 import fun.lizard.texas.exception.CityNotFoundException;
-import fun.lizard.texas.repository.AirportRepository;
-import fun.lizard.texas.repository.CityRepository;
-import fun.lizard.texas.repository.CountyRepository;
-import fun.lizard.texas.repository.HighwayRepository;
+import fun.lizard.texas.repository.*;
 import fun.lizard.texas.response.dto.SimpleAirport;
 import fun.lizard.texas.response.dto.SimpleCity;
+import fun.lizard.texas.response.dto.SimpleReservoir;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,6 +27,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.NumberFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.List;
 import java.util.Locale;
@@ -41,20 +37,23 @@ import java.util.Objects;
 @Service
 public class CityService {
 
-    @Autowired
-    CityRepository cityRepository;
-
-    @Autowired
-    CountyRepository countyRepository;
-
-    @Autowired
-    AirportRepository airportRepository;
-
-    @Autowired
-    HighwayRepository highwayRepository;
+    private final CityRepository cityRepository;
+    private final CountyRepository countyRepository;
+    private final AirportRepository airportRepository;
+    private final HighwayRepository highwayRepository;
+    private final ReservoirRepository reservoirRepository;
 
     @Value("${app.check-distance}")
     Double distanceToCheck;
+
+    @Autowired
+    public CityService(CityRepository cityRepository, CountyRepository countyRepository, AirportRepository airportRepository, HighwayRepository highwayRepository, ReservoirRepository reservoirRepository) {
+        this.cityRepository = cityRepository;
+        this.countyRepository = countyRepository;
+        this.airportRepository = airportRepository;
+        this.highwayRepository = highwayRepository;
+        this.reservoirRepository = reservoirRepository;
+    }
 
     @Cacheable("cities")
     public List<String> findAllNames() {
@@ -240,10 +239,24 @@ public class CityService {
     }
 
     public List<City> findNearestThree(City city) {
-        double latitude = Double.parseDouble(city.getProperties().getIntptlat());
-        double longitude = Double.parseDouble(city.getProperties().getIntptlon());
-        Point point = new Point(longitude, latitude);
+        Point point = getPoint(city);
         return cityRepository.findByGeometryNear(point, Limit.of(4)).subList(1, 4);
+    }
+
+    public List<SimpleReservoir> findNearbyReservoirs(City city) {
+        Point point = getPoint(city);
+        List<Reservoir> reservoirs = reservoirRepository.findByGeometryNear(point, Limit.of(5));
+        return reservoirs.stream().map(
+                reservoir -> {
+                    City cityNearReservoir = cityRepository.findByGeometryNear(new Point(reservoir.getGeometry().getX(), reservoir.getGeometry().getY()), Limit.of(1)).get(0);
+                    SimpleReservoir simpleReservoir = new SimpleReservoir();
+                    simpleReservoir.setAsOfDate(reservoir.getAsOfDate().format(DateTimeFormatter.ofPattern("MMMM d")));
+                    simpleReservoir.setName(reservoir.getName());
+                    simpleReservoir.setPercentFull(reservoir.getPercentFull());
+                    simpleReservoir.setNearestCity(cityNearReservoir.getProperties().getName());
+                    return simpleReservoir;
+                }
+        ).toList();
     }
 
     private Point getPoint(City city) {

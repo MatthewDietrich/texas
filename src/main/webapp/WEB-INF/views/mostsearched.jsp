@@ -12,6 +12,7 @@
             href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
             rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.3.5/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="/webjars/datatables/2.3.5/css/dataTables.bootstrap5.min.css" />
         <link rel="stylesheet" type="text/css" href="style.css" />
     </head>
 
@@ -62,7 +63,10 @@
         </main>
 
         <script src="/webjars/bootstrap/5.3.5/js/bootstrap.min.js"></script>
+        <script src="/webjars/jquery/3.7.1/jquery.min.js"></script>
+        <script src="/webjars/datatables/2.3.5/js/dataTables.min.js"></script>
         <script src="theme.js"></script>
+        <script src="mostsearched.js"></script>
     </body>
 
     </html>

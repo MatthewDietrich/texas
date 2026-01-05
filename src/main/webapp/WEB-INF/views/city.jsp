@@ -47,10 +47,13 @@
                 <input type="radio" name="tabs" id="tab1" checked>
                 <input type="radio" name="tabs" id="tab2">
                 <input type="radio" name="tabs" id="tab3">
+                <input type="radio" name="tabs" id="tab4">
+
                 <div class="tab-header">
                     <label for="tab1">Snapshots</label>
                     <label for="tab2">Weather</label>
-                    <label for="tab3">Transportation</label>
+                    <label for="tab3">Water</label>
+                    <label for="tab4">Transportation</label>
                 </div>
                 <div class="tab-content content1">
                     <div class="container" id="snapshots-container">
@@ -376,6 +379,18 @@
                     </div>
                 </div>
                 <div class="tab-content content3">
+                    <div class="container" id="water-container">
+                        <div class="row">
+                            <h3>Reservoirs</h3>
+                            <ul>
+                                <c:forEach items="${reservoirs}" var="reservoir">
+                                    <li>${reservoir.name} (near ${reservoir.nearestCity}) - ${reservoir.percentFull}% full</li>
+                                </c:forEach>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content content4">
                     <div class="container" id="transportation-container">
                         <div class="row">
                             <div class="container" id="transporation">

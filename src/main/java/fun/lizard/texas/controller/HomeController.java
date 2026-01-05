@@ -6,6 +6,7 @@ import fun.lizard.texas.response.dto.*;
 import fun.lizard.texas.response.txdot.CctvSnapshotResponse;
 import fun.lizard.texas.service.CctvService;
 import fun.lizard.texas.service.CityService;
+import fun.lizard.texas.service.WaterService;
 import fun.lizard.texas.service.WeatherService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,16 +30,19 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 public class HomeController {
 
-    @Autowired
-    CctvService cctvService;
-
-    @Autowired
-    WeatherService weatherService;
-
-    @Autowired
-    CityService cityService;
+    private final CctvService cctvService;
+    private final WeatherService weatherService;
+    private final CityService cityService;
+    private final WaterService waterService;
 
     private final List<String> themeNames = List.of("Default Green", "Burnt Orange", "Maroon", "Purple");
+
+    private HomeController(CctvService cctvService, WeatherService weatherService, CityService cityService, WaterService waterService) {
+        this.cctvService = cctvService;
+        this.weatherService = weatherService;
+        this.cityService = cityService;
+        this.waterService = waterService;
+    }
 
     @GetMapping("/")
     public String getHome(ModelMap modelMap) throws IOException {
@@ -72,6 +76,7 @@ public class HomeController {
             return "citynotfound";
         }
         cityService.updateCity(city);
+        waterService.updateCurrentReservoirData();
         CompletableFuture<List<CctvSnapshotResponse>> snapshots = CompletableFuture
                 .supplyAsync(() -> cctvService.getSnapshotsByCity(city));
         CompletableFuture<WeatherForecastResponse> weather = CompletableFuture
@@ -80,6 +85,7 @@ public class HomeController {
                 .supplyAsync(() -> weatherService.getHistoryByCity(city));
         CompletableFuture<List<WeatherAlert>> weatherAlerts = CompletableFuture
                 .supplyAsync(() -> weatherService.getWeatherAlertsByCity(city));
+        CompletableFuture<List<SimpleReservoir>> reservoirs = CompletableFuture.supplyAsync(() -> cityService.findNearbyReservoirs(city));
         SimpleCity simpleCity = cityService.findCountyAndSimplify(city);
         String cityMap = cityService.plotCity(city, theme);
         List<SimpleAirport> simpleAirports = cityService.findNearbyAirports(city);
@@ -94,6 +100,7 @@ public class HomeController {
         modelMap.put("weatherAlerts", weatherAlerts.join());
         modelMap.put("dateString", dateString);
         modelMap.put("snapshots", snapshots.join());
+        modelMap.put("reservoirs", reservoirs.join());
         modelMap.put("themes", themeNames);
         log.info("Result returned for city search with input: \"{}\"", name);
         return "city";

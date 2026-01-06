@@ -388,6 +388,9 @@
                                 </c:forEach>
                             </ul>
                         </div>
+                        <div class="row">
+                            <small>Reservoir data from <a href="https://www.waterdatafortexas.org/reservoirs/statewide">Water Data for Texas</a>.</small>
+                        </div>
                     </div>
                 </div>
                 <div class="tab-content content4">

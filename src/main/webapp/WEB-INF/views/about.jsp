@@ -33,19 +33,24 @@
                     </div>
                 </div>
                 <p><strong>Texas City Snapshot</strong> is a tool to find weather data and road camera images from
-                    cities around Texas. Data is updated every five minutes.</p>
+                    cities around Texas.</p>
                 <h2>Weather</h2>
                 <p>Weather forecasts and historical weather data are provided by <a
                         href="https://open-meteo.com/">Open-Meteo</a>.</p>
                 <p>Weather alerts are provided by the <a href="https://www.weather.gov/alerts">National Weather
                         Service</a>.</p>
+                <p>Weather data is updated every 5 minutes.</p>
                 <h2>Road Camera Snapshots</h2>
                 <p>Images are sourced from road cameras owned by the <a
                         href="https://www.txdot.gov/discover/live-traffic-cameras.html">Texas
                         Department of
                         Transportation</a>.</p>
+                <p>Road camera images are updated every 5 minutes.</p>
                 <h2>Population</h2>
                 <p>Population data is taken from the 2020 United States Census.</p>
+                <h2>Water Reservoirs</h2>
+                <p>Reservoir fullness data is provided by <a href="https://www.waterdatafortexas.org/reservoirs/statewide">Water Data for Texas</a>.</p>
+                <p>Reservoir fullness is updated every 24 hours.</p>
             </div>
         </div>
         <footer class="pt-4">

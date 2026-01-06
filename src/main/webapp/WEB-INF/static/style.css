@@ -287,7 +287,8 @@ a {
 div#snapshots-container small,
 div#snapshots-container small a,
 div#weather-container small,
-div#weather-container small a {
+div#weather-container small a,
+div#water-container small a {
     font-family: var(--primary-font-family);
     font-optical-sizing: var(--font-optical-sizing);
     font-style: var(--font-style);

@@ -21,7 +21,7 @@
             <div class="d-flex flex-column">
                 <nav class="p-2 mx-auto align-items-center justify-content-center">
                     <h1>Texas City Snapshot</h1>
-                    <ul class="d-flex flex-row align-items-center justify-content-center">
+                    <ul class="d-flex flex-row align-items-center justify-content-center p-0">
                         <li><details>
                             <summary><span class="material-symbols-outlined p-2">colors</span></summary>
                             <ul id="themes-list">

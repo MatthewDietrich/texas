@@ -19,7 +19,7 @@
         <div class="d-flex flex-column">
             <nav class="p-2 mx-auto align-items-center justify-content-center">
                 <h4>Texas City Snapshot</h4>
-                <ul class="d-flex flex-row align-items-center justify-content-center">
+                <ul class="d-flex flex-row align-items-center justify-content-center p-0">
                     <li><a href="javascript:history.back()"><span class="material-symbols-outlined p-2">arrow_back</span></a></li>
                     <li><a href="/"><span class="material-symbols-outlined p-2">home</span></a></li>
                     <li><details>

@@ -44,7 +44,7 @@
     --primary-bg: #b35f1a;
     --secondary-bg: #969696;
     --tertiary-bg: #964402;
-    --quaternary-bg: #666666;
+    --quaternary-bg: #777777;
     --light-bg: #aaaaaa;
     --accent-bg: #888888;
     --primary-text: #ffffff;
@@ -56,7 +56,7 @@
     --primary-bg: #500000;
     --secondary-bg: #969696;
     --tertiary-bg: #202020;
-    --quaternary-bg: #666666;
+    --quaternary-bg: #777777;
     --light-bg: #aaaaaa;
     --accent-bg: #888888;
     --primary-text: #ffffff;
@@ -68,7 +68,7 @@
     --primary-bg: #4d1979;
     --secondary-bg: #969696;
     --tertiary-bg: #202020;
-    --quaternary-bg: #666666;
+    --quaternary-bg: #777777;
     --light-bg: #aaaaaa;
     --accent-bg: #888888;
     --primary-text: #ffffff;
@@ -90,12 +90,10 @@ body {
     overflow: hidden;
 }
 
-/* Hide radio buttons */
 .tab-container input[type="radio"] {
     display: none;
 }
 
-/* Tab header styling */
 .tab-header {
     display: flex;
     background-color: var(--secondary-bg);
@@ -117,7 +115,6 @@ body {
     background-color: var(--light-bg);
 }
 
-/* Active tab styling */
 #tab1:checked ~ .tab-header label[for="tab1"],
 #tab2:checked ~ .tab-header label[for="tab2"],
 #tab3:checked ~ .tab-header label[for="tab3"],
@@ -126,7 +123,6 @@ body {
     color: var(--dark-text);
 }
 
-/* Hide all content by default */
 .tab-content {
     display: none;
     padding: 30px;
@@ -134,7 +130,6 @@ body {
     animation: fadeIn 0.3s ease;
 }
 
-/* Show content when corresponding radio is checked */
 #tab1:checked ~ .content1,
 #tab2:checked ~ .content2,
 #tab3:checked ~ .content3,
@@ -276,11 +271,15 @@ h3 {
 }
 
 p,
-a {
+a:not(span.material-symbols-outlined a) {
     font-family: var(--secondary-font-family);
     font-optical-sizing: var(--font-optical-sizing);
     font-style: var(--font-style);
     font-weight: 400;
+}
+
+span.material-symbols-outlined a {
+    text-decoration: none;
 }
 
 #tab-container ul li,
@@ -294,10 +293,6 @@ div#water-container small a {
     font-style: var(--font-style);
     font-weight: 400;
     color: var(--dark-text);
-}
-
-details {
-    text-decoration: underline;
 }
 
 details ul li {
@@ -326,4 +321,29 @@ table a {
 
 #dt-search {
     padding-bottom: 1rem;
+}
+
+summary::marker {
+    content: "";
+}
+
+summary::-webkit-details-marker {
+    display: none;
+}
+
+summary {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+summary::after {
+    content: "►";
+    padding-left: 1rem;
+}
+
+details[open] summary::after {
+    content: "▼";
 }

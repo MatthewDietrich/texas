@@ -11,6 +11,7 @@
         <link
             href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
             rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0&icon_names=colors,leaderboard" />
         <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.3.5/css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="style.css" />
     </head>
@@ -27,7 +28,7 @@
                     </div>
                     <div class="col pt-2">
                         <details>
-                            <summary>Select theme</summary>
+                            <summary><span class="material-symbols-outlined">colors</span></summary>
                             <ul id="themes-list">
                                 <c:forEach items="${themes}" var="themeName">
                                     <li><a>${themeName}</a></li>
@@ -71,7 +72,7 @@
                                         href="city?name=${msCity.properties.name}">${msCity.properties.name}</a></li>
                             </c:forEach>
                         </ol>
-                        <small><a href="/mostsearched">View top 100</a></small>
+                        <small><span class="material-symbols-outlined"><a href="/mostsearched">leaderboard</a></span></small>
                     </div>
                     <div class="col">
                         <h3>Recently Searched</h3>

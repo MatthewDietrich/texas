@@ -11,6 +11,7 @@
         <link
             href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
             rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0&icon_names=colors" />
         <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.3.5/css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="/webjars/datatables/2.3.5/css/dataTables.bootstrap5.min.css" />
         <link rel="stylesheet" type="text/css" href="style.css" />
@@ -24,7 +25,7 @@
                     </div>
                     <div class="col pt-2">
                         <details>
-                            <summary>Select theme</summary>
+                            <summary><span class="material-symbols-outlined">colors</span></summary>
                             <ul id="themes-list">
                                 <c:forEach items="${themes}" var="themeName">
                                     <li><a>${themeName}</a></li>

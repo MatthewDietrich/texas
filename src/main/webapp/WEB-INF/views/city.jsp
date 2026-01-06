@@ -11,6 +11,7 @@
         <link
             href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
             rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0&icon_names=colors,commute,partly_cloudy_day,photo_camera,water" />
         <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.3.5/css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="weather-icons.min.css" />
         <link rel="stylesheet" type="text/css" href="weather-icons-wind.min.css" />
@@ -32,7 +33,7 @@
                     </div>
                     <div class="col pt-2">
                         <details>
-                            <summary>Select theme</summary>
+                            <summary><span class="material-symbols-outlined">colors</span></summary>
                             <ul id="themes-list">
                                 <c:forEach items="${themes}" var="themeName">
                                     <li><a>${themeName}</a></li>
@@ -50,10 +51,10 @@
                 <input type="radio" name="tabs" id="tab4">
 
                 <div class="tab-header">
-                    <label for="tab1">Snapshots</label>
-                    <label for="tab2">Weather</label>
-                    <label for="tab3">Water</label>
-                    <label for="tab4">Transportation</label>
+                    <label for="tab1"><span class="material-symbols-outlined">photo_camera</span></label>
+                    <label for="tab2"><span class="material-symbols-outlined">partly_cloudy_day</span></label>
+                    <label for="tab3"><span class="material-symbols-outlined">water</span></label>
+                    <label for="tab4"><span class="material-symbols-outlined">commute</span></label>
                 </div>
                 <div class="tab-content content1">
                     <div class="container" id="snapshots-container">

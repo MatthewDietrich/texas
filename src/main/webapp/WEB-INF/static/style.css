@@ -339,11 +339,11 @@ summary {
     text-decoration: none;
 }
 
-summary::after {
-    content: "►";
-    padding-left: 1rem;
+nav ul li {
+    list-style: none;
 }
 
-details[open] summary::after {
-    content: "▼";
+nav ul li a:hover,
+nav ul li details summary:hover {
+    color: var(--secondary-text);
 }

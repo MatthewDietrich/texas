@@ -11,57 +11,66 @@
         <link
             href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
             rel="stylesheet">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0&icon_names=colors" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0&icon_names=arrow_back,colors,commute,home,partly_cloudy_day,photo_camera,water" />
         <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.3.5/css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="/webjars/datatables/2.3.5/css/dataTables.bootstrap5.min.css" />
         <link rel="stylesheet" type="text/css" href="style.css" />
     </head>
 
     <body>
-        <main id="main" class="container">
-            <div class="row">
-                    <div class="col">
-                        <h1>Top 100 Most Searched Cities</h1>
-                    </div>
-                    <div class="col pt-2">
-                        <details>
-                            <summary><span class="material-symbols-outlined">colors</span></summary>
+        <div class="container-fluid">
+            <div class="d-flex flex-column">
+                <nav class="p-2 mx-auto align-items-center justify-content-center">
+                    <h4>Texas City Snapshot</h4>
+                    <ul class="d-flex flex-row align-items-center justify-content-center">
+                        <li><a href="javascript:history.back()"><span class="material-symbols-outlined p-2">arrow_back</span></a></li>
+                        <li><a href="/"><span class="material-symbols-outlined p-2">home</span></a></li>
+                        <li><details>
+                            <summary><span class="material-symbols-outlined p-2">colors</span></summary>
                             <ul id="themes-list">
                                 <c:forEach items="${themes}" var="themeName">
                                     <li><a>${themeName}</a></li>
                                 </c:forEach>
                             </ul>
-                        </details>
+                        </details></li>
+                    </ul>
+                </nav>
+                <main id="main" class="container">
+                    <div class="row">
+                        <div class="col">
+                            <h1>Top 100 Most Searched Cities</h1>
+                        </div>
                     </div>
-                </div>
-            <div class="row">
-                <table id="most-searched">
-                    <thead>
-                        <tr>
-                            <th scope="col" class="p-2">Rank</th>
-                            <th scope="col" class="p-2">City name</th>
-                            <th scope="col" class="p-2">Times searched</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach items="${cities}" var="city" varStatus="status">
-                            <tr>
-                                <td class="p-2">${status.index + 1}</td>
-                                <td class="p-2"><a href="/city?name=${city.properties.name}">${city.properties.name}</a></td>
-                                <td class="p-2">${city.timesSearched}</td>
-                            </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
+                    <div class="row">
+                        <table id="most-searched">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="p-2">Rank</th>
+                                    <th scope="col" class="p-2">City name</th>
+                                    <th scope="col" class="p-2">Times searched</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach items="${cities}" var="city" varStatus="status">
+                                    <tr>
+                                        <td class="p-2">${status.index + 1}</td>
+                                        <td class="p-2"><a href="/city?name=${city.properties.name}">${city.properties.name}</a></td>
+                                        <td class="p-2">${city.timesSearched}</td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <footer class="pt-4">
+                            <p><a href="/">Back to search</a></p>
+                            <p><small>Copyright 2025 <a href="https://lizard.fun">Squam</a> &bull; Made with &hearts; in
+                                    Carrollton</small></p>
+                        </footer>
+                    </div>
+                </main>
             </div>
-            <div class="row">
-                <footer class="pt-4">
-                    <p><a href="/">Back to search</a></p>
-                    <p><small>Copyright 2025 <a href="https://lizard.fun">Squam</a> &bull; Made with &hearts; in
-                            Carrollton</small></p>
-                </footer>
-            </div>
-        </main>
+        </div>
 
         <script src="/webjars/bootstrap/5.3.5/js/bootstrap.min.js"></script>
         <script src="/webjars/jquery/3.7.1/jquery.min.js"></script>

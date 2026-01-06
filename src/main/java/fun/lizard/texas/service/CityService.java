@@ -248,11 +248,15 @@ public class CityService {
         List<Reservoir> reservoirs = reservoirRepository.findByGeometryNear(point, Limit.of(5));
         return reservoirs.stream().map(
                 reservoir -> {
+                    double percentFull = 0.0;
+                    if (reservoir.getPercentFull() != null) {
+                        percentFull = reservoir.getPercentFull();
+                    }
                     City cityNearReservoir = cityRepository.findByGeometryNear(new Point(reservoir.getGeometry().getX(), reservoir.getGeometry().getY()), Limit.of(1)).get(0);
                     SimpleReservoir simpleReservoir = new SimpleReservoir();
                     simpleReservoir.setAsOfDate(reservoir.getAsOfDate().format(DateTimeFormatter.ofPattern("MMMM d")));
                     simpleReservoir.setName(reservoir.getName());
-                    simpleReservoir.setPercentFull(reservoir.getPercentFull());
+                    simpleReservoir.setPercentFull(percentFull);
                     simpleReservoir.setNearestCity(cityNearReservoir.getProperties().getName());
                     return simpleReservoir;
                 }

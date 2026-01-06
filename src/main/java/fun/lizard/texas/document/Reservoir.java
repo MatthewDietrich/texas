@@ -20,6 +20,6 @@ public class Reservoir {
     @GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)
     private GeoJsonPoint geometry;
     private String name;
-    private double percentFull;
+    private Double percentFull;
     private LocalDate asOfDate;
 }

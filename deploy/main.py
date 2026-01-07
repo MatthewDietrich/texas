@@ -8,6 +8,7 @@ SECONDARY_PORT = 8082
 NGINX_CONF_PATH = "/etc/nginx/nginx.conf"
 
 green_port = PRIMARY_PORT
+blue_port = SECONDARY_PORT
 
 
 def start_java_process(port: int) -> subprocess.Popen:
@@ -24,9 +25,10 @@ def start_java_process(port: int) -> subprocess.Popen:
     )
 
 
-def start_green():
+def start_green() -> None:
     global green_port
-    print(f"Checking port {PRIMARY_PORT}")
+    global blue_port
+    print(f"Attempting to start on {PRIMARY_PORT}")
     for proc in process_iter():
         for conns in proc.net_connections(kind="inet"):
             if conns.laddr.port == PRIMARY_PORT:
@@ -34,6 +36,7 @@ def start_green():
                     f"Process already running on {PRIMARY_PORT}. Attempting to start on {SECONDARY_PORT}"
                 )
                 green_port = SECONDARY_PORT
+                blue_port = PRIMARY_PORT
     java_proc = start_java_process(green_port)
 
     for line in java_proc.stdout:
@@ -42,33 +45,31 @@ def start_green():
                 f"Processes already running on ports {PRIMARY_PORT} and {SECONDARY_PORT}"
             )
         elif "Started TexasApplication" in line.decode("utf-8"):
-            print("Green application started")
+            print(f"Green application started on port {green_port}")
             break
 
 
-def point_to_green():
+def point_to_green() -> None:
+    global green_port
+    global blue_port
     with open(NGINX_CONF_PATH, "r") as f:
         conf = f.read()
-    if f"server localhost:{PRIMARY_PORT}" in conf:
-        conf.replace(
-            f"server localhost:{PRIMARY_PORT}", f"server localhost:{SECONDARY_PORT}"
-        )
-    else:
-        conf.replace(
-            f"server localhost:{SECONDARY_PORT}", f"server localhost:{PRIMARY_PORT}"
-        )
+    conf = conf.replace(
+        f"server localhost:{blue_port}", f"server localhost:{green_port}"
+    )
     with open(NGINX_CONF_PATH, "w") as f:
         f.write(conf)
     subprocess.Popen(["sudo", "nginx", "-s", "reload"]).communicate()
-    print("Nginx config updated to point to green application")
+    print(f"Nginx config updated to point to port {green_port}")
 
 
-def stop_blue():
+def stop_blue() -> None:
+    global blue_port
     for proc in process_iter():
         for conns in proc.net_connections(kind="inet"):
-            if conns.laddr.port == green_port:
+            if conns.laddr.port == blue_port:
                 proc.send_signal(SIGTERM)
-    print("Stopped blue application")
+    print(f"Stopped application on port {blue_port}")
 
 
 def main():

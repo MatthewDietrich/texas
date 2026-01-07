@@ -4,7 +4,7 @@ from signal import SIGTERM
 from psutil import process_iter
 
 PRIMARY_PORT = 8080
-SECONDARY_PORT = 8081
+SECONDARY_PORT = 8082
 NGINX_CONF_PATH = "/etc/nginx/nginx.conf"
 
 green_port = PRIMARY_PORT
@@ -25,6 +25,7 @@ def start_java_process(port: int) -> subprocess.Popen:
 
 
 def start_green():
+    global green_port
     print(f"Checking port {PRIMARY_PORT}")
     for proc in process_iter():
         for conns in proc.net_connections(kind="inet"):

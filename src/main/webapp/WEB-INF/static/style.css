@@ -338,7 +338,7 @@ nav ul li {
     list-style: none;
 }
 
-.material-symbols-outlined:hover,
+.material-symbols-outlined:not(label span):hover,
 .material-symbols-outlined a:hover {
     color: var(--secondary-text);
 }

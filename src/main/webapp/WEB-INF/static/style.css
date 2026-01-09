@@ -137,11 +137,6 @@ body {
     display: block;
 }
 
-input#city-name {
-    padding: var(--spacing-xs);
-    width: var(--full-width);
-}
-
 input#submit-button {
     margin: var(--spacing-xs) var(--no-border);
 }
@@ -346,4 +341,11 @@ nav ul li {
 nav ul li a:hover,
 nav ul li details summary:hover {
     color: var(--secondary-text);
+}
+
+#submit-button,
+#random-button {
+    background: none;
+    border: none;
+    color: var(--primary-text);
 }

@@ -18,7 +18,7 @@
                 <h1>Not Found</h1>
                 <h2>"${cityName}" is not a city or town in Texas.</h2>
                 <p><strong>Note:</strong> This site only has geographical data stored for incorporated cities and towns
-                    in Texas. Unincorporated communities are not currently represented.</p>
+                    in Texas. Most unincorporated communities are not currently represented.</p>
             </div>
         </div>
         <footer class="pt-4">

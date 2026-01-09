@@ -46,11 +46,6 @@ public class HomeController {
 
     @GetMapping("/")
     public String getHome(ModelMap modelMap) throws IOException {
-        String theme = String.valueOf(modelMap.get("theme"));
-        if (theme == "null") {
-            theme = "default";
-        }
-        String texasMap = cityService.getBlankMap(theme);
         List<City> mostSearched = cityService.getTop10MostSearched();
         List<City> recentlySearched = cityService.getRecentlySearched();
         modelMap.put("themes", themeNames);
@@ -63,7 +58,7 @@ public class HomeController {
     public String getSnapshot(ModelMap modelMap, @RequestParam String name) throws IOException {
         log.info("City search called with input: \"{}\"", name);
         String theme = String.valueOf(modelMap.get("theme"));
-        if (theme == "null") {
+        if (theme.equals("null")) {
             theme = "default";
         }
         String cityNameStripped = name.strip();
@@ -87,7 +82,6 @@ public class HomeController {
                 .supplyAsync(() -> weatherService.getWeatherAlertsByCity(city));
         CompletableFuture<List<SimpleReservoir>> reservoirs = CompletableFuture.supplyAsync(() -> cityService.findNearbyReservoirs(city));
         SimpleCity simpleCity = cityService.findCountyAndSimplify(city);
-        String cityMap = cityService.plotCity(city, theme);
         List<SimpleAirport> simpleAirports = cityService.findNearbyAirports(city);
         List<String> highways = cityService.findNearbyHighways(city);
         String dateString = LocalDate.now(ZoneId.of("America/Chicago"))
@@ -160,5 +154,10 @@ public class HomeController {
         modelMap.put("timesViewed", simpleSnapshot.getTimesViewed());
         modelMap.put("themes", themeNames);
         return "camera";
+    }
+
+    @GetMapping("/error")
+    public String getErrorPage() {
+        return "error";
     }
 }

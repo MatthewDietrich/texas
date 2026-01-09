@@ -11,7 +11,7 @@
         <link
             href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
             rel="stylesheet">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0&icon_names=colors,leaderboard" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0&icon_names=casino,colors,leaderboard,search" />
         <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.3.5/css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="style.css" />
     </head>
@@ -38,16 +38,39 @@
                     </dialog>
                     <div class="col">
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col">
                                 <h2>Enter the name of a city or town in Texas:</h2>
                                 <div id="city-typeahead">
-                                    <form id="city-name-form" method="GET" action="/city">
+                                    <form id="city-name-form" class="d-flex align-items-center p-0" method="GET" action="/city">
                                         <label for="city-name" class="visually-hidden">City Name</label>
-                                        <input id="city-name" name="name" type="text" placeholder="City name" autocomplete="off"
+                                        <input id="city-name" name="name" type="text" placeholder="City name" autocomplete="off" class="w-75"
                                             required />
-                                        <input type="submit" value="Search" id="submit-button" /> or
-                                        <input type="submit" value="Random City" id="random-button" />
+                                        <button id="submit-button" class="p-2"><span class="material-symbols-outlined py-2">search</span></button>
+                                        <button id="random-button" class="p-2"><span class="material-symbols-outlined py-2">casino</span></button>
                                     </form>
+                                </div>
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col">
+                                            <h4>Most Searched</h4>
+                                            <ol>
+                                                <c:forEach items="${mostSearched}" var="msCity">
+                                                    <li><a class="scoreboard-item"
+                                                            href="city?name=${msCity.properties.name}">${msCity.properties.name}</a></li>
+                                                </c:forEach>
+                                            </ol>
+                                            <small><span class="material-symbols-outlined"><a href="/mostsearched">leaderboard</a></span></small>
+                                        </div>
+                                        <div class="col">
+                                            <h4>Recently Searched</h4>
+                                            <ol>
+                                                <c:forEach items="${recentlySearched}" var="rCity">
+                                                    <li><a class="scoreboard-item"
+                                                            href="city?name=${rCity.properties.name}">${rCity.properties.name}</a></li>
+                                                </c:forEach>
+                                            </ol>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col">
@@ -62,34 +85,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col">
-                        <div class="row">
-                            <div class="col">
-                                <h3>Most Searched</h3>
-                                <ol>
-                                    <c:forEach items="${mostSearched}" var="msCity">
-                                        <li><a class="scoreboard-item"
-                                                href="city?name=${msCity.properties.name}">${msCity.properties.name}</a></li>
-                                    </c:forEach>
-                                </ol>
-                                <small><span class="material-symbols-outlined"><a href="/mostsearched">leaderboard</a></span></small>
-                            </div>
-                            <div class="col">
-                                <h3>Recently Searched</h3>
-                                <ol>
-                                    <c:forEach items="${recentlySearched}" var="rCity">
-                                        <li><a class="scoreboard-item"
-                                                href="city?name=${rCity.properties.name}">${rCity.properties.name}</a></li>
-                                    </c:forEach>
-                                </ol>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col pb-3">
-                                <br/>
-                                <a href="/about">About this app</a>
-                                <br/>
-                            </div>
+                    <div class="row">
+                        <div class="col pb-3">
+                            <br/>
+                            <a href="/about">About this app</a>
+                            <br/>
                         </div>
                     </div>
                 </main>

@@ -48,7 +48,7 @@
     --light-bg: #aaaaaa;
     --accent-bg: #888888;
     --primary-text: #ffffff;
-    --secondary-text: #eeeeee;
+    --secondary-text: #dddddd;
     --dark-text: #2e1500;
 }
 
@@ -60,7 +60,7 @@
     --light-bg: #aaaaaa;
     --accent-bg: #888888;
     --primary-text: #ffffff;
-    --secondary-text: #eeeeee;
+    --secondary-text: #dddddd;
     --dark-text: #222222;
 }
 
@@ -72,7 +72,7 @@
     --light-bg: #aaaaaa;
     --accent-bg: #888888;
     --primary-text: #ffffff;
-    --secondary-text: #eeeeee;
+    --secondary-text: #dddddd;
     --dark-text: #1c092c;
 }
 
@@ -338,8 +338,8 @@ nav ul li {
     list-style: none;
 }
 
-nav ul li a:hover,
-nav ul li details summary:hover {
+.material-symbols-outlined:hover,
+.material-symbols-outlined a:hover {
     color: var(--secondary-text);
 }
 

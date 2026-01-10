@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -55,7 +56,15 @@ public class HomeController {
     }
 
     @GetMapping("/city")
-    public String getSnapshot(ModelMap modelMap, @RequestParam String name) throws IOException {
+    public String forwardLegacySnapshotUrl(@RequestParam(required = false) String name) {
+        if (name == null) {
+            return "citynotfound";
+        }
+        return "redirect:/city/" + name;
+    }
+
+    @GetMapping("/city/{name}")
+    public String getSnapshot(ModelMap modelMap, @PathVariable String name) throws IOException {
         log.info("City search called with input: \"{}\"", name);
         String theme = String.valueOf(modelMap.get("theme"));
         if (theme.equals("null")) {
@@ -85,7 +94,7 @@ public class HomeController {
         List<SimpleAirport> simpleAirports = cityService.findNearbyAirports(city);
         List<String> highways = cityService.findNearbyHighways(city);
         String dateString = LocalDate.now(ZoneId.of("America/Chicago"))
-                .format(DateTimeFormatter.ofPattern("MMMM dd", Locale.US));
+                .format(DateTimeFormatter.ofPattern("MMMM d", Locale.US));
         modelMap.put("weather", weather.join());
         modelMap.put("city", simpleCity);
         modelMap.put("airports", simpleAirports);
@@ -103,7 +112,7 @@ public class HomeController {
     @GetMapping("/coordinates")
     public String getByCoordinates(@RequestParam Double lat, @RequestParam Double lon) {
         City city = cityService.findOneNearPoint(lat, lon);
-        return "forward:/city?name=" + city.getProperties().getName();
+        return "redirect:/city/" + city.getProperties().getName();
     }
 
     @GetMapping("/map")

@@ -57,7 +57,7 @@
                                             <ol>
                                                 <c:forEach items="${mostSearched}" var="msCity">
                                                     <li><a class="scoreboard-item"
-                                                            href="city?name=${msCity.properties.name}">${msCity.properties.name}</a></li>
+                                                            href="/city/${msCity.properties.name}">${msCity.properties.name}</a></li>
                                                 </c:forEach>
                                             </ol>
                                         </div>
@@ -66,7 +66,7 @@
                                             <ol>
                                                 <c:forEach items="${recentlySearched}" var="rCity">
                                                     <li><a class="scoreboard-item"
-                                                            href="city?name=${rCity.properties.name}">${rCity.properties.name}</a></li>
+                                                            href="/city/${rCity.properties.name}">${rCity.properties.name}</a></li>
                                                 </c:forEach>
                                             </ol>
                                         </div>

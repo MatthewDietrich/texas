@@ -13,9 +13,9 @@
             rel="stylesheet">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0&icon_names=arrow_back,colors,commute,home,partly_cloudy_day,photo_camera,water" />
         <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.3.5/css/bootstrap.min.css" />
-        <link rel="stylesheet" type="text/css" href="weather-icons.min.css" />
-        <link rel="stylesheet" type="text/css" href="weather-icons-wind.min.css" />
-        <link rel="stylesheet" type="text/css" href="style.css" />
+        <link rel="stylesheet" type="text/css" href="/weather-icons.min.css" />
+        <link rel="stylesheet" type="text/css" href="/weather-icons-wind.min.css" />
+        <link rel="stylesheet" type="text/css" href="/style.css" />
     </head>
 
     <body>
@@ -46,7 +46,7 @@
                                 <small id="population">Population: ${city.population}</small>
                             </div>
                             <div class="col">
-                                <img src="texas.png" id="texas-map" />
+                                <img src="/texas.png" id="texas-map" />
                             </div>
                         </div>
                     </header>
@@ -436,7 +436,7 @@
         </div>
 
         <script src="/webjars/bootstrap/5.3.5/js/bootstrap.min.js"></script>
-        <script src="theme.js"></script>
+        <script src="/theme.js"></script>
     </body>
 
     </html>

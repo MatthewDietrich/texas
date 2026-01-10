@@ -1,21 +1,14 @@
-const queryParams = new URLSearchParams(window.location.search);
+const path = window.location.pathname;
+const segments = path.split('/').filter(segment => segment !== "");
+const cityName = segments[1];
+
 let theme = localStorage.getItem("theme") || "default";
 document.addEventListener("DOMContentLoaded", function() {
     document.documentElement.setAttribute("data-theme", theme);
 });
 
 function setMap(themeName) {
-    let name = queryParams.get("name");
-    let lat = queryParams.get("lat");
-    let lon = queryParams.get("lon");
-    let url;
-    if (lat !== null && lon !== null) {
-        url = `/map?theme=${theme}&lat=${lat}&lon=${lon}`
-    } else if (name !== null) {
-        url = `/map?theme=${theme}&name=${name}`
-    } else {
-        url = `/map?theme=${theme}`
-    }
+    const url = `/map?theme=${theme}&name=${cityName}`;
     fetch(url)
         .then((response) => {return response.text()})
         .then((text) => {

@@ -38,7 +38,8 @@ public class HomeController {
 
     private final List<String> themeNames = List.of("Default Green", "Burnt Orange", "Maroon", "Purple");
 
-    private HomeController(CctvService cctvService, WeatherService weatherService, CityService cityService, WaterService waterService) {
+    @Autowired
+    public HomeController(CctvService cctvService, WeatherService weatherService, CityService cityService, WaterService waterService) {
         this.cctvService = cctvService;
         this.weatherService = weatherService;
         this.cityService = cityService;
@@ -56,9 +57,9 @@ public class HomeController {
     }
 
     @GetMapping("/city")
-    public String forwardLegacySnapshotUrl(@RequestParam(required = false) String name) {
+    public String forwardLegacySnapshotUrl(ModelMap modelMap, @RequestParam(required = false) String name) {
         if (name == null) {
-            return "citynotfound";
+            return "redirect:/";
         }
         return "redirect:/city/" + name;
     }
@@ -116,17 +117,17 @@ public class HomeController {
     }
 
     @GetMapping("/map")
-    public ResponseEntity<String> getMap(ModelMap modelMap, @RequestParam String theme, @RequestParam(required = false) String name, @RequestParam(required = false) Double lat, @RequestParam(required = false) Double lon) throws IOException {
+    public ResponseEntity<String> getMap(ModelMap modelMap, @RequestParam String theme, @RequestParam(required = false) String name) throws IOException {
         modelMap.put("theme", theme);
         modelMap.put("themes", themeNames);
-        if (null == lat || null == lon) {
-            if (null == name) {
-                return ResponseEntity.ok(cityService.getBlankMap(theme));
-            }
-            City city = cityService.findOneByName(name);
-            return ResponseEntity.ok(cityService.plotCity(city, theme));
+        if (null == name || name.equals("undefined")) {
+            return ResponseEntity.ok(cityService.getBlankMap(theme));
         }
-        return ResponseEntity.ok(cityService.getMapWithPoint(theme, lat, lon));
+        City city = cityService.findOneByName(name);
+        if (null == city) {
+            return ResponseEntity.ok(cityService.getBlankMap(theme));
+        }
+        return ResponseEntity.ok(cityService.plotCity(city, theme));
     }
 
     @GetMapping("/about")

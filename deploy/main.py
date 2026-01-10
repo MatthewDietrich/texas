@@ -1,4 +1,5 @@
 import subprocess
+from pathlib import Path
 from signal import SIGTERM
 
 from psutil import process_iter
@@ -6,9 +7,25 @@ from psutil import process_iter
 PRIMARY_PORT = 8080
 SECONDARY_PORT = 8082
 NGINX_CONF_PATH = "/etc/nginx/nginx.conf"
+DEPLOY_FOLDER_PATH = Path("/home/ubuntu/deploy")
+WAR_FILENAME = "texas-0.0.1-SNAPSHOT.war"
 
 green_port = PRIMARY_PORT
 blue_port = SECONDARY_PORT
+
+
+def download_war() -> None:
+    print("Downloading latest .war file")
+    subprocess.run(
+        [
+            "aws",
+            "s3",
+            "cp",
+            f"s3://frog-fortress-backups/{WAR_FILENAME}",
+            DEPLOY_FOLDER_PATH,
+        ]
+    )
+    print("Downloaded")
 
 
 def start_java_process(port: int) -> subprocess.Popen:
@@ -17,7 +34,7 @@ def start_java_process(port: int) -> subprocess.Popen:
             "/usr/bin/java",
             "-Xmx256m",
             "-jar",
-            "/home/ubuntu/texas-0.0.1-SNAPSHOT.war",
+            Path(DEPLOY_FOLDER_PATH, WAR_FILENAME),
             f"--server.port={port}",
         ],
         stdout=subprocess.PIPE,
@@ -28,7 +45,7 @@ def start_java_process(port: int) -> subprocess.Popen:
 def start_green() -> None:
     global green_port
     global blue_port
-    print(f"Attempting to start on {PRIMARY_PORT}")
+    print(f"Attempting to start on port {PRIMARY_PORT}")
     for proc in process_iter():
         for conns in proc.net_connections(kind="inet"):
             if conns.laddr.port == PRIMARY_PORT:
@@ -40,11 +57,12 @@ def start_green() -> None:
     java_proc = start_java_process(green_port)
 
     for line in java_proc.stdout:
-        if "APPLICATION FAILED TO START" in line.decode("utf-8"):
+        line_decoded = line.decode("utf-8")
+        if "APPLICATION FAILED TO START" in line_decoded:
             raise RuntimeError(
                 f"Processes already running on ports {PRIMARY_PORT} and {SECONDARY_PORT}"
             )
-        elif "Started TexasApplication" in line.decode("utf-8"):
+        elif "Started TexasApplication" in line_decoded:
             print(f"Green application started on port {green_port}")
             break
 
@@ -72,7 +90,8 @@ def stop_blue() -> None:
     print(f"Stopped application on port {blue_port}")
 
 
-def main():
+def main() -> None:
+    download_war()
     start_green()
     point_to_green()
     stop_blue()

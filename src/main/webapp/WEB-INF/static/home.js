@@ -71,8 +71,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const bounds = this.getBoundingClientRect();
         const left = bounds.left;
         const top = bounds.top;
-        const x = event.pageX - left;
-        const y = event.pageY - top;
+        const x = event.clientX - left;
+        const y = event.clientY - top;
         const cw = this.clientWidth;
         const ch = this.clientHeight;
         const iw = this.naturalWidth;
